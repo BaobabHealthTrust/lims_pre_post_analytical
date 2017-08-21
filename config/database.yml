@@ -1,0 +1,22 @@
+
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: amin9090!
+  socket: /var/run/mysqld/mysqld.sock
+
+development:
+  <<: *default
+  database: lims_pre_post_analytical
+
+test:
+  <<: *default
+  database: lims_pre_post_analytical
+
+production:
+  <<: *default
+  database: lims_pre_post_analytical
+  username: lims_pre_post_analytical
+  password: <%= ENV['LIMS_PRE_POST_ANALYTICAL_DATABASE_PASSWORD'] %>

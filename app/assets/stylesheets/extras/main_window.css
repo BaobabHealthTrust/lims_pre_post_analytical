@@ -1,0 +1,33 @@
+
+#lbl_main_window {
+     font-family: Arial;
+     font-size: 2.5em;
+}
+
+.menu-button {
+          background-color: white;
+          border-radius: 10%;
+          color: black;
+          cursor: pointer;
+          font-family: Arial;
+          font-size: 1.2em;
+          margin-top: 5%;
+          text-align: center;
+          text-shadow: 0 1px 32px #2f6627;
+          width: 220px;
+          padding: 1%;
+          height: 10em;
+          border: outset 8px green;}
+
+#main_window_container{
+          border-top: thick solid lightblue;
+          height: 700px;
+
+     }
+
+#settings_btn {
+      border: outset 8px red;
+
+}
+
+#lbl_main_window{background-color: lightblue;}

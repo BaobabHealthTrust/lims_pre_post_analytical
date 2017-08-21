@@ -1,0 +1,43 @@
+
+<style type="text/css">
+	
+	#barcod{
+		width: 20%;
+	}
+</style>
+
+
+<div class="container">
+	<label style="padding-top: 20px;">Scan Patient Barcode</label>
+	<div>
+		<span> <%= image_tag("extras/barcode-2.png") %> </span>
+		<%= text_field(:barcode, :helpText => 'Scan Patient Barcode',
+			:field_type => "text",
+			:id => "barcod"
+			)
+
+		 %>
+	</div>
+
+	<div class="footer" style="background-color: red;margin-top: 400px;">
+		
+		<span style="float: right;">
+	    	<button class="btn btl-xxlg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location='/draw_sample'">
+	     				Cancel
+	    	</button>
+	    </span>
+
+	    <span style="float: right;">
+	    	<button class="btn btl-xxlg btn-success" 
+	     					id="log_out"
+	     					onmousedown="document.location='/'">
+	     				<|Back
+	    	</button>
+	    </span>
+    		
+	</div>
+</div>
+
+

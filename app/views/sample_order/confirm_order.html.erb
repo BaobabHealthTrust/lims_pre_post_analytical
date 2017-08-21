@@ -1,0 +1,112 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+
+<style type="text/css">
+	 .btn-home {
+     
+      border-color: #5cb85c;
+      margin-top: 10px;
+      margin-left: 10px;
+      min-width: 140px;
+      float: left;
+      -moz-user-select: none;
+      border: 0 none;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.4em;
+      height: 100%;
+    }
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
+	LIMS ORDER ENTRY<span style="float: right;">Ward: <%=  session[:ward] %></span>
+</div>
+
+<div id="main_window_container" class="container-fluid">
+		<div class="container" style="margin-top: 35px;border-bottom: thin solid lightblue; padding-bottom: 15px;">
+		
+
+			<div>
+				<p>
+					<span>Patient Id: 000000000</span>
+					<span style="margin-left: 10px;">Patient Name: Gift Malolo</span>
+					<span style="margin-left: 10px;">Sex: Male</span>
+					<span style="margin-left: 10px;">Address: Area 22 </span>
+					<span style="margin-left: 10px;">Age: 27</span>
+				</p>
+				
+			</div>
+
+			<div>
+					<span>Sample Type: Blood</span>
+					<span style="margin-left: 10px;">Date: 18 August 2017</span>								
+			</div>
+
+
+		</div>
+
+		<div class="container" style="margin-top: 15px;">
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Test Name</th>
+						<th>Test Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Renal Function Test</td>
+						<td>Test Drawn</td>
+						<td><button class="btn btn-medium btn-danger">Delete</button></td>
+					</tr>
+					<tr>
+						<td>Renal Function Test</td>
+						<td>Test Drawn</td>
+						<td><button class="btn btn-sm btn-danger">Delete</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	<div class="footer" style="margin-top: 200px;">
+			
+		    	<button class="btn-home btn btn-lg btn-info btn-header" 
+				     					
+				     					onmousedown="document.location='/'">
+				     				<|Back Home
+		    	</button>
+
+		    	<span style="float: right;">
+			    	<button class="btn-home btn btn-lg btn-danger" 
+					     					
+					     					onmousedown="document.location='/'">
+					     				Cancel
+			    	</button>
+
+			    	<button class="btn-home btn btn-lg btn-info" 
+					     					
+					     					onmousedown="document.location='/add_test'">
+					     				Add Test
+			    	</button>
+
+			    	<button class="btn-home btn btn-lg btn-success" 
+					     					
+					     					onmousedown="document.location='/'">
+					     				Finish
+			    	</button>
+	            </span>   
+
+				  
+			    		
+	</div>
+
+</div>
+
+
