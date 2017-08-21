@@ -14,11 +14,13 @@ Rails.application.routes.draw do
 #specimen controller routes
  
 #test_order controller routes
+  post '/remove_test' => 'test#remove_test_from_order'
+  get '/remove_test' => 'test#remove_test_from_order'
+
+#sample order controller routes
   get  '/sample_ordering' => 'sample_order#home'
   post '/capture_order_details' => 'sample_order#capture_order_details'
   get  '/confirm_order' => 'sample_order#confirm_order'
-
-#sample order controller routes
   get  '/view_results' => 'sample_order#view_sample_test_results'
   get  '/view_individual_test_results' => 'sample_order#view_individual_sample_test_results'
   get  '/view_sample' => 'sample_order#view_sample_to_add_new_test_handler'

@@ -1,3 +1,4 @@
+
 class UserController < ApplicationController
 
 	def form_loader
