@@ -1,8 +1,8 @@
 
 
-<%= form_tag('', id:"add_test", method:"post") do %>
+<%= form_tag('/add_test_to_order', id:"add_test", method:"post") do %>
 
-	 <%= select_tag(:test,  options_for_select(['Renal Function','Glocus Test','Preg Test','Liver Function']), 
+	 <%= select_tag('test[]',  options_for_select(['Renal Function','Glocus Test','Preg Test','Liver Function']), 
 		:helpText=> "Select Test(s)", 
 		:multiple =>"multiple",
 		:doublePane =>true

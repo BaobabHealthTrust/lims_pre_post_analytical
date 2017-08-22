@@ -26,9 +26,12 @@ Rails.application.routes.draw do
   get  '/view_sample' => 'sample_order#view_sample_to_add_new_test_handler'
   get  '/sample_tests' => 'sample_order#view_sample_test_handler'
   get  '/draw_sample' => 'sample_order#draw_sample_handler'
+  post '/submite_order' => 'sample_order#submite_order'
+  get '/submite_order' => 'sample_order#submite_order'
   
 #test controller routes
   get '/add_test' => 'test#add_test_handler'
+  post '/add_test_to_order' => 'test#add_test'
 
 #system point of starting
   root 'user#form_loader'

@@ -10,7 +10,7 @@
 	LIMS ORDER ENTRY<span style="float: right;">Ward: <%=  session[:ward] %></span>
 </div>
 
-
+<% @sample_results %>
 <div id="main_window_container" class="container-fluid">
 		<div class="container" style="margin-top: 20px;border-bottom: thin solid lightblue; padding-bottom: 10px;">
 			
@@ -50,30 +50,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>KCH0011155992</td>
-						<td>20-02-2017</td>
-						<td>Blood</td>
-						<td>Received</td>
-						<td>2/4</td>
-						<td>
-							<button class="btn btn-medium btn-info" 
-								onmousedown="document.location='/view_individual_test_results'">
-							View</button>
-							<button class="btn btn-medium btn-success">Print</button>
-						</td>
-					</tr>
-					<tr>
-						<td>KCH0011155992</td>
-						<td>20-02-2017</td>
-						<td>Blood</td>
-						<td>Received</td>
-						<td>2/4</td>
-						<td>
-							<button class="btn btn-medium btn-info">View</button>
-							<button class="btn btn-medium btn-success">Print</button>
-						</td>
-					</tr>
+					
+					<% @sample_results.each do |result| %>
+						<tr id="<%= result[0] %>">
+							<td><%= result[0] %></td>
+							<td><%= result[1][:date] %></td>
+							<td><%= result[1][:sample_type] %></td>
+							<td><%= result[1][:status] %></td>
+							<td><%= result[1][:test_done] %></td>
+							<td>
+								<button class="btn btn-medium btn-info" 
+									onmousedown="document.location='/view_individual_test_results?id='+this.id"
+									id="<%= 'btn' + '_' + result[0].to_s %>">
+								View</button>
+								<button class="btn btn-medium btn-success">Print</button>
+							</td>
+						</tr>
+					<%end%>
+
 				</tbody>
 			</table>
 		</div>

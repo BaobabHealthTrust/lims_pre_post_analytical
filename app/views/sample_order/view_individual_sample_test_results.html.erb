@@ -37,90 +37,46 @@
 		</div>
 
 		<div class="container" style="margin-top: 20px;padding-bottom: 10px;">
+			<% @test_results.each do |results| %>
+				
+				<div class="col-sm-5 " style="padding-top: 5px; ">
+					<span>
+						<button class="btn btn-success glyphicon-print">print</button>
+					</span> </br> <hr>
+						<span>
+							Test Name: <%= results[0] %>
+						</span> </br>
+						<span>
+							Test Status: <%= results[1]['status'] %>
+						</span> </br>
+						<span>
+							<table style="padding: 2px;" class="table">
+								<thead>
+									<tr>
+										<th>Measure Name</th>
+										<th>Result</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% results[1]['results'].each do |rst| %>
+										<tr>
+											<td>
+												<%= rst[0] %>
+											</td>
+											<td>
+												<%= rst[1] %>
+											</td>
+										</tr>
+									<%end%>
+								</tbody>
+							</table>
 
-			<div class="col-sm-5" style="padding-top: 5px; border: thin solid black">
-				<span>
-					<button class="btn btn-success glyphicon-print">print</button>
-				</span> </br> <hr>
-				<span>
-					Test Name: Renal Functional Test
-				</span> </br>
-				<span>
-					Test Status: Completed
-				</span> </br>
-				<span>
-					<table style="padding: 2px;" class="table">
-						<thead>
-							<tr>
-								<th>Measure Name</th>
-								<th>Result</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									Culture
-								</td>
-								<td>
-									Growth
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Culture
-								</td>
-								<td>
-									Growth
-								</td>
-							</tr>
-						</tbody>
-					</table>
+						</span>
 
-				</span>
+				</div>
 
-			</div>
-
-			<div class="col-sm-offset-2 col-sm-5" style="border: thin solid black;">
-				<span>
-					<button class="btn btn-success glyphicon-print">print</button>
-				</span> </br> <hr>
-				<span>
-					Test Name: Renal Functional Test
-				</span> </br>
-				<span>
-					Test Status: Completed
-				</span> </br>
-				<span>
-					<table style="padding: 2px;" class="table">
-						<thead>
-							<tr>
-								<th>Measure Name</th>
-								<th>Result</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									Culture
-								</td>
-								<td>
-									Growth
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Culture
-								</td>
-								<td>
-									Growth
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
-				</span>
-			</div>
-
+			<%end%>
+	
 		</div>
 
 		<div class="footer" style="margin-top: 200px;">
