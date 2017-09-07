@@ -1,0 +1,5 @@
+{
+"create_order": '/create_hl7_order',
+"view_results": '/',
+"add_new_test": '/' 
+}

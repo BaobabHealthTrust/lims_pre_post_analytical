@@ -4,10 +4,25 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/main_window" %>
+   <%= stylesheet_link_tag "extras/footer" %>
+
+
+   <style type="text/css">
+   		#test-results-holder{
+   			background-color: #f9f9f9;
+    		height: 300px;
+    		overflow: auto;
+    		overflow-x: hidden;
+    		font-weight: normal !important;
+   		}
+   </style>
 
 
 <div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
-	LIMS ORDER ENTRY<span style="float: right;">Ward: <%=  session[:ward] %></span>
+	<span style=" font-weight:bold;">Application Name:</span> <span> Lims Order Entry</span> <br>
+	<span style=" font-weight:bold;"> Facility Name: </span> <span>Kamuzu Central Hospital </span> <br>
+	<span style=" font-weight:bold;">Ward/Location: </span> <span><%=  session[:ward] %></span>
+
 </div>
 
 <% @sample_results %>
@@ -36,12 +51,12 @@
 			<button class="btn btn-info glyphicon-search">search</button>
 		</div>
 
-		<div class="container" style="margin-top: 5px;">
+		<div class="container" style="margin-top: 5px;" id="test-results-holder">
 			
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Accession Number</th>
+						<th>Tracking Number</th>
 						<th>Date</th>
 						<th>Sample Type</th>
 						<th>Status</th>
@@ -70,27 +85,20 @@
 
 				</tbody>
 			</table>
-		</div>
+		</div>		
+</div>
 
-		<div class="footer" style="margin-top: 200px;">
+
+<div class="footer" style="margin-top: 200px;">
 			
-		    	<button class="btn-home btn btn-lg btn-info btn-header" 
-				     					
-				     					onmousedown="document.location='/'">
-				     				<|Back Home
-		    	</button>
+	<button class="btn-back btn btn-lg btn-info btn-header" onmousedown="document.location='/'">
+	  				<|Back Home
+	</button>
 
-		    	<span style="float: right;">
-			    	<button class="btn-home btn btn-lg btn-danger" 
-					     					
-					     					onmousedown="document.location='/'">
-					     				Cancel
-			    	</button>
-
-			    	
-	            </span>   
-
-				  
+	<span style="float: right;">
+	  	<button class="btn-home btn btn-lg btn-danger" onmousedown="document.location='/'">
+			     	Cancel
+	  	</button>			    	
+	</span>   			  
 			   
-		</div>
 </div>

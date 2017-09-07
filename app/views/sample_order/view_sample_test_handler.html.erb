@@ -4,12 +4,17 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+
 
 
 <div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
-	LIMS ORDER ENTRY<span style="float: right;">Ward: <%=  session[:ward] %></span>
-</div>
+	<span style=" font-weight:bold;">Application Name:</span> <span> Lims Order Entry</span> <br>
+	<span style=" font-weight:bold;"> Facility Name: </span> <span>Kamuzu Central Hospital </span> <br>
+	<span style=" font-weight:bold;">Ward/Location: </span> <span><%=  session[:ward] %></span>
 
+</div>
 
 <div id="main_window_container" class="container-fluid">
 		<div class="container" style="margin-top: 20px;border-bottom: thin solid lightblue; padding-bottom: 10px;">
@@ -62,27 +67,16 @@
 			</div>
 
 		</div>
+</div>
 
-		<div class="footer" style="margin-top: 200px;">
-			
-		    	<button class="btn-home btn btn-lg btn-info btn-header" 
-				     					
-				     					onmousedown="document.location='/view_results'">
-				     				<|Back Home
-		    	</button>
 
-		    	<span style="float: right;">
-			    	<button class="btn-home btn btn-lg btn-danger" 
-					     					
-					     					onmousedown="document.location='/'">
-					     				Cancel
-			    	</button>
-
-			    	
-	            </span>   
-
-				  
-			   
-		</div>
-
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'">|< Back Home</button>
+  <span style="float: right;">
+	    	<button class="btn btl-xxlg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location='/view_results'">
+	     				Cancel
+	    	</button>
+	    </span>
 </div>

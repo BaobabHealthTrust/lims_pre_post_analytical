@@ -1,7 +1,10 @@
 
 #lbl_main_window {
      font-family: Arial;
-     font-size: 2.5em;
+     font-size: 1em;
+     padding-bottom: 1%;
+     padding-top: 1%;
+    
 }
 
 .menu-button {
@@ -31,3 +34,12 @@
 }
 
 #lbl_main_window{background-color: lightblue;}
+
+
+.data-holder {
+    background-color: #f9f9f9;
+    height: 410px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-weight: normal !important;
+}

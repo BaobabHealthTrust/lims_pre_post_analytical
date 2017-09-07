@@ -1,43 +1,59 @@
 
+ <%= stylesheet_link_tag "extras/footer" %>
+
 <style type="text/css">
 	
-	#barcod{
-		width: 20%;
-	}
-</style>
+	#barcode-txt {
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px;
+  font-size: 30px;
+  margin: 3% 4%;
+  width: 60%
+}	
 
+</style>
 
 <div class="container">
 	<label style="padding-top: 20px;">Scan Patient Barcode</label>
-	<div>
+	<div style="background-color: lightblue; padding-left: 10%;">
 		<span> <%= image_tag("extras/barcode-2.png") %> </span>
-		<%= text_field(:barcode, :helpText => 'Scan Patient Barcode',
-			:field_type => "text",
-			:id => "barcod"
-			)
-
-		 %>
+		<input type="text" name="scanned-barcode" id="barcode-txt" />
 	</div>
 
-	<div class="footer" style="background-color: red;margin-top: 400px;">
-		
-		<span style="float: right;">
+	
+</div>
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'">|< Back Home</button>
+  <span style="float: right;">
 	    	<button class="btn btl-xxlg btn-danger" 
 	     					id="log_out"
-	     					onmousedown="document.location='/view_results'">
+	     					onmousedown="document.location= '<%= @location %>' ">
 	     				Cancel
 	    	</button>
 	    </span>
-
-	    <span style="float: right;">
-	    	<button class="btn btl-xxlg btn-success" 
-	     					id="log_out"
-	     					onmousedown="document.location='/'">
-	     				<|Back
-	    	</button>
-	    </span>
-    		
-	</div>
 </div>
 
 
+<script>
+
+	function focusForBarcodeInput(){
+	  var barcode = document.getElementById("barcode-txt");
+	  if (barcode) 
+	    barcode.focus();
+
+	}
+
+	function barcodeScan(){
+	  usertext=document.getElementById("barcode-txt");
+	  if (usertext.value.match(/.+\$$/i) != null){
+	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
+	    document.location = "/people/find?identifier=" + usertext.value.trim();
+	  }
+	}
+
+	setInterval("focusForBarcodeInput();",300);
+	setInterval("barcodeScan();",300);
+
+</script>

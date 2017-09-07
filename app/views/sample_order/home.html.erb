@@ -3,13 +3,18 @@
 
 	
 	<%= select_tag(:collection_status,  options_for_select(['Yes','No']), 
-		:helpText=> "Sample Drawn?", 
+		:helpText=> "Sample Collected?", 
 		:tt_requireNextClick =>false,
 	    )%><br>
 
 	<%= select_tag(:clinician,  options_for_select(['Fahem','Limula']), 
 		:helpText=> "Requesting Clinician", 
 		:tt_requireNextClick =>false,
+	    )%><br>
+
+	<%= select_tag(:target_lab,  options_for_select(['KCH','URC']), 
+		:helpText=> "Specify Target Lab", 
+		:tt_requireNextClick =>false
 	    )%><br>
 
 	<%= select_tag(:sample_type,  options_for_select(['Blood','Urin']), 
@@ -25,12 +30,8 @@
 
 	<%= select_tag(:priority,  options_for_select(['Routin','Stat']), 
 		:helpText=> "Specify Priority",
-		:tt_requireNextClick =>false
-	    )%><br>
-
-	<%= select_tag(:target_lab,  options_for_select(['KCH','URC']), 
-		:helpText=> "Specify Target Lab", 
 		:tt_requireNextClick =>true
 	    )%><br>
+	
 
 <%end%>

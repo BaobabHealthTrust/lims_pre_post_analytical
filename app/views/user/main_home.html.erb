@@ -3,31 +3,38 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
 
+
+
+</style>
 
 <div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
-	LIMS ORDER ENTRY<span style="float: right;">Ward: <%=  session[:ward] %></span>
+	<span style=" font-weight:bold;">Application Name:</span> <span> Lims Order Entry</span> <br>
+	<span style=" font-weight:bold;"> Facility Name: </span> <span>Kamuzu Central Hospital </span> <br>
+	<span style=" font-weight:bold;">Ward/Location: </span> <span><%=  session[:ward] %></span>
+
 </div>
 
 <div id="main_window_container" class="container-fluid">
-		<div class="container">
+		<div class="container data-holder" >
 			
 			<div>
 			
 				<div class="col-sm-offset-1 col-sm-2 menu-button" 
-							onmousedown="document.location='/scan_patient_barcode';">
+							onmousedown="document.location='/scan_patient_barcode?option='+'order_test';">
 					<span> <%= image_tag("extras/order.png") %></span>
 					<p>Order Test </p>
 				</div>
 
 				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							onmousedown="document.location='/scan_patient_barcode' ;">
+							onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
 					<span> <%= image_tag("extras/view.png") %></span>
 					<p>View Results</p>
 				</div>
 
 				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							onmousedown="document.location='/scan_patient_barcode';">
+							onmousedown="document.location='/scan_patient_barcode?option='+'add_test';">
 					<span> <%= image_tag("extras/order.png") %></span>
 					<p>Add Test to Specimen </p>
 				</div>
@@ -38,8 +45,8 @@
 			<div>
 			
 				<div class="col-sm-offset-1 col-sm-2 menu-button" 
-							onmousedown="document.location='/scan_patient_barcode';">
-					<span> <%= image_tag("extras/colect.png") %></span>
+							onmousedown="document.location='/scan_patient_barcode?option='+'draw_sample';">
+					<span> <%= image_tag("extras/order.png") %></span>
 					<p>Draw Sample </p>
 				</div>
 
@@ -49,30 +56,31 @@
 					<p>Register Patient</p>
 				</div>
 
+				<div class="col-sm-offset-1 col-sm-2 menu-button" 
+							onmousedown="document.location='/scan_patient_barcode';">
+					<span> <%= image_tag("extras/order.png") %></span>
+					<p>Dispatch Sample</p>
+				</div>
+			    
+			</div>
+		
+
+			<div>
+						    
 				<div class="col-sm-offset-1 col-sm-2 menu-button " 
 							id="settings_btn"
 							onmousedown="document.location='/scan_patient_barcode';">
 					<span> <%= image_tag("extras/settings.png") %></span>
 					<p>Settings</p>
 				</div>
-			    
+				
 			</div>
-		
-			<div class="footer" style="background-color: red;margin-top: 600px;">
-				 
-	     		<span style="float: right;">
-	     			<button class="btn btl-xxlg btn-success" 
-	     					id="log_out"
-	     					onmousedown="document.location='/'">
-	     				Log Out
-	     			</button>
-	     		</span>
-	    		
-			</div>
-
+			
 		</div>
 
 		
 </div>
 
-
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'" style="float: right;">Log Out</button>
+</div>
