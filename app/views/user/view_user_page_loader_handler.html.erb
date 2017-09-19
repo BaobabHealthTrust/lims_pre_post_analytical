@@ -1,0 +1,90 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
+	LIMS </span> <br/>
+	<span style="color: blue;  float: right;">Lab Information Management System </span>
+
+</div>
+
+
+<div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
+
+	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color: #eeeeee; border-bottom: thick solid #eeeeee; padding-bottom: 5px;padding-top: 5px; margin-bottom: 15px;">
+
+		<span>
+			<input type="text" name="user_name" class="input" placeholder="full name">
+			<%= select_tag "ward_location", options_for_select(['Doctor','Nurse']),
+				{:helpText => "Select Ward",
+	    		:field_type => "location"}%>
+	    	<button class="btn btn-success btn-sm">search</button>
+		</span>
+
+		<span style="float: right;">
+			<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >add user</button>
+		</span>
+
+	</div>
+	
+	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="overflow-x: 10px;">
+		<table class="table">
+			<thead style="background-color: #eeeeee;">
+				<tr>
+					<td>User Id</td>
+					<td>Name</td>
+					<td>Email</td>
+					<td>Phone Number</td>
+					<td>Designation</td>
+					<td>Actions</td>
+				</tr>
+			</thead>
+			<tbody style="">
+				<tr>
+					<td>100</td>
+					<td>Gift Malolo</td>
+					<td>gift@.com</td>
+					<td>0992293939</td>
+					<td>Doctor</td>
+					<td>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >view
+						</button>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
+						</button>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td>100</td>
+					<td>Gift Malolo</td>
+					<td>gift@.com</td>
+					<td>0992293939</td>
+					<td>Doctor</td>
+					<td>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >view
+						</button>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
+						</button>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+	</div>
+
+
+</div>
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+</div>

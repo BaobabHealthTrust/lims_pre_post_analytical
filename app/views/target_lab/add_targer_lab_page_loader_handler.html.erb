@@ -1,0 +1,27 @@
+
+<%= form_tag("/add_target_lab", id: "add_lanb_form", method: 'post', enctype: 'multipart/form-data') do %>
+
+	<%= text_field(:lab, :name, :helpText => "Lab Name", 
+		:textCase => "lower",
+	    :field_type => "number")%><br>
+
+	<%= text_field(:lab, :site_code, :helpText=> "Lab Site Code", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:lab, :hospital, :helpText => "Hospital", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:lab, :district, :helpText => "District", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:lab, :address, :helpText => "Address", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:lab, :phone, :helpText => "Contact Phone Number", 
+		:textCase => "lower",
+	    :field_type => "number")%><br>
+<% end %>

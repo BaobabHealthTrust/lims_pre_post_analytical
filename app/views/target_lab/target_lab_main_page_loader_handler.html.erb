@@ -1,0 +1,68 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
+	LIMS </span> <br/>
+	<span style="color: blue;  float: right;">Lab Information Management System </span>
+
+</div>
+
+
+<div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
+
+	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color: #eeeeee; border-bottom: thick solid #eeeeee; padding-bottom: 5px;padding-top: 5px; margin-bottom: 15px;">
+
+		<span style="float: right;">
+			<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_target_lab_page_loader'" >Add Target Lab</button>
+		</span>
+
+	</div>
+	
+	<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="overflow-x: 10px;">
+		<table class="table">
+			<thead style="background-color: #eeeeee;">
+				<tr>
+					<th>Lab Name</th>
+					<th>Lab Site Code </th>
+					<th>Hospital</th>
+					<th>District</th>
+					<th>Address</th>
+					<th>Contact Phone Number</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Kamuzu central hospital labs</td>
+					<td>KCH</td>
+					<td>Kamuzu central hospital</td>
+					<td>Lilongwe</td>
+					<td>BOX 5050</td>
+					<td>015689752</td>
+					<td>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
+						</button>
+						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
+						</button>
+					</td>
+				</tr>				
+			</tbody>
+		</table>
+	
+	</div>
+
+
+</div>
+
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+</div>

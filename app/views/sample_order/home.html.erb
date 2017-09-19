@@ -2,36 +2,26 @@
 <%= form_tag("/capture_order_details", id: "sample_ordering_form", method: "post", enctype: 'multipart/form-data') do %>
 
 	
-	<%= select_tag(:collection_status,  options_for_select(['Yes','No']), 
-		:helpText=> "Sample Collected?", 
-		:tt_requireNextClick =>false,
-	    )%><br>
-
-	<%= select_tag(:clinician,  options_for_select(['Fahem','Limula']), 
-		:helpText=> "Requesting Clinician", 
-		:tt_requireNextClick =>false,
-	    )%><br>
-
-	<%= select_tag(:target_lab,  options_for_select(['KCH','URC']), 
-		:helpText=> "Specify Target Lab", 
-		:tt_requireNextClick =>false
-	    )%><br>
-
+	
 	<%= select_tag(:sample_type,  options_for_select(['Blood','Urin']), 
 		:helpText=> "Select Sample Type", 
 		:tt_requireNextClick =>false
 	    )%><br>
-
 	 <%= select_tag 'test[]',  options_for_select(['Renal Function','Glocus Test','Preg Test','Liver Function']), 
 		:helpText=> "Select Test(s)", 
 		:multiple =>"multiple",
 		:doublePane =>true
 	    %><br>
-
-	<%= select_tag(:priority,  options_for_select(['Routin','Stat']), 
-		:helpText=> "Specify Priority",
-		:tt_requireNextClick =>true
+	 <%= select_tag(:clinician,  options_for_select(['Fahem','Limula']), 
+		:helpText=> "Requesting Clinician", 
+		:tt_requireNextClick =>false,
 	    )%><br>
-	
+	<%= select_tag(:target_lab,  options_for_select(['KCH','URC']), 
+		:helpText=> "Specify Target Lab", 
+		:tt_requireNextClick =>false
+	    )%><br>
+	<%= select_tag(:priority,  options_for_select(['Routin','Stat']), 
+		:helpText=> "Specify Priority"
+	    )%><br>
 
 <%end%>

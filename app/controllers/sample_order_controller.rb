@@ -8,6 +8,7 @@ class SampleOrderController < ApplicationController
     tests = params[:test]
     tests = tests.delete_if(&:empty?)
 
+ 
 		order = {   	
 					"district": 'LL',
 					"health_facility_name": 'KCH',
@@ -32,16 +33,16 @@ class SampleOrderController < ApplicationController
           "tracking_number": "",
           "art_start_date": "",
           "date_dispatched": "",
-          "date_received":  Time.now,
+          "date_received":  Time.now,             
           "return_json": 'true'
 				}
 		session[:order] = order
 		
-		redirect_to '/confirm_order'
+		return redirect_to '/confirm_order'
+
 	end
 	
 	def confirm_order
-
 	end
 
 	def submite_order
@@ -52,6 +53,7 @@ class SampleOrderController < ApplicationController
     dat = JSON.parse(RestClient.post(request,order))      
     print_tracking_number(dat['tracking_number'])
 		session.delete(:order)
+  
 	end
 
   def print_tracking_number(tracking_number)  
@@ -71,116 +73,55 @@ class SampleOrderController < ApplicationController
   end
 
 	def view_sample_test_results
-			@sample_results = { "KCH100003": {
-              					"date": "02-02-2017",
-              					"sample_type": "blood",
-              					"status": "received",
-              					"test_done": "4",
-              					"test_details":{
-              							"Renal Function Test": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								},
-              							"Preg Test": {
-              									"status": "done",
-              									"results": {
-              											"Progestrone": "20"              											
-              										}
-              								},
-              							"Renal Function Tests": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								},
-              							"Renal Function Testss": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								}
-              						}
-            			},
-            			"KCH100004": {
-              					"date": "03-02-2017",
-              					"sample_type": "blood",
-              					"status": "received",
-              					"test_done": "4",
-              					"test_details":{
-              							"Renal Function Test": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								},
-              							"Preg Test": {
-              									"status": "done",
-              									"results": {
-              											"Progestrone": "20"              											
-              										}
-              								}
-              						}
-            			},
-            			"KCH100005": {
-              					"date": "03-02-2017",
-              					"sample_type": "blood",
-              					"status": "received",
-              					"test_done": "4",
-              					"test_details":{
-              							"Renal Function Test": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								},
-              							"Preg Test": {
-              									"status": "done",
-              									"results": {
-              											"Progestrone": "20"              											
-              										}
-              								}
-              						}
-            			},
-            			"KCH100006": {
-              					"date": "03-02-2017",
-              					"sample_type": "blood",
-              					"status": "received",
-              					"test_done": "4",
-              					"test_details":{
-              							"Renal Function Test": {
-              									"status": "done",
-              									"results": {
-              											"Bilurubin": "20",
-              											"Culture": "Growth"
-              										}
-              								},
-              							"Preg Test": {
-              									"status": "done",
-              									"results": {
-              											"Progestrone": "20"              											
-              										}
-              								}
-              						}
-            			}
-			}
+    id = "5054"
+    url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
 
-			session[:results] = @sample_results
+    @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
+    @@sample_results_glo =  @sample_results
 	
 	end
 
 	def view_individual_sample_test_results
-		results = session[:results]
-		id = params[:id].split('_')[1]
-		@test_results = results[id]['test_details']
-		
+  	results = @@sample_results_glo
+		@id = params[:id].split('_')[1]
+    result_measuers = {} 
+    details = []
+    @test_status = {}
+    results.each do |rst|
+        next if rst['_id'] != @id
+        @test_types = rst['results'].keys
+
+        @test_types.each do |test|
+
+          if rst['results'][test].length < 5
+
+            result_measuers[test] = {"measure_name" => "null","result" => "null"}
+            @test_status[test] = "not available"
+          elsif rst['results'][test].length >= 5
+            results = rst['results'][test].keys
+            results = results[4]
+            
+            rst['results'][test][results]['results'].each do |s|
+
+              details.push({"measure_name" => s[0],"result" => s[1]})
+              
+            end
+          result_measuers[test] = details
+          session[:rs] =  result_measuers[test]
+          @test_status[test] = "available"
+          details = []
+          end           
+        end
+       
+    end
+      
 	end
+
+  def get_result_measures
+    test_type = params[:type]
+    measures = session[:rs]
+    render :json => measures.to_json    
+  end
 	
 	def view_sample_to_add_new_test_handler
 
@@ -193,6 +134,10 @@ class SampleOrderController < ApplicationController
 	def draw_sample_handler
 
 	end
+
+  def draw_sample
+    
+  end
 	
 
 end

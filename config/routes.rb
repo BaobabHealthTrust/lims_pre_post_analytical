@@ -5,7 +5,24 @@ Rails.application.routes.draw do
   post '/login' => 'user#log_in_handler'
   get  '/home' => 'user#main_home'
   get  '/' => 'user#form_loader'
+  get  '/view_settings' => 'user#settings_event_handler'
+  get  '/add_user_page_loader' => 'user#add_user_page_loader_handler'
+  post '/add_user' => 'user#add_user'
+  get  '/view_user_page_loader' => 'user#view_user_page_loader_handler'
 
+
+# ward controller routes
+  get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'
+  get  '/add_ward_page_loader' => 'ward#add_ward_page_loader_handler'
+
+
+  post '/add_ward' => 'ward#add_ward'
+
+#target lab controller routes
+  get '/target_lab_main_page_loader' => 'target_lab#target_lab_main_page_loader_handler'
+  get '/add_target_lab_page_loader' => 'target_lab#add_targer_lab_page_loader_handler'
+
+  post '/add_target_lab' => 'target_lab#add_target_lab'
 
 #patient controller routes
   get '/scan_patient_barcode' => 'patient#home_scan_patient_handler'
@@ -28,6 +45,7 @@ Rails.application.routes.draw do
   get  '/draw_sample' => 'sample_order#draw_sample_handler'
   post '/submite_order' => 'sample_order#submite_order'
   get '/submite_order' => 'sample_order#submite_order'
+  get  '/result_meausures' => 'sample_order#get_result_measures'
   
 #test controller routes
   get '/add_test' => 'test#add_test_handler'

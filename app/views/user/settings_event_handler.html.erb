@@ -1,0 +1,83 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
+	LIMS </span> <br/>
+	<span style="color: blue;  float: right;">Lab Information Management System </span>
+
+</div>
+
+
+<div id="main_window_container" class="container-fluid "  style="padding-top: 40px;">
+
+	<div class="col-sm-offset-2 col-sm-8">
+		<div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-3 btn" onmousedown="document.location='/add_user_page_loader';">
+					<span style="float: right;">Add User
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-offset-1 col-sm-3 btn" onmousedown="document.location='/view_user_page_loader';">
+					<span style="float: right;">View User
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-offset-1 col-sm-3 btn" onmousedown="document.location='/ward_main_page_loader';">
+					<span style="float: right;">View Ward
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+		</div>
+
+		<div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-3 btn" onmousedown="document.location='/target_lab_main_page_loader';">
+					<span style="float: right;">Target Labs
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-offset-1 col-sm-3 btn" onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
+					<span style="float: right;">Asign Special Role
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-offset-1 col-sm-3 btn" onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
+					<span style="float: right;">System Roles
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+		</div>
+
+		<div>
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black;"
+						class="col-sm-3 btn" onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
+					<span style="float: right;">View Designations
+								<%= image_tag("extras/order_test.png") %>
+					</span>
+			</div>
+			
+
+		</div>
+
+	</div>
+
+
+
+</div>
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/home'"> Back</button>
+</div>

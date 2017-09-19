@@ -5,80 +5,137 @@
   <%= stylesheet_link_tag "extras/main_window" %>
   <%= stylesheet_link_tag "extras/footer" %>
 
-
-
 </style>
 
-<div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
-	<span style=" font-weight:bold;">Application Name:</span> <span> Lims Order Entry</span> <br>
-	<span style=" font-weight:bold;"> Facility Name: </span> <span>Kamuzu Central Hospital </span> <br>
-	<span style=" font-weight:bold;">Ward/Location: </span> <span><%=  session[:ward] %></span>
-
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	
+	<div style="float: right;">
+		<div >
+			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
+			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+		</div>
+		
+	</div>
 </div>
 
-<div id="main_window_container" class="container-fluid">
-		<div class="container data-holder" >
-			
-			<div>
-			
-				<div class="col-sm-offset-1 col-sm-2 menu-button" 
-							onmousedown="document.location='/scan_patient_barcode?option='+'order_test';">
-					<span> <%= image_tag("extras/order.png") %></span>
-					<p>Order Test </p>
-				</div>
-
-				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
-					<span> <%= image_tag("extras/view.png") %></span>
-					<p>View Results</p>
-				</div>
-
-				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							onmousedown="document.location='/scan_patient_barcode?option='+'add_test';">
-					<span> <%= image_tag("extras/order.png") %></span>
-					<p>Add Test to Specimen </p>
-				</div>
-			    
-			</div>
-			
-
-			<div>
-			
-				<div class="col-sm-offset-1 col-sm-2 menu-button" 
-							onmousedown="document.location='/scan_patient_barcode?option='+'draw_sample';">
-					<span> <%= image_tag("extras/order.png") %></span>
-					<p>Draw Sample </p>
-				</div>
-
-				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							onmousedown="document.location='/scan_patient_barcode';">
-					<span> <%= image_tag("extras/person.png") %></span>
-					<p>Register Patient</p>
-				</div>
-
-				<div class="col-sm-offset-1 col-sm-2 menu-button" 
-							onmousedown="document.location='/scan_patient_barcode';">
-					<span> <%= image_tag("extras/order.png") %></span>
-					<p>Dispatch Sample</p>
-				</div>
-			    
-			</div>
+<div id="main_window_container" class="container-fluid "  style="padding-top: 40px;">
 		
+	<div  class="col-sm-4">
+		<p style="color: #1c2a48 ; font-weight:bold;">Facility Name <br/>
+		<span class="white-text" style="">Kawale Health Centre</span></p>
 
-			<div>
-						    
-				<div class="col-sm-offset-1 col-sm-2 menu-button " 
-							id="settings_btn"
-							onmousedown="document.location='/scan_patient_barcode';">
-					<span> <%= image_tag("extras/settings.png") %></span>
-					<p>Settings</p>
-				</div>
+		<p style="color: #1c2a48;font-weight:bold;">Ward/Location <br/>
+		<span class="text-white" style="">4 B</span></p>
+
+		<p style="color: #1c2a48;font-weight:bold;">Current User <br/>
+		<span class="text-white" style="">Gift Malolo </span></p>
+	</div>
+
+	<div class="col-sm-7" style="margin-bottom: 50px;">
+		<div>
+			<div style="cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;" 
+				class="col-sm-5 btn " onmousedown="document.location='/scan_patient_barcode?option='+'order_test';"">
 				
+				<span style="float: right;">Order Test 
+										 <%= image_tag("extras/order_test.png") %>
+				</span>
+					
 			</div>
-			
+
+			<div style=" cursor: pointer; margin-bottom: 15px; color:black; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+					class="col-sm-offset-1 col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
+						<span style="float: right;">View Results
+										 <%= image_tag("extras/order_test.png") %>
+				</span>
+			</div>
+
 		</div>
 
-		
+		<div>
+
+				<div style="cursor: pointer;margin-bottom: 10px; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
+						class="col-sm-5 btn" onmousedown="document.location='/view_settings';">
+						<span style="float: right;">Request Test 
+											 <%= image_tag("extras/order_test.png") %>
+						</span>
+				</div>
+				<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+					class="col-sm-offset-1 col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'add_test';">
+					<span style="float: right;">Add Test 
+										 <%= image_tag("extras/order_test.png") %>
+					</span>
+				</div>
+
+				
+		</div>
+
+
+		<div>
+				<div style=" cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+					class=" col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'draw_sample';">
+					<span style="float: right;">Draw Sample
+										 <%= image_tag("extras/order_test.png") %>
+					</span> 
+				</div>
+				<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+					class="col-sm-offset-1 col-sm-5 btn " onmousedown="document.location='/scan_patient_barcode';">
+					<span style="float: right;">Dispatch Sample 
+										 <%= image_tag("extras/order_test.png") %>
+				</span>
+				</div>
+
+			
+		</div>
+			
+		<div>
+				<div style="background-color: red; cursor: pointer; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
+					class="col-sm-5 btn" onmousedown="document.location='/view_settings';">
+					<span style="float: right;">Settings 
+										 <%= image_tag("extras/order_test.png") %>
+					</span>
+				</div>
+		</div>
+
+	</div>
+
+	<div  style="padding-left: 6%;">
+		<div class="col-sm-2">
+			<div class="panel panel-default" style="color: blue;">
+				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Total Orders Drawn</div>
+				<div class="panel-body" style="font-size: 2em; text-align: center;">1000 </div>
+			</div>
+		</div>
+
+		<div class=" col-sm-2">
+			<div class="panel panel-default" style="color:lightgreen;">
+				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with Results</div>
+				<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="panel panel-default" style="color: orange;">
+				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
+				<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
+			</div>
+		</div>
+
+		<div class="col-sm-2">
+			<div class="panel panel-default" style="color:lightgreen;">
+				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
+				<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default" style="color: blue;">
+				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Not dispatched</div>
+				<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+			</div>
+		</div>
+
+
+	</div>
 </div>
 
 <div class="footer">

@@ -1,0 +1,38 @@
+
+<%= form_tag("/add_user", id: "add_user_form", method: 'post', enctype: 'multipart/form-data') do %>
+
+	<%= text_field(:user, :id, :helpText => "User Id", 
+		:textCase => "lower",
+	    :field_type => "number")%><br>
+
+	<%= text_field(:user, :first_name, :helpText=> "First Name", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:user, :last_name, :helpText => "Last Name", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:user, :email, :helpText => "Email", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:user, :phone_number, :helpText => "Phone Number", 
+		:textCase => "lower",
+	    :field_type => "number")%><br>
+
+	<%= select_tag "gender", options_for_select(['Male','Female',]),
+		{:helpText => "Gender",
+	    :field_type => "location"}%><br> 
+	<%= text_field(:user, :username, :helpText => "Username", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= password_field(:user, :password, :helpText => "Password", 
+		:textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= select_tag "designation", options_for_select(@user_types),
+		{:helpText => "User Designation",
+	    :field_type => "location"}%><br> 
+<% end %>

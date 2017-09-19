@@ -8,7 +8,7 @@ class TestController < ApplicationController
 
 	def remove_test_from_order		
 			test_name = params[:test_name]
-			session[:order]['test'].delete(test_name)			
+			session[:order]['tests'].delete(test_name)			
 	end
 
 	def add_test

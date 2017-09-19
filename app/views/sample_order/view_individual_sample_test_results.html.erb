@@ -7,8 +7,7 @@
   <%= stylesheet_link_tag "extras/footer" %>
 
 <style type="text/css">
-   		#test-results-holder{
-   			background-color: #f9f9f9;
+   		#test_results{   			
     		height: 300px;
     		overflow: auto;
     		overflow-x: hidden;
@@ -23,64 +22,143 @@
    		}
    </style>
 
-
-
-<div id="lbl_main_window" class="container-fluid" style="margin-bottom: 10px;">
-	<span style=" font-weight:bold;">Application Name:</span> <span> Lims Order Entry</span> <br>
-	<span style=" font-weight:bold;"> Facility Name: </span> <span>Kamuzu Central Hospital </span> <br>
-	<span style=" font-weight:bold;">Ward/Location: </span> <span><%=  session[:ward] %></span>
-
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	
+	<div style="float: right;">
+		<div >
+			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
+			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+		</div>
+		
+	</div>
 </div>
 
 
 <div id="main_window_container" class="container-fluid">
-		<div class="container" style="margin-top: 20px;border-bottom: thin solid lightblue; padding-bottom: 10px;">
+		<div class="container col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 10px; padding-bottom: 10px;">
 			
-				<p>
-					<span>Patient Id: 000000000</span>
-					<span style="margin-left: 10px;">Patient Name: Gift Malolo</span>
-					<span style="margin-left: 10px;">Sex: Male</span>
-					<span style="margin-left: 10px;">Address: Area 22 </span>
-					<span style="margin-left: 10px;">Age: 27</span>
-				</p>
+			<p>
+				<span  style="border-right: thin solid black;border-bottom: thin solid black; padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;"> Patient Id: </span>
+					<span> 000000000</span>
+				</span>
+
+				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;">Patient Name: </span>
+					<span> Gift Malolo</span> 
+				</span>
+
+				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;">Sex: </span> 
+					<span> Male</span>
+				</span>
 				
-			
+				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;">Age: </span>
+					<span> 27</span>
+				</span>
+
+				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;">Sample Type: </span>
+					<span>Blood </span>
+				</span>
+
+				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
+					<span style="color:#1c2a48;  font-weight:bold;">Date: </span> 
+					<span> 18 August 2017</span>	
+				</span>
+			</p>
+
 		</div>
 
-		<div class="container" style="margin-top: 5px; border-bottom: thin solid lightblue;padding-bottom: 5px;">
-			<span>
-				Sample Type: Blood
-			</span>
-			<span style="margin-left: 10px;">
-				Date: 10 August 2017
-			</span>
-
-			<button class="btn btn-info glyphicon-print" style="float: right;">print all</button>
-		</div>
-
-		<div class="container" style="margin-top: 20px;padding-bottom: 10px;">
+		<div class="container-fluid" style="margin-top: 20px;padding-bottom: 10px;">
 			<% counter =0 %>			
 
-			<div class="col-sm-4" id="test-names-holder">
-				<table class="table">
-					<% @test_results.each do |results| %>	
-					<tr id = "<%=results[0] %>" onclick="display_test_results(this.id);" style="cursor: pointer;">			
-						<td >
-							<%= results[0] %> <span class="badge" style="float: right;"><%= "         " %></span>
-						</td>
-					</tr>
-									
-					<%end%>
-				</table>
-			</div>
-			<div class="col-sm-offset-1 col-sm-6" id="test-results-holder">
-				<div id="test_results">
-					Test Results
+			<div class="col-sm-5 " id="test-names-holder" style="background-color: #e0e0e0;">
+				<div class="panel panel-primary">
+
+					<div class="panel-heading" style="background-color: lightblue;">Ordered Tests</div>
+					
+					<div class="panel-body" style="color:#1c2a48; background-color: #e0e0e0;">	
+						<table class="table">
+							<thead>
+								<tr>
+									<th>
+										Test Name
+									</th>
+									<th>
+										Result Status
+									</th>
+									<th>
+										Action
+									</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								<% @test_types.each do |tests| %>
+									<tr>
+										<td>
+											<%= tests %> 
+										</td>
+										<td>
+											<% if @test_status[tests] == "not available" %>
+												<label style="color:red;">
+													<%=  @test_status[tests] %>
+												</label>
+											<% else %>
+												<label style="color:green;">
+													<%=  @test_status[tests] %>
+												</label>
+											<% end %>
+
+											
+										</td>
+										<td>
+
+											<% if @test_status[tests] == "available" %>
+												<div id = "<%= @id +'_'+tests %>" 
+													onclick="display_test_results(this.id);"
+													style="cursor: pointer;color:black;"
+													class="btn btn-info">
+													view results 
+										
+												</div>	
+
+											<% end %>
+ 
+										</td>
+									</tr>								
+								<%end%>
+							</tbody>
+
+						</table>
+
+					</div>
+
 				</div>
+			</div>
+			<div class="col-sm-7" id="test_results" style="display: none">
+					<div class="panel panel-primary">
+
+							<div class="panel-heading" style="background-color: lightblue;">Test Results 
+								<span style="float: right;" class="btn btn-success"
+									onmousedown="$('#data').empty();">print</span></div>
+							<div  class="panel-body" >
+								<table class="table" id="data">
+								
+									<tr>
+										<th>Measure Name</th>
+										<th>Result Value</th>
+									</tr>
+									
+									</table>
+							</div>
+					</div>			
 				
 			</div>
 		</div>
-
 
 </div>
 
@@ -100,38 +178,38 @@
 <script type="text/javascript">
 	
 	function display_test_results(id)
-	{       var table = document.createElement('table');
-			var head1 = document.createElement('th');
-			var head2 = document.createElement('th');
+	{      
 
-			var heading1 = document.createTextNode('Measure Name');
-			var heading2 = document.createTextNode('Result');
+		var id = id.split('_')[1];
+		var url_ = "/result_meausures?type=" + id;
+		var holder = document.getElementById('test_results');
+		var table = document.getElementById('data');
+		jQuery.ajax({
+					  sync: false,
+					  url: url_,
+					  success: function(res)
+					  { 
+					  	for (var counter=res.length-1;counter > -1;counter--)
+					  	{ 
+					  		var row = table.insertRow(1);
+					  		row.id ="data_row" + counter;					  		
+					  		var measure = row.insertCell(0);
+					  		var result = row.insertCell(1);			  		
+					  		
+					  		measure.innerHTML = res[counter].measure_name;
+					  		result.innerHTML = res[counter].result;
 
-			head1.appendChild(heading1);
-			head2.appendChild(heading2);
 
-			table.setAttribute('class', 'table');
+					  	}				  	
+							holder.style.display ="block"
+					  },
+					  error: function(er)
+					  {
+					  		
+					  }
+		})
 
-			table.appendChild(head1);
-			table.appendChild(head2);
 			
-			for (var i = 1; i < 4; i++){
-			    var tr = document.createElement('tr');   
-
-			    var td1 = document.createElement('td');
-			    var td2 = document.createElement('td');
-
-			    var text1 = document.createTextNode('Text1');
-			    var text2 = document.createTextNode('Text2');
-
-			    td1.appendChild(text1);
-			    td2.appendChild(text2);
-			    tr.appendChild(td1);
-			    tr.appendChild(td2);
-
-			    table.appendChild(tr);
-			}
-			$('test_results').appendChild(table);
 	}
 
 </script>

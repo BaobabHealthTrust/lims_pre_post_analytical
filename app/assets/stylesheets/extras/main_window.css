@@ -1,11 +1,14 @@
 
 #lbl_main_window {
      font-family: Arial;
-     font-size: 1em;
+    
      padding-bottom: 1%;
      padding-top: 1%;
     
+    
 }
+
+   
 
 .menu-button {
           background-color: white;
@@ -23,8 +26,11 @@
           border: outset 8px green;}
 
 #main_window_container{
-          border-top: thick solid lightblue;
-          height: 700px;
+          height: 550px;
+          padding-top: 5px;
+          background-color: #e0e0e0;
+          overflow: auto;
+          overflow-x: hidden;
 
      }
 
@@ -33,7 +39,7 @@
 
 }
 
-#lbl_main_window{background-color: lightblue;}
+#lbl_main_window{background-color: #eeeeee;}
 
 
 .data-holder {
