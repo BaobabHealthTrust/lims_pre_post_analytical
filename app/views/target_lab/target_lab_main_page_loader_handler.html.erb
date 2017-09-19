@@ -9,12 +9,15 @@
 
 <div id="lbl_main_window" class="container-fluid" style="">
 	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
-	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
-	LIMS </span> <br/>
-	<span style="color: blue;  float: right;">Lab Information Management System </span>
-
+	
+	<div style="float: right;">
+		<div >
+			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
+			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+		</div>
+		
+	</div>
 </div>
-
 
 <div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
 
@@ -26,34 +29,36 @@
 
 	</div>
 	
-	<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="overflow-x: 10px;">
+	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="overflow: auto;overflow-x: hidden;height: 350px;">
 		<table class="table">
-			<thead style="background-color: #eeeeee;">
+			<thead style="background-color: #eeeeee; ">
 				<tr>
 					<th>Lab Name</th>
-					<th>Lab Site Code </th>
-					<th>Hospital</th>
 					<th>District</th>
-					<th>Address</th>
-					<th>Contact Phone Number</th>
+					<th>Contact Number</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>Kamuzu central hospital labs</td>
-					<td>KCH</td>
-					<td>Kamuzu central hospital</td>
-					<td>Lilongwe</td>
-					<td>BOX 5050</td>
-					<td>015689752</td>
-					<td>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
-						</button>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
-						</button>
-					</td>
-				</tr>				
+			<tbody id="labs">
+				<% if @labs !="no labs" %>
+					<% @labs.each do |lab| %>					
+						<tr id ="<%= lab['id'] %>">
+							<td><%= lab['name'] %></td>
+							<td><%= lab['district_id'] %></td>
+							<td><%= lab['phone_number'] %></td>
+							<td>
+								<button id ="<%= lab['id'] %>" class="btn btn-primary btn-sm" onmousedown="delete_lab(this.id)" >delete
+								</button>
+								<button id ="<%= lab['id'] %>" class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
+								</button>
+							</td>
+						</tr>			
+					<% end %>
+				<% else %>
+					<tr>
+						<td style="color: red;">no target labs added in the system, please add</td>
+					</tr>				  
+				<%end%>
 			</tbody>
 		</table>
 	
@@ -66,3 +71,25 @@
 <div class="footer">
   <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
 </div>
+
+<script type="text/javascript">
+	 function delete_lab(lab_id)
+	 { 	var url_ = "/delete_lab?lab_id=" + lab_id;		
+
+		jQuery.ajax({
+						async: false,
+						url: url_,
+						type: 'post',
+						success: function(res)
+						{
+								$(lab_id).remove();							
+						},
+						error: function(err)
+						{
+								$(lab_id).remove();								
+						}
+		
+		})
+
+	}
+</script>
