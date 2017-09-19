@@ -18,14 +18,18 @@
 
 <div id="lbl_main_window" class="container-fluid" style="">
 	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
-	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">LIMS </span> <br/>
-	<span style="color: blue;  float: right;">Lab Information Management System </span>
-
+	
+	<div style="float: right;">
+		<div >
+			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
+			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+		</div>
+		
+	</div>
 </div>
 
-<% order = session[:order] %>
 <div id="main_window_container" class="container-fluid">
-		<div class="container" style="margin-top: 10px; padding-bottom: 15px;">
+		<div class="container col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 10px; padding-bottom: 15px;">
 		
 
 			<div>
@@ -66,7 +70,7 @@
 
 		</div>
 
-		<div class="container" style="margin-top: 8px; background-color:  #eeeeee;" id="order-holder">
+		<div class="container col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 8px; background-color:  #eeeeee;" id="order-holder">
 			
 			<table class="table" >
 				<thead>
@@ -78,18 +82,19 @@
 				</thead>
 				<tbody>
 					<% counter = 0 %>
-					<% order['tests'].each do |test| %>
-						<% counter = counter + 1 %>
-						<% next if test.empty? %>
-						<tr id="<%= counter %>" >
-							<td><%= test %></td>
-							<td><%= order['sample_collected'] %></td>
-							<td><button class="btn btn-medium btn-danger"
-								 id="<%= counter.to_s + '_' + test %>"
-								 onmousedown="delete_test(this)">Delete</button></td>
-						</tr>
+					<% if !@order['tests'].blank? %>
+						<% @order['tests'].each do |test| %>
+							<% counter = counter + 1 %>
+							<% next if test.empty? %>
+							<tr id="<%= counter %>" >
+								<td><%= test %></td>
+								<td> Drawn</td>
+								<td><button class="btn btn-medium btn-danger"
+									 id="<%= counter.to_s + '_' + test %>"
+									 onmousedown="delete_test(this)">Delete</button></td>
+							</tr>
+						<% end %>
 					<% end %>
-					
 				</tbody>
 			</table>
 		</div>
