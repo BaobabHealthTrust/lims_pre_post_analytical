@@ -21,10 +21,10 @@ class SampleOrderController < ApplicationController
 					"requesting_clinician": params[:clinician],
 					"sample_type": params[:sample_type],
 					"tests": tests,
-					"date_sample_drawn": "",
+					"date_sample_drawn": Time.now,,
 					"sample_priority": params[:priority],
 					"target_lab": params[:target_lab],
-					"reason_for_test": '',					
+					"reason_for_test": params[:priority],					
 					"sample_collector_last_name": "",
           "sample_collector_first_name": "",
           "sample_collector_phone_number": '',
@@ -43,6 +43,7 @@ class SampleOrderController < ApplicationController
 	end
 	
 	def confirm_order
+    @order = session[:order]
 	end
 
 	def submite_order
