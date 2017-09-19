@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   get '/target_lab_main_page_loader' => 'target_lab#target_lab_main_page_loader_handler'
   get '/add_target_lab_page_loader' => 'target_lab#add_targer_lab_page_loader_handler'
 
-  post '/add_target_lab' => 'target_lab#add_target_lab'
+  post '/add_target_lab' => 'target_lab#add_target_lab'  
+  post '/delete_lab' => 'target_lab#delete_target_lab' 
+  get "/get_labs" => 'target_lab#get_labs'
+
 
 #patient controller routes
   get '/scan_patient_barcode' => 'patient#home_scan_patient_handler'
