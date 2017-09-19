@@ -1,7 +1,5 @@
 
 <%= form_tag("/capture_order_details", id: "sample_ordering_form", method: "post", enctype: 'multipart/form-data') do %>
-
-	
 	
 	<%= select_tag(:sample_type,  options_for_select(['Blood','Urin']), 
 		:helpText=> "Select Sample Type", 
@@ -16,12 +14,15 @@
 		:helpText=> "Requesting Clinician", 
 		:tt_requireNextClick =>false,
 	    )%><br>
-	<%= select_tag(:target_lab,  options_for_select(['KCH','URC']), 
+	<%= select_tag(:target_lab,  nil, 
 		:helpText=> "Specify Target Lab", 
-		:tt_requireNextClick =>false
+		:tt_requireNextClick =>true,
+		:ajaxUrl => "/get_labs",
+		:tt_pageStyleClass=>"NoKeyboard"
 	    )%><br>
 	<%= select_tag(:priority,  options_for_select(['Routin','Stat']), 
 		:helpText=> "Specify Priority"
 	    )%><br>
 
 <%end%>
+
