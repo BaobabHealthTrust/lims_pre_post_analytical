@@ -3,25 +3,15 @@
 
 	<%= text_field(:lab, :name, :helpText => "Lab Name", 
 		:textCase => "lower",
-	    :field_type => "number")%><br>
-
-	<%= text_field(:lab, :site_code, :helpText=> "Lab Site Code", 
-	    :textCase => "lower",
 	    :field_type => "text")%><br>
+	
+	<%= select_tag "district", options_for_select(['Lilongwe','Mzuzu','Salima']),
+		{:helpText => "Select District",
+	    :field_type => "text",
+	    :tt_requireNextClick => false }%><br>
 
-	<%= text_field(:lab, :hospital, :helpText => "Hospital", 
+	<%= text_field(:lab, :phone, :helpText => "Phone Number", 
 		:textCase => "lower",
-	    :field_type => "text")%><br>
-
-	<%= text_field(:lab, :district, :helpText => "District", 
-		:textCase => "lower",
-	    :field_type => "text")%><br>
-
-	<%= text_field(:lab, :address, :helpText => "Address", 
-		:textCase => "lower",
-	    :field_type => "text")%><br>
-
-	<%= text_field(:lab, :phone, :helpText => "Contact Phone Number", 
-		:textCase => "lower",
-	    :field_type => "number")%><br>
+	    :field_type => "number")%><br>	
+	    
 <% end %>
