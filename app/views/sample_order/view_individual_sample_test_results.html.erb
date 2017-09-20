@@ -15,7 +15,7 @@
    		}
    		#test-names-holder{
    			background-color: #f9f9f9;
-    		height: 200px;
+    		height: 350px;
     		overflow: auto;
     		overflow-x: hidden;
     		font-weight: normal !important;
@@ -36,49 +36,74 @@
 
 
 <div id="main_window_container" class="container-fluid">
-		<div class="container col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 10px; padding-bottom: 10px;">
-			
-			<p>
-				<span  style="border-right: thin solid black;border-bottom: thin solid black; padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;"> Patient Id: </span>
-					<span> 000000000</span>
-				</span>
+	
+			<div class="col-sm-offset-1 col-sm-3 " style=" border: thick solid #eeeeee; border-radius:20px; margin-top: 10px; padding-bottom: 15px;">
+		
+				<table class="table" >
+					<tr style=" border-bottom: thick solid black;">
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Patient Id:
+						</td>
+						<td>
+							00000000000
+						</td>
+					</tr>
 
-				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;">Patient Name: </span>
-					<span> Gift Malolo</span> 
-				</span>
+					<tr>
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Patient Name:
+						</td>
+						<td>
+							Gift Malolo
+						</td>
+					</tr>
 
-				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;">Sex: </span> 
-					<span> Male</span>
-				</span>
-				
-				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;">Age: </span>
-					<span> 27</span>
-				</span>
+					<tr>
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Patient Gender:
+						</td>
+						<td>
+							Male
+						</td>
+					</tr>
 
-				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;">Sample Type: </span>
-					<span>Blood </span>
-				</span>
+					<tr>
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Patient DOB:
+						</td>
+						<td>
+							05-07-1990
+						</td>
+					</tr>
 
-				<span style="border-right: thin solid black;border-bottom: thin solid black;padding:0.5%;">
-					<span style="color:#1c2a48;  font-weight:bold;">Date: </span> 
-					<span> 18 August 2017</span>	
-				</span>
-			</p>
+					<tr>
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Sample Ordered:
+						</td>
+						<td>
+							Blood
+						</td>
+					</tr>
 
+					<tr>
+						<td style="color:#1c2a48;  font-weight:bold;">
+							Date Sample Ordered:
+						</td>
+						<td>
+							05-10-2017
+						</td>						
+					</tr>
+
+				</table>
 		</div>
+		
 
-		<div class="container-fluid" style="margin-top: 20px;padding-bottom: 10px;">
 			<% counter =0 %>			
 
-			<div class="col-sm-5 " id="test-names-holder" style="background-color: #e0e0e0;">
-				<div class="panel panel-primary">
+			<div class="col-sm-7 " id="test-names-holder" style="margin-top: 10px; background-color: #e0e0e0;">
+				<div class="panel panel-default">
 
-					<div class="panel-heading" style="background-color: lightblue;">Ordered Tests</div>
+					<div class="panel-heading" >Ordered Tests <span style="float: right;">Total Test:100</span></div>
 					
 					<div class="panel-body" style="color:#1c2a48; background-color: #e0e0e0;">	
 						<table class="table">
@@ -139,6 +164,8 @@
 
 				</div>
 			</div>
+		
+
 			<div class="col-sm-7" id="test_results" style="display: none">
 					<div class="panel panel-primary">
 
@@ -158,7 +185,7 @@
 					</div>			
 				
 			</div>
-		</div>
+		
 
 </div>
 
