@@ -21,7 +21,7 @@ class SampleOrderController < ApplicationController
 					"requesting_clinician": params[:clinician],
 					"sample_type": params[:sample_type],
 					"tests": tests,
-					"date_sample_drawn": Time.now,,
+					"date_sample_drawn": Time.now,
 					"sample_priority": params[:priority],
 					"target_lab": params[:target_lab],
 					"reason_for_test": params[:priority],					
@@ -36,6 +36,7 @@ class SampleOrderController < ApplicationController
           "date_received":  Time.now,             
           "return_json": 'true'
 				}
+
 		session[:order] = order
 		
 		return redirect_to '/confirm_order'
