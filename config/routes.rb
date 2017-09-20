@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'
-  post '/try' => 'roles#try'
+  post '/system_roles' => 'roles#insert_update_user_roles'
 
 #specimen controller routes
  

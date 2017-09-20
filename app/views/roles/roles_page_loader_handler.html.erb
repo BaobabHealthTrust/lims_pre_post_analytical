@@ -51,22 +51,20 @@
 										<%= type['name'] %>
 									</td>
 									<% @roles.each do |role| %>
-										<th> <input id="2" 
+										<th> <input id="<%= role['name'] +'_'+ type['name'] %>" 
 											type="checkbox" name="rl()"
-											value ="<%= role['name'] %>"
-											onclick="alert(this.value);"
-											>
+											value ="<%= role['name'] +'_'+ type['name'] %>"
+											onclick="assign_deasign_roles(this.id,this.value)">
 										</th>
 									<% end %>
 								</tr>
 							<% end %>
 					<% end %>
 				</tbody> 
-				<button type="button" onclick="alert(document.getElementById('2').value)">try</button>	
-				
+									
 			</table>
+			<input class="btn btn-primary" type="button" name="" onclick="send_roles()" value="save">
 		</div>
-
 	</div>
 
 				
@@ -74,5 +72,45 @@
 </div>
 
 <div class="footer">
-  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/home'"> Back</button>
+  <button class="" onmousedown="document.location='/home'"> <|Back</button>
 </div>
+
+
+<script type="text/javascript">
+ var roles = {};
+ function assign_deasign_roles(control_id,role_user_type)
+ {	var role = role_user_type.split('_')[1];
+ 	var userType = role_user_type.split('_')[0];
+ 	
+ 	if ($(control_id).checked)
+ 	{
+ 		roles[role_user_type] = "yes";
+ 		
+ 	}
+ 	else if ($(control_id).checked ==false)
+ 	{
+ 		roles[role_user_type] = "no";
+ 		
+ 	}
+ }
+
+ function send_roles()
+ { 
+ 	var url_ = "/system_roles"; 	
+ 	jQuery.ajax({
+ 					async: false,
+ 					url: url_,
+ 					type: 'post',
+ 					data: roles,
+ 					success: function(res)
+ 					{
+ 							alert("good");
+ 					},
+ 					error: function(err)
+ 					{	
+ 						alert(err.responseText);
+ 					}
+ 	})
+ }
+
+</script>
