@@ -24,4 +24,12 @@ class UserTypeRole < ApplicationRecord
 		rw.save
 	end
 
+	def  self.get_user_right(role_id,user_type_id)
+	  gv_role = UserTypeRole.find_by_sql("SELECT given_role FROM user_type_roles WHERE user_type_id='#{user_type_id}' AND role_id='#{role_id}'")
+		
+		if !gv_role.blank?
+			return gv_role[0].given_role
+		end
+	end
+
 end

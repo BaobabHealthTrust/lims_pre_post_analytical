@@ -27,7 +27,7 @@
 		<div class="panel-heading panel-default">
 			User Types & system roles
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" style=" overflow: auto; overflow-x: hidden; height: 240px;">
 			<table class="table">
 				<thead>
 					<tr>
@@ -44,18 +44,29 @@
 				</thead>
 				
 				<tbody>
-					<% if !@types.blank? %>
-							<% @types.each do |type| %>
+					<% if !@asigned_roles.blank? %>
+							<% counter =0 %>
+							<% @asigned_roles.each do |type| %>							
 								<tr>
 									<td>
-										<%= type['name'] %>
+										<%= type[0] %>
 									</td>
 									<% @roles.each do |role| %>
-										<th> <input id="<%= role['name'] +'_'+ type['name'] %>" 
-											type="checkbox" name="rl()"
-											value ="<%= role['name'] +'_'+ type['name'] %>"
-											onclick="assign_deasign_roles(this.id,this.value)">
-										</th>
+										<% if type[1][counter] == "yes" %>
+											<th> <input id="<%= role['name'] +'_'+ type[0] %>" 
+												type="checkbox" name="rl()"
+												value ="<%= role['name'] +'_'+ type[0] %>"
+												onclick="assign_deasign_roles(this.id,this.value)"
+												checked>
+											</th>
+										<% else %>
+											<th> <input id="<%= role['name'] +'_'+ type[0] %>" 
+												type="checkbox" name="rl()"
+												value ="<%= role['name'] +'_'+ type[0] %>"
+												onclick="assign_deasign_roles(this.id,this.value)">
+											</th>
+										<% end %>
+										<% counter = counter + 1 %>
 									<% end %>
 								</tr>
 							<% end %>
@@ -63,7 +74,7 @@
 				</tbody> 
 									
 			</table>
-			<input class="btn btn-primary" type="button" name="" onclick="send_roles()" value="save">
+			<input style="position: fixed;" class="btn btn-primary" type="button" name="" onclick="send_roles()" value="save">
 		</div>
 	</div>
 
