@@ -1,0 +1,78 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	
+	<div style="float: right;">
+		<div >
+			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
+			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+		</div>
+		
+	</div>
+</div>
+
+
+<div id="main_window_container" class="container-fluid "  style="padding-top: 40px;">
+
+	<div class="col-sm-12 panel">
+		
+		<div class="panel-heading panel-default">
+			User Types & system roles
+		</div>
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+							<th>User Types</th>
+						<% if !@roles.blank? %>
+
+							<% @roles.each do |role| %>
+								<th> <%= role['name']%> </th>
+							<% end %>
+						<% else %>
+
+						<% end %>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<% if !@types.blank? %>
+							<% @types.each do |type| %>
+								<tr>
+									<td>
+										<%= type['name'] %>
+									</td>
+									<% @roles.each do |role| %>
+										<th> <input id="2" 
+											type="checkbox" name="rl()"
+											value ="<%= role['name'] %>"
+											onclick="alert(this.value);"
+											>
+										</th>
+									<% end %>
+								</tr>
+							<% end %>
+					<% end %>
+				</tbody> 
+				<button type="button" onclick="alert(document.getElementById('2').value)">try</button>	
+				
+			</table>
+		</div>
+
+	</div>
+
+				
+
+</div>
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/home'"> Back</button>
+</div>
