@@ -30,6 +30,9 @@ Rails.application.routes.draw do
 #patient controller routes
   get '/scan_patient_barcode' => 'patient#home_scan_patient_handler'
 
+#roles controller routes
+  get 'roles_page' => 'roles#roles_page_loader_handler'
+  post '/try' => 'roles#try'
 
 #specimen controller routes
  
