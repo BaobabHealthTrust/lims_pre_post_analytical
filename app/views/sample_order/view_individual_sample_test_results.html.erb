@@ -15,7 +15,7 @@
    		}
    		#test-names-holder{
    			background-color: #f9f9f9;
-    		height: 350px;
+    		height: 250px;
     		overflow: auto;
     		overflow-x: hidden;
     		font-weight: normal !important;
@@ -146,7 +146,8 @@
 												<div id = "<%= @id +'_'+tests %>" 
 													onclick="display_test_results(this.id);"
 													style="cursor: pointer;color:black;"
-													class="btn btn-info">
+													class="btn btn-info"
+													data-toggle="modal" data-target="#rst">
 													view results 
 										
 												</div>	
@@ -165,8 +166,37 @@
 				</div>
 			</div>
 		
+			<div id="rst" class="modal fade" role="dialog">
+				  <div class="modal-dialog modal-lg">
+				  		<div class="modal-content">
+				  				<div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Test Results</h4>
+						        </div>
+						        <div class="modal-body" id="test_results">
+						        	<table class="table" id="data">
+								
+									<tr>
+										<th>Measure Name</th>
+										<th>Result Value</th>
+									</tr>
+									
+									</table>
+						        </div> 
 
-			<div class="col-sm-7" id="test_results" style="display: none">
+						        <div class="modal-footer">
+						           <button type="button" class="btn btn-primary" data-dismiss="modal">print</button>
+						           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+						        </div>
+
+				  		</div>
+				  </div>
+
+
+			</div>
+
+			<div class=" col-sm-offset-4 col-sm-7" id="test_results" style="display: none">
 					<div class="panel panel-primary">
 
 							<div class="panel-heading" style="background-color: lightblue;">Test Results 
@@ -180,7 +210,7 @@
 										<th>Result Value</th>
 									</tr>
 									
-									</table>
+								</table>
 							</div>
 					</div>			
 				

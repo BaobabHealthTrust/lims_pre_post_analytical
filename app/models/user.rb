@@ -8,10 +8,16 @@ class User < ApplicationRecord
 			user = user[0]
 			secured_password = BCrypt::Password.new(user[:password])	
 			if secured_password == password
+				roles = self.get_user_type(user[:user_type_id])
 				status = true
 			end		
 		end
-		return status
+		return status, roles
+	end
+
+	def self.get_user_type(type_id)
+		roles = UserTypeRole.get_user_right(type_id)
+		return roles
 	end
 
 	def self.add_user(_id,first_name,last_name,sex,email,phone_number,username,password,designation)

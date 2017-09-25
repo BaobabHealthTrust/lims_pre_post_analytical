@@ -21,13 +21,14 @@ class UserType < ApplicationRecord
 	end
 
 	def self.get_user_type_id(type_name)
+
 		data = UserType.find_by(name: type_name[:name])
 		if !data.blank?
 			return data['id']
 		end
 	end
 
-	def self.get_type_id(type_name)
+	def self.get_type_id(type_name)		
 		data = UserType.find_by(name: type_name)
 		if !data.blank?
 			return data['id']

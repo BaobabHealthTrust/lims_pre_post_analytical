@@ -1,4 +1,5 @@
 
+
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
@@ -94,25 +95,38 @@
 			<table class="table" >
 				<thead>
 					<tr >
-						<th>Test Name</th>
-						<th>Test Status</th>
+						<th>Tracking Number</th>
+						<th>Sample Status</th>
+						<th>Date Drawn</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
+				
 					<% counter = 0 %>
-					
-					<% if !@order['tests'].blank? %>
-						<% location ="/add_test?rec_lab=" + @order['target_lab'] + "&sample=" + @order['sample_type'] %>
-						<% @order['tests'].each do |test| %>
-							<% counter = counter + 1 %>
-							<% next if test.empty? %>
+					<% if !@sample_results.blank? %>
+						<% @sample_results.each do |tst| %>
+							<% test_types =  tst['test_types'] %>
+							<% tracking_number =  tst['_id'] %>
+							<% sample_type = tst['sample_type'] %>
+							<% receiving_facility = tst['receiving_facility'] %>
+							<% results = tst['results'] %>				
+							<% counter = counter + 1 %>							
 							<tr id="<%= counter %>" >
-								<td><%= test %></td>
-								<td> Drawn</td>
+								<td><%= tst['_id'] %></td>
+								<td><%= tst['status'] %></td>
+								<td><%= tst['date_drawn'] %></td>
+							<% location="/adding_test?trac_id=" + tracking_number + 
+													"&sample_type=" + sample_type +
+													"&tests=" + test_types.to_s +
+													"&r_facility=" + receiving_facility 
+													 %>
 								<td><button class="btn btn-medium btn-danger"
-									 id="<%= counter.to_s + '_' + test %>"
-									 onmousedown="delete_test(this)">Delete</button></td>
+									 id="<%= tst['_id'] %>"
+									 onmousedown="document.location='<%= location %>'" >
+									 								    add test
+									</button>
+								</td>
 							</tr>
 						<% end %>
 					<% end %>
@@ -130,7 +144,7 @@
 	     	Cancel
 	   	</button>
 
-	   	<button  class="btn btn-lg btn-danger" onmousedown="document.location='<%= location %>'">
+	   	<button class="btn-home btn btn-lg btn-info" onmousedown="document.location='/add_test'">
 			Add Test
 	    </button>
 

@@ -1,0 +1,8 @@
+<%= form_tag('/add_test_to_sample', id:"add_test", method:"post") do %>
+
+	 <%= select_tag('test[]',  options_for_select(@test_types), 
+		:helpText=> "Select Test(s)", 
+		:multiple =>"multiple",
+		:doublePane =>true
+	    )%><br>
+<%end%>

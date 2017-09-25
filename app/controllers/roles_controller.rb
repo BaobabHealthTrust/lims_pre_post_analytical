@@ -12,7 +12,7 @@ class RolesController < ApplicationController
 
 				role_id = Role.get_role_id(r)
 
-				given_role = UserTypeRole.get_user_right(role_id,type_id)
+				given_role = UserTypeRole.get_right(role_id,type_id)
 
 				if given_role.blank?
 					@a_roles.push("no")

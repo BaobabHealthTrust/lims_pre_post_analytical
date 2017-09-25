@@ -13,11 +13,8 @@
 	}
 </script>
 
-<%= form_tag("/capture_order_details", id: "sample_ordering_form", method: "post", enctype: 'multipart/form-data') do %>
+<%= form_tag("/capture_order_request_details", id: "sample_ordering_form", method: "post", enctype: 'multipart/form-data') do %>
 	
-	<%= text_field(:clinician, :helpText => "Requesting Clinician", 
-		:textCase => "lower",
-	    :field_type => "text")%><br>
 	<%= select_tag(:target_lab,  nil, 
 		:helpText=> "Specify Target Lab", 
 		:tt_requireNextClick =>true,

@@ -1,5 +1,9 @@
 {
 "create_order": '/create_hl7_order',
-"view_results": '/',
-"add_new_test": '/' 
+"update": '/pass_json/',
+"add_new_test": '/', 
+
+#national dashboard resources
+"retrieve_lab_catalog": '/lab_catalog',
+"add_test": '/add_test'
 }

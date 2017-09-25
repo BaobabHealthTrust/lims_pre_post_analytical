@@ -43,6 +43,46 @@ class SampleOrderController < ApplicationController
 
 	end
 	
+  def capture_order_request_details
+    tests = params[:test]
+    tests = tests.delete_if(&:empty?)
+
+ 
+    order = {     
+          "district": 'LL',
+          "health_facility_name": 'KCH',
+          "first_name": "Gift",
+          "last_name": "Malolo",
+          "middle_name": "M",
+          "date_of_birth": "",
+          "gender": "",
+          "national_patient_id": "100",
+          "requesting_clinician": "",
+          "sample_type": params[:sample_type],
+          "tests": tests,
+          "date_sample_drawn": Time.now,
+          "sample_priority": params[:priority],
+          "target_lab": params[:target_lab],
+          "reason_for_test": params[:priority],         
+          "sample_collector_last_name": "",
+          "sample_collector_first_name": "",
+          "sample_collector_phone_number": '',
+          "sample_collector_id": '',
+          "sample_order_location": params[:ward],
+          "tracking_number": "",
+          "status": "not drawn",
+          "art_start_date": "",
+          "date_dispatched": "",
+          "date_received":  Time.now,             
+          "return_json": 'true'
+        }
+
+   submite_order_request(order)
+   redirect_to '/scan_patient_barcode?option='+'request_order', flash: {:error => "order request done successfuly"}
+  
+  end
+  
+
 	def confirm_order
     @order = session[:order]
 	end
@@ -57,6 +97,35 @@ class SampleOrderController < ApplicationController
 		session.delete(:order)
   
 	end
+
+  def submite_order_request(order_requested)
+    order = order_requested
+    api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+    api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
+    request = "#{api_url['national-repo-node']}#{api_resources['create_order']}"
+    dat = JSON.parse(RestClient.post(request,order))
+    session.delete(:requested_order)
+  end
+
+  def self.retrieve_lab_catalog(lab)     
+      api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+      api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
+      request = "#{api_url['national_dashboard']}#{api_resources['retrieve_lab_catalog']}?lab="+lab
+      @@dat = JSON.parse(RestClient.post(request,""))    
+      return @@dat
+  end
+
+  def get_samples
+      lab = params[:lab]
+      cat =  SampleOrderController.retrieve_lab_catalog(lab) 
+      render plain: cat["samples"].collect{|l| "<li>"+ l}.join("<li>")+"</li>"
+  end
+
+  def get_test_types
+     sample = params[:sample_name]
+     test_types = @@dat['lab_cat'][sample]
+     render plain: test_types.collect{|l| "<li>" + l}.join("<li>")+ "</li>"
+  end
 
   def print_tracking_number(tracking_number)  
       require 'auto12epl.rb'
@@ -75,7 +144,7 @@ class SampleOrderController < ApplicationController
   end
 
 	def view_sample_test_results
-    id = "5054"
+    id = "100"
     url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
 
     @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
@@ -141,6 +210,10 @@ class SampleOrderController < ApplicationController
     
   end
 	
+  def order_request_page_loader_handler
+
+  end
+
 
 end
 

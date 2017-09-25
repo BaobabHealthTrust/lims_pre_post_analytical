@@ -21,7 +21,8 @@
 
 <div id="main_window_container" class="container-fluid "  style="padding-top: 40px;">
 		
-	<div  class="col-sm-4">
+	<div>	
+	<div  class="col-sm-3">
 		<p style="color: #1c2a48 ; font-weight:bold;">Facility Name <br/>
 		<span class="white-text" style="">Kawale Health Centre</span></p>
 
@@ -32,74 +33,137 @@
 		<span class="text-white" style="">Gift Malolo </span></p>
 	</div>
 
-	<div class="col-sm-7" style="margin-bottom: 50px;">
-		<div>
-			<div style="cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;" 
-				class="col-sm-5 btn " onmousedown="document.location='/scan_patient_barcode?option='+'order_test';"">
-				
-				<span style="float: right;">Order Test 
-										 <%= image_tag("extras/order_test.png") %>
-				</span>
+	<div class="col-sm-9" style="margin-bottom: 50px;">
+	
+		<div class="col-sm-offset-1 col-sm-9">
+			<% counter =1 %>
+			
+			<% @role.each do |r| %>
+				<% given_role = r.split("_")[1] %>
+				<% role = r.split("_")[0] %>
+
+				<% if role == "order test" %>
+					<% location = "/scan_patient_barcode?option='+'order_test" %>
+
+				<% elsif role == "view order results" %>
+					<% location = "/scan_patient_barcode?option='+'view_results" %>
+
+				<% elsif role == "dispatch sample" %>
+					<% location = "/scan_patient_barcode?option='+'order_test" %>
+
+				<% elsif role == "request order" %>
+					<% location = "/scan_patient_barcode?option='+'request_order" %>
+
+				<% elsif role == "add test" %>
+					<% location = "/scan_patient_barcode?option='+'add_test_to_order" %>
+
+				<% elsif role == "draw sample" %>
+					<% location = "/scan_patient_barcode?option='+'draw_sample" %>
+
+				<% elsif role == "system settings" %>
+					<% location = "/view_settings" %>
+				<% end %>
+
+			    <% if given_role == "yes" %> 
+					<% if counter == 1 or counter == 2 %>
+						<% if counter == 1 %>
+						   <div>
+						
+								<div id="order_test" style="cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;" 
+									class="col-sm-5 btn " onmousedown="document.location='<%= location %>';">
+									
+									<span style="float: right;"> <%= role %>
+															 <%= image_tag("extras/order_test.png") %>
+									</span>
+										
+								</div>
+						<% end %>
+
+						<% if counter == 2 %>
+								<div style=" cursor: pointer; margin-bottom: 15px; color:black; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+											class="col-sm-offset-1 col-sm-5 btn"
+											onmousedown="document.location='<%= location %>';">
+												<span style="float: right;"><%= role %>
+																 <%= image_tag("extras/order_test.png") %>
+										</span>
+								</div>	
+									
+							</div>
+						<% end %>
+
+						<% counter = counter + 1 %>
 					
-			</div>
+					
+					<% elsif counter == 3 or counter == 4 %>
+						<% if counter == 3 %>		
+							<div>
 
-			<div style=" cursor: pointer; margin-bottom: 15px; color:black; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-					class="col-sm-offset-1 col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'view_results';">
-						<span style="float: right;">View Results
-										 <%= image_tag("extras/order_test.png") %>
-				</span>
-			</div>
+								<div style="cursor: pointer;margin-bottom: 10px; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
+										class="col-sm-5 btn" onmousedown="document.location='<%= location %>';">
+										<span style="float: right;"><%=role %>
+															 <%= image_tag("extras/order_test.png") %>
+										</span>
+								</div>
+						<% end %>
 
-		</div>
+						<% if counter == 4 %>
+									<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+										class="col-sm-offset-1 col-sm-5 btn"
+										 onmousedown="document.location='<%= location %>';">
+										<span style="float: right;"><%=role %>
+															 <%= image_tag("extras/order_test.png") %>
+										</span>
+									</div>			
+								
+							</div>
+						<% end %>
 
-		<div>
+						<% counter = counter + 1 %>
+					
 
-				<div style="cursor: pointer;margin-bottom: 10px; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
-						class="col-sm-5 btn" onmousedown="document.location='/view_settings';">
-						<span style="float: right;">Request Test 
-											 <%= image_tag("extras/order_test.png") %>
-						</span>
-				</div>
-				<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-					class="col-sm-offset-1 col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'add_test';">
-					<span style="float: right;">Add Test 
-										 <%= image_tag("extras/order_test.png") %>
-					</span>
-				</div>
+					<% elsif counter == 5 or counter == 6 %>
+						<% if counter == 5 %>	
+							<div>
+								<div style=" cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+									class=" col-sm-5 btn" onmousedown="document.location='<%= location %>';">
+									<span style="float: right;"><%= role %>
+														 <%= image_tag("extras/order_test.png") %>
+									</span> 
+								</div>
+						<% end %>
 
-				
-		</div>
+						<% if counter == 6 %>
+									<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+										class="col-sm-offset-1 col-sm-5 btn "
+										onmousedown="document.location='<%= location %>';">
+										<span style="float: right;"><%= role %> 
+															 <%= image_tag("extras/order_test.png") %>
+									</span>
+									</div>				
+							</div>
+						<% end %>
 
+						<% counter = counter + 1 %>
+					
+					<% elsif counter == 7 %>	
+							<div>
+									<div style="background-color: red; cursor: pointer; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
+										class="col-sm-5 btn" onmousedown="document.location='<%= location %>';">
+										<span style="float: right;"><%= role %>
+															 <%= image_tag("extras/order_test.png") %>
+										</span>
+									</div>
+							</div>			
+					<% end %>
+				<% end %>
 
-		<div>
-				<div style=" cursor: pointer;color:black; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-					class=" col-sm-5 btn" onmousedown="document.location='/scan_patient_barcode?option='+'draw_sample';">
-					<span style="float: right;">Draw Sample
-										 <%= image_tag("extras/order_test.png") %>
-					</span> 
-				</div>
-				<div style=" cursor: pointer;color:black; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-					class="col-sm-offset-1 col-sm-5 btn " onmousedown="document.location='/scan_patient_barcode';">
-					<span style="float: right;">Dispatch Sample 
-										 <%= image_tag("extras/order_test.png") %>
-				</span>
-				</div>
-
-			
-		</div>
-			
-		<div>
-				<div style="background-color: red; cursor: pointer; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
-					class="col-sm-5 btn" onmousedown="document.location='/view_settings';">
-					<span style="float: right;">Settings 
-										 <%= image_tag("extras/order_test.png") %>
-					</span>
-				</div>
-		</div>
-
+			<% end %>
+			<% counter = 1 %>
+		</div>	
+	</div>	
 	</div>
 
-	<div  style="padding-left: 6%;">
+	<div class="col-sm-12" style="margin-top: 20px;padding-left: 12%;">
 		<div class="col-sm-2">
 			<div class="panel panel-default" style="color: blue;">
 				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Total Orders Drawn</div>
@@ -133,11 +197,22 @@
 				<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
 			</div>
 		</div>
-
-
-	</div>
+      </div>
 </div>
+
+
 
 <div class="footer">
   <button class="" onmousedown="document.location='/'" style=" float: right;">Log Out</button>
 </div>
+
+
+<script type="text/javascript">
+	
+$(document).ready(function()
+{
+	document.getElementById("order_test").onmousedown = new function ("return false");
+})
+		
+
+</script>

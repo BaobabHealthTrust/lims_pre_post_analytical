@@ -1,20 +1,20 @@
 
 class UserController < ApplicationController
-
+	@@roles = []
 	def form_loader
 		@wards = (Ward::retrieve_wards).pluck(:name)
 	end
 
 	def main_home
-		
+		@role = @@roles
 		render :layout => true
-
+		
 	end
 
-
 	def log_in_handler
-		status = User::log_in(params[:user][:username],params[:user][:password])
-		if status == true
+		status = User::log_in(params[:user][:username],params[:user][:password])		
+		if status[0] == true
+			@@roles = status[1]			
 			session[:ward] = params[:ward_location]
 		 	redirect_to '/home'
 		else

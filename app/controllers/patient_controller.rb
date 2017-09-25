@@ -10,6 +10,10 @@ class PatientController < ApplicationController
 			@location = "/add_test"
 		elsif option == "draw_sample"
 			@location = "/draw_sample"
+		elsif option == "request_order"
+			@location = "/request_order"
+		elsif option == "add_test_to_order"
+			@location = "/orders"
 		end
 	end
 end

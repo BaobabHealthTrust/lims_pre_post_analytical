@@ -50,12 +50,23 @@ Rails.application.routes.draw do
   get  '/sample_tests' => 'sample_order#view_sample_test_handler'
   get  '/draw_sample' => 'sample_order#draw_sample_handler'
   post '/submite_order' => 'sample_order#submite_order'
-  get '/submite_order' => 'sample_order#submite_order'
+  get  '/submite_order' => 'sample_order#submite_order'
   get  '/result_meausures' => 'sample_order#get_result_measures'
+  get  '/request_order' => 'sample_order#order_request_page_loader_handler'
+  post '/capture_order_request_details' => 'sample_order#capture_order_request_details'
+
+#hitting remote resources
+  post '/lab_samples' => 'sample_order#get_samples'
+  get '/lab_samples' => 'sample_order#get_samples'
+  get '/get_test_types' => 'sample_order#get_test_types'
+
   
 #test controller routes
-  get '/add_test' => 'test#add_test_handler'
+  get  '/add_test' => 'test#add_test_handler'
   post '/add_test_to_order' => 'test#add_test'
+  get  '/orders' => 'test#add_test_loader_handler'
+  get  '/adding_test' => 'test#add_test_to_sample_loader_handler'
+  post '/add_test_to_sample' => 'test#add_test_to_sample'
 
 #system point of starting
   root 'user#form_loader'
