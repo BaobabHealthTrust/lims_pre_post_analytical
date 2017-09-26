@@ -9,14 +9,14 @@ default: &default
 
 development:
   <<: *default
-  database: lims_pre_post_analytical
+  database: lims_order_entry
 
 test:
   <<: *default
-  database: lims_pre_post_analytical
+  database: lims_order_entry
 
 production:
   <<: *default
-  database: lims_pre_post_analytical
-  username: lims_pre_post_analytical
+  database: lims_order_entry
+  username: lims_order_entry
   password: <%= ENV['LIMS_PRE_POST_ANALYTICAL_DATABASE_PASSWORD'] %>

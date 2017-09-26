@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   post '/add_user' => 'user#add_user'
   get  '/view_user_page_loader' => 'user#view_user_page_loader_handler'
   post '/search_by_username' => 'user#search_user_by_username'
-  get '/search_by_username' => 'user#search_user_by_username'
+  get  '/search_by_username' => 'user#search_user_by_username'
+
+#dispatch controller routes
+  get  '/un_dispatched_samples' => 'dispatch_sample#dispatch_sample_main_page_loader_handler'
 
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'

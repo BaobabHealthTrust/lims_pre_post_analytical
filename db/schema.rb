@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926090120) do
+ActiveRecord::Schema.define(version: 20170926190658) do
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
@@ -30,6 +30,27 @@ ActiveRecord::Schema.define(version: 20170926090120) do
     t.string "name"
     t.string "district_id"
     t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "undispatched_samples", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "tracking_number"
+    t.string "date_drawn"
+    t.string "patient_id"
+    t.string "patient_name"
+    t.string "sex"
+    t.string "sample_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "undrawn_samples", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "sample_type"
+    t.string "patient_id"
+    t.string "patient_name"
+    t.string "patient_gender"
+    t.string "date_requested"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,69 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/main_window" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+</style>
+
+<div id="lbl_main_window" class="container-fluid" style="">
+	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
+	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
+	LIMS </span> <br/>
+	<span style="color: blue;  float: right;">Lab Information Management System </span>
+
+</div>
+
+
+<div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
+
+	
+	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-3" style="overflow-x: 10px;">
+		<table class="table">
+			<thead style="background-color: #eeeeee;">
+				<tr>
+					<th>Target Lab</th>
+					<th>Total Undispatched Samples</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	
+	</div>
+
+
+</div>
+
+
+<div class="footer">
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+</div>
+
+<script type="text/javascript">
+	
+	function deleteWard(id)
+	{	
+		var _url = "/delete_ward?ward_id=" + id;
+		
+		jQuery.ajax({
+						async: false,
+						url: _url,
+						type: 'post',
+						success: function(res)
+						{
+							$(id).remove();							
+						},
+						error: function(err)
+						{
+							$(id).remove();							
+											
+						}
+		
+		})
+	}
+
+</script>

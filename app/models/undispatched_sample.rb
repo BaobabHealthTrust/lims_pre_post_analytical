@@ -1,0 +1,2 @@
+class UndispatchedSample < ApplicationRecord
+end

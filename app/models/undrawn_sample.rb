@@ -1,0 +1,2 @@
+class UndrawnSample < ApplicationRecord
+end
