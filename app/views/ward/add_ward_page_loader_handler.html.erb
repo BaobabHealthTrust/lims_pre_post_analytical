@@ -2,8 +2,8 @@
 <%= form_tag("/add_ward", id: "add_user_form", method: 'post', enctype: 'multipart/form-data') do %>
 
 
-	<%= text_field(:ward_name, :helpText => "Ward Name", 
-		:textCase => "lower",
+	<%= text_field(:ward, :name, :helpText=> "Enter Username", 
+	    :textCase => "lower",
 	    :field_type => "text")%><br>
 
 	<%= select_tag "ward_category", options_for_select(['Referral','Inpatient','OPD']),

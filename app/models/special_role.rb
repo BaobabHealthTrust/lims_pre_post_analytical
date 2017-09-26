@@ -1,0 +1,2 @@
+class SpecialRole < ApplicationRecord
+end

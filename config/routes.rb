@@ -14,9 +14,11 @@ Rails.application.routes.draw do
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'
   get  '/add_ward_page_loader' => 'ward#add_ward_page_loader_handler'
-
-
+  post '/delete_ward' => 'ward#delete_ward'
   post '/add_ward' => 'ward#add_ward'
+
+# special roles routes
+  get  '/special_role_page_loader' => 'special_role#special_role_page_loader_handler'
 
 #target lab controller routes
   get '/target_lab_main_page_loader' => 'target_lab#target_lab_main_page_loader_handler'

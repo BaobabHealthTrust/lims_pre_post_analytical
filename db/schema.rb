@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920100634) do
+ActiveRecord::Schema.define(version: 20170926090120) do
 
   create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "special_roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "user_id"
+    t.string "role_id"
+    t.string "given_role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +65,7 @@ ActiveRecord::Schema.define(version: 20170920100634) do
 
   create_table "wards", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.string "name"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

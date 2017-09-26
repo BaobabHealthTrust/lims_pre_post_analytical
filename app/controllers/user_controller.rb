@@ -7,8 +7,7 @@ class UserController < ApplicationController
 
 	def main_home
 		@role = @@roles
-		render :layout => true
-		
+		render :layout => true		
 	end
 
 	def log_in_handler

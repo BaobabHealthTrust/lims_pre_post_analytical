@@ -15,7 +15,7 @@
    		}
    		#test-names-holder{
    			background-color: #f9f9f9;
-    		height: 250px;
+    		height: 350px;
     		overflow: auto;
     		overflow-x: hidden;
     		font-weight: normal !important;
@@ -175,12 +175,12 @@
 						        </div>
 						        <div class="modal-body" id="test_results">
 						        	<table class="table" id="data">
+						
+										<tr style="background-color: #e0e0e0;">
+											<th>Measure Name</th>
+											<th>Result Value</th>
+										</tr>
 								
-									<tr>
-										<th>Measure Name</th>
-										<th>Result Value</th>
-									</tr>
-									
 									</table>
 						        </div> 
 
@@ -192,30 +192,7 @@
 
 				  		</div>
 				  </div>
-
-
-			</div>
-
-			<div class=" col-sm-offset-4 col-sm-7" id="test_results" style="display: none">
-					<div class="panel panel-primary">
-
-							<div class="panel-heading" style="background-color: lightblue;">Test Results 
-								<span style="float: right;" class="btn btn-success"
-									onmousedown="$('#data').empty();">print</span></div>
-							<div  class="panel-body" >
-								<table class="table" id="data">
-								
-									<tr>
-										<th>Measure Name</th>
-										<th>Result Value</th>
-									</tr>
-									
-								</table>
-							</div>
-					</div>			
-				
-			</div>
-		
+			</div>	
 
 </div>
 
