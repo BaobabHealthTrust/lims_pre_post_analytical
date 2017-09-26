@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   get  '/add_user_page_loader' => 'user#add_user_page_loader_handler'
   post '/add_user' => 'user#add_user'
   get  '/view_user_page_loader' => 'user#view_user_page_loader_handler'
-
+  post '/search_by_username' => 'user#search_user_by_username'
+  get '/search_by_username' => 'user#search_user_by_username'
 
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   post '/add_ward' => 'ward#add_ward'
 
 # special roles routes
-  get  '/special_role_page_loader' => 'special_role#special_role_page_loader_handler'
+  get  '/special_role_page_loader' => 'special_roles#special_role_page_loader_handler'
 
 #target lab controller routes
   get '/target_lab_main_page_loader' => 'target_lab#target_lab_main_page_loader_handler'

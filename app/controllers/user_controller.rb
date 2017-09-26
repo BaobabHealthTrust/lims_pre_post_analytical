@@ -65,4 +65,12 @@ class UserController < ApplicationController
 		
 	end
 
+	def search_user_by_username
+		user_name = params[:name]
+		rst = User.search_user_by_username(user_name)
+		user_id = UserType.get_type_id(rst[0].designation)	
+		roles = UserTypeRole.get_user_right(user_id)
+		render :json => [rst,roles].to_json
+	end
+
 end

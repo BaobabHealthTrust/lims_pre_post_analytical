@@ -19,42 +19,84 @@
 <div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
 
 	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color: #eeeeee; border-bottom: thick solid #eeeeee; padding-bottom: 5px;padding-top: 5px; margin-bottom: 15px;">
-
-		<span style="float: right;">
-			<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_ward_page_loader'" >Add ward</button>
+		<span>
+			<input id="search" placeholder="enter Username" class="input" type="text" name="search_username">
+		</span>
+		<span>
+			<button class="btn btn-primary btn-sm"
+			 onmousedown="search_user($('search').value)" > search</button>
 		</span>
 
 	</div>
+	<div id="sub1" class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="overflow-x: 10px; display: none;">
+		<div class="col-sm-4">	
+			<table class="table">
+				<tbody>
+					<tr>
+						<td style="background-color: #eeeeee;">Username:</td>
+						<td id="username_control"></td>
+					</tr>	
+					<tr>
+						<td style="background-color: #eeeeee;">Designation:</td>
+						<td id="designation_control"></td>
+					</tr>
+				</tbody>
+			</table>
+	    </div>
+	    <div class="col-sm-2">	
+			<table class="table">
+				<tbody>
+					<tr>
+						<td style="background-color: #eeeeee;">Designation Roles:</td>					
+					</tr>					
+				</tbody>
+			</table>
+	    </div>
+	     <div class="col-sm-6">	
+			<table class="table">
+							
+								<tr >
+									<td id="frst">										
+									</td>
+									<td id="sec">									
+									</td>
+									<td id="thrd">									
+									</td>
+								</tr>
+								<tr>																	
+									<td id="frth">										
+									</td>								
+									<td id="fth">										
+									</td>							
+									<td id="sth">										
+									</td>
+								</tr>
+								<tr>
+									<td id="svth">										
+									</td>
+								</tr>				
+			
+			</table>
+	    </div>
+	</div>
 
-	<div class="col-sm-offset-3 col-sm-6 col-sm-offset-3" style="overflow-x: 10px;">
+	<div id="sub2" class="col-sm-offset-3 col-sm-6 col-sm-offset-3" style="display: none; overflow-x: 10px;height: 200px; overflow:auto; overflow-x: hidden  ">
+		<p>Special Roles can assign</p>
 		<table class="table">
 			<thead style="background-color: #eeeeee;">
 				<tr>
-					<th>Ward</th>
-					<th>Category</th>
-					<th>Action</th>
+					<th>Role</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<% if !@wards.blank? %>
-					<% @wards.each do |r| %>
-						<% id = r['id'] %>
-						<tr id="<%= id %>">
-							<td><%= r['name'] %></td>
-							<td><%= r['category'] %></td>
-							<td>
-								<button class="btn btn-primary btn-sm" style="background-color: red" 
-								 	onmousedown="deleteWard('<%= id %>')" >delete
-								</button>
-								<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
-								</button>
-							</td>
-						</tr>		
-					<% end %>
-				<% end %>		
+				<tr>
+					<td>draw sample</td>
+					<td><input type="checkbox" name=""></td>
+				</tr>
 			</tbody>
 		</table>
-	
+		<input type="button" value="save" class="btn btn-success">
 	</div>
 
 
@@ -82,6 +124,73 @@
 						error: function(err)
 						{
 							$(id).remove();							
+											
+						}
+		
+		})
+	}
+	
+	function search_user(name)
+	{
+		var _url = "/search_by_username?name=" + name;
+		var des = document.getElementById("designation_control");
+		var use = document.getElementById("username_control");
+		var counter =1;
+		jQuery.ajax({
+						async: false,
+						url: _url,
+						type: 'post',
+						success: function(res,rs)
+						{	
+							des.innerHTML = res[0][0].designation;
+							use.innerHTML = res[0][0].Username;
+							document.getElementById("sub1").style.display = "block";
+							document.getElementById("sub2").style.display = "block";
+							var roles = res[1].toString();
+							roles = roles.split(",")
+							for (var co =0; co<roles.length;co++)
+							{   var va = roles[co];
+								va = va.split("_");
+								if(va[1]=="yes")
+								{
+									if (counter == 1)
+									{
+										document.getElementById('frst').innerHTML = va[0];
+									}
+									else if (counter ==2)
+									{
+										document.getElementById('sec').innerHTML = va[0];
+									}
+									else if (counter ==3)
+									{
+										document.getElementById('thrd').innerHTML = va[0];
+									}
+									else if (counter ==4)
+									{
+										document.getElementById('frth').innerHTML = va[0];
+									}
+									else if (counter ==5)
+									{
+										document.getElementById('fth').innerHTML = va[0];
+									}
+									else if (counter ==6)
+									{
+										document.getElementById('sth').innerHTML = va[0];
+									}
+									else if (counter ==7)
+									{
+										document.getElementById('svth').innerHTML = va[0];
+									}
+									
+									counter = counter + 1;
+								}								
+							}
+							counter = 0;
+
+						},
+						error: function(err)
+						{
+							alert("checking");						
 											
 						}
 		

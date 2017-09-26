@@ -22,7 +22,7 @@ class UserType < ApplicationRecord
 
 	def self.get_user_type_id(type_name)
 
-		data = UserType.find_by(name: type_name[:name])
+		data = UserType.find_by(name: type_name[:name])		
 		if !data.blank?
 			return data['id']
 		end

@@ -52,5 +52,16 @@ class User < ApplicationRecord
 			return false
 		end
 	end
+
+	def self.search_user_by_username(user_name)
+		rst = User.find_by_sql("SELECT users.username AS Username, user_types.name AS designation FROM users INNER JOIN user_types ON user_types.id = users.user_type_id  WHERE users.username='#{user_name}'")
+		if !rst.blank?
+			return rst
+		else
+			return "false"
+		end
+
+	end
+
 		
 end	
