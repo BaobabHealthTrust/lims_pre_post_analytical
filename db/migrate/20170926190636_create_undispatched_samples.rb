@@ -7,6 +7,8 @@ class CreateUndispatchedSamples < ActiveRecord::Migration[5.1]
       t.string :patient_name
       t.string :sex
       t.string :sample_type
+      t.string :target_lab
+      t.string :order_location
       t.timestamps
     end
   end

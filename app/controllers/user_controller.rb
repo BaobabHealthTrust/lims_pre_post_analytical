@@ -7,6 +7,8 @@ class UserController < ApplicationController
 
 	def main_home
 		@role = @@roles
+		@undispatched_sample_count = UndispatchedSample.count_undispatched_samples
+
 		render :layout => true		
 	end
 

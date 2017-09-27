@@ -193,8 +193,16 @@
 		</div>
 		<div class="col-sm-2">
 			<div class="panel panel-default" style="color: blue;">
-				<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Not dispatched</div>
-				<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+				<% if @undispatched_sample_count >0 %>
+					<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Not dispatched</div>
+					<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
+						<%= @undispatched_sample_count %></div>
+				<% else %>
+					<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+					<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
+					<%= @undispatched_sample_count %></div>
+				<% end %>
+
 			</div>
 		</div>
       </div>

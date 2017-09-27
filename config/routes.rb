@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   get  '/search_by_username' => 'user#search_user_by_username'
 
 #dispatch controller routes
-  get  '/un_dispatched_samples' => 'dispatch_sample#dispatch_sample_main_page_loader_handler'
+  get '/un_dispatched_samples' => 'dispatch_sample#dispatch_sample_main_page_loader_handler'
+  get '/undispatched_samples' => 'dispatch_sample#retrive_undispatched_samples'
+  get '/view_undispatched_samples' => 'dispatch_sample#view_undispatched_sample'
+  get '/capture_dispatcher' => 'dispatch_sample#capture_dispatcher'
+  post '/save_dispatcher_details' => 'dispatch_sample#save_dispatcher_details'
 
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'

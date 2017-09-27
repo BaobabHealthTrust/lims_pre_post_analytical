@@ -17,30 +17,62 @@
 
 
 <div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
+	<% if !flash.blank? %>
+					<% flash.each do |key, value| %> 
+						<div class="alert alert-<%= key %>"><%= value %></div>
+					<% end %>
+				<% end %>
+	<div class="col-sm-offset-1 col-sm-9 col-sm-offset-2" style="overflow-x: 10px;">
+		<input type="text" placeholder="tracking_number" name="search">
+		<input type="button" value="search" name="">
+	</div>
 
-	
-	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-3" style="overflow-x: 10px;">
+	<div class="col-sm-offset-1 col-sm-9 col-sm-offset-2" style="overflow-x: 10px;">
 		<table class="table">
 			<thead style="background-color: #eeeeee;">
 				<tr>
-					<th>Target Lab</th>
-					<th>Total Undispatched Samples</th>
+					<th>Tracking Number</th>
+					<th>Sample Type</th>
+					<th>Date Drawn</th>
+					<th>Patient Id</th>
+					<th>Patient Name</th>
+					<th>Gender</th>
 					<th>Action</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody>		
+
 				<% if !@row.blank? %>
 					<% @row.each do |r| %>
+					
 						<tr>
 							<td>
-								<%= r.lab %>
+								<%= r['tracking_number'] %>
 							</td>
 							<td>
-								<%= r.total %>
+								<%= r['sample_type'] %>
 							</td>
 							<td>
-								<input type="button" value="view" class="btn btn-primary" id="<%= r.lab %>" name=""
-								onmousedown="document.location='/undispatched_samples?lab='+'<%= r.lab %>'" >
+								<%= r['date_drawn'] %>
+							</td>
+							<td>
+								<%= r['patient_id'] %>
+							</td>
+							<td>
+								<%= r['patient_name'] %>
+							</td>
+							<td>
+								<%= r['sex'] %>
+							</td>
+							<td>
+								<input style="float: left;" type="checkbox" name="und_sample[]"
+											 value="<%= r['tracking_number'] %>"
+											 onmousedown="alert(this.und_sample);" >
+								
+								<span style="float: right;">
+									<input type="button" value="dispatch" class="btn btn-primary" id="<%= r['tracking_number'] %>" name=""
+											onmousedown="document.location='/capture_dispatcher?trac='+'<%= r['tracking_number'] %>'" >
+								</span>
 							</td>
 						</tr>
 					<% end %>	

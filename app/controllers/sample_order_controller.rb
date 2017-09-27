@@ -1,7 +1,7 @@
 class SampleOrderController < ApplicationController
 
 	def home
-	 
+	   
 	end
 
 	def capture_order_details
@@ -94,6 +94,12 @@ class SampleOrderController < ApplicationController
     request = "#{api_url['national-repo-node']}#{api_resources['create_order']}"
     dat = JSON.parse(RestClient.post(request,order))      
     print_tracking_number(dat['tracking_number'])
+
+    p_name = order['first_name'].to_s + " " +  order['middle_name'] +" "+order['last_name'].to_s
+    UndispatchedSample.capture_sample(dat['tracking_number'],order['sample_type'],order['national_patient_id'],
+                                  p_name,order['date_sample_drawn'],order['gender'],order['target_lab'],session[:ward])
+
+
 		session.delete(:order)
   
 	end

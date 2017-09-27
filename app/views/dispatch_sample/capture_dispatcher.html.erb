@@ -1,0 +1,17 @@
+
+<%= form_tag("/save_dispatcher_details", id: "login_form", method: 'post', enctype: 'multipart/form-data') do %>
+
+	<%= text_field(:dis,:id, :helpText => "Dispatcher Id", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+	<%= text_field(:dis,:f_name, :helpText => "Dispatcher  First Name", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+	<%= text_field(:dis,:l_name, :helpText => "Dispatcher  Last Name", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+	<%= text_field(:dis,:phone, :helpText => "Dispatcher Phone Number", 
+	    :textCase => "lower",
+	    :field_type => "number")%><br>
+
+<%end%>

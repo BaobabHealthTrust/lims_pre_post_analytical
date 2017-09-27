@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20170926190658) do
     t.string "patient_name"
     t.string "sex"
     t.string "sample_type"
+    t.string "target_lab"
+    t.string "order_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170926190658) do
     t.string "patient_name"
     t.string "patient_gender"
     t.string "date_requested"
+    t.string "order_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
