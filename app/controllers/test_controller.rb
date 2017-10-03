@@ -56,7 +56,7 @@ class TestController < ApplicationController
     	request = "#{api_url['national_dashboard']}#{api_resources['add_test']}"
     	dat = RestClient.post(request,order)
 
-    	redirect_to '/orders'
+    	redirect_to '/orders?added=' + 'yes'
 	end
 
 end

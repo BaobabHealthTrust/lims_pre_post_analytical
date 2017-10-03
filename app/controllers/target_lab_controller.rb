@@ -17,7 +17,7 @@ class TargetLabController < ApplicationController
 
 		if TargetLab.check_lab(lab_name,district) == false
 			TargetLab.add_target_lab(lab_name,phone,district)
-			redirect_to '/target_lab_main_page_loader', flash: {message: 'target lab created successfuly'}
+			redirect_to '/target_lab_main_page_loader?added=' + "yes"
 		else
 			redirect_to '/add_target_lab_page_loader', flash: {error: 'target lab already exist in the system'}
 		end	

@@ -15,9 +15,9 @@ class WardController < ApplicationController
 		ward_category = params[:ward_category]
 		if Ward.check_ward(ward,ward_category) == false
         	Ward.add_ward(ward,ward_category)
-        	redirect_to '/ward_main_page_loader'
+        	redirect_to '/ward_main_page_loader?added=' + 'yes'
         else
-        	redirect_to '/ward_main_page_loader'
+        	redirect_to '/ward_main_page_loader?added=' + 'no'
         end	
 	end
 

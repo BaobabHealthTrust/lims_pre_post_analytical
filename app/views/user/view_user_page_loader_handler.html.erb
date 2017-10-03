@@ -37,46 +37,48 @@
 		</div>
 
 		<div class="col-sm-7" style="margin-top: 1%;">
-			<div class="row">	
-					<div class="col-sm-8">
-						
-				
-					</div>
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
-							<h4 style="text-align: center;"> Viewing Users</h4>
+			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
+				<div class="row">	
+						<div class="col-sm-8">
+							
+					
 						</div>
-						
-					</div>
-			</div>
-			<div class="row" style="margin-top: 5.7%;">
-				<div class="col-sm-4">
-					<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
-						<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-						<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
-					</div>
+						<div class="col-sm-4">
+							<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
+								<h4 style="text-align: center;"> Viewing Users</h4>
+							</div>
+							
+						</div>
 				</div>
-
-				<div class="col-sm-4">
-					<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
-						<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
-						<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+				<div class="row" style="margin-top: 5.7%;">
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
+							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
+						</div>
 					</div>
-				</div>
 
-				<div class="col-sm-4">
-					<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
-						<% undispatched_sample_count = session[:un_dis_sample] %>
-								<% if undispatched_sample_count >0 %>
-									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
-									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
+							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
+							<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+							<% undispatched_sample_count = session[:un_dis_sample] %>
+									<% if undispatched_sample_count >0 %>
+										<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
+										<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
+											<%= undispatched_sample_count %></div>
+									<% else %>
+										<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+										<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
 										<%= undispatched_sample_count %></div>
-								<% else %>
-									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
-									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
-									<%= undispatched_sample_count %></div>
-								<% end %>
+									<% end %>
 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -151,28 +153,29 @@
 	</div>
 
 </div>
-		
-<div class="footer">
-	<button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'">|< Back Home</button>
-	<span style="float: right;">
-			<button class="btn btn-lg btn-info" 
-	     					id="log_out"
-	     					onmousedown="document.location= '<%= @location %>' ">
-	     				Enter Patient Id
-	    	</button>
-	    	<button class="btn btn-lg btn-danger" 
-	     					id="log_out"
-	     					onmousedown="document.location= '<%= @location %>' ">
-	     				Cancel
-	    	</button>
-	</span>
+
+<div id="keypad">
+	<span class="keypad">
+	 </span>
 </div>
 
 
 <div class="footer">
-    <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+    <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings?added='+ 'no'" ><| Back</button>
+  
   	<span style="float: right;">
-			<button class="btn btn-primary btn-lg" onmousedown="document.location='/add_user_page_loader'" >add user</button>
+			<button class="btn btns btn-lg btn-danger"	id="log_out" onmousedown="document.location='/home'">
+	     	Cancel
+	     	</button>
+			<button class="btn btns btn-primary btn-lg" onmousedown="document.location='/add_user_page_loader'" >add user</button>
+
+			
+
+			<button class="btns btn btn-lg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location='/'">
+	     				Log Out
+	    	</button>
     </span>
 </div>
 
@@ -200,6 +203,156 @@
 		})
 	}
 
-	$("#tb").dataTable();
+	var datatable = $("#tb").dataTable();
+	
+	var elms = document.getElementById("tb_filter").getElementsByTagName("*");
+	var inpt = elms[1];
+	inpt.setAttribute("id","txt_search");
+	inpt.setAttribute("onclick","pop_keyboard()");
+	
 
+	function pop_keyboard()
+	{   showKeyboardX();
+	}
+
+	keyboard = document.getElementsByClassName("keypad")[0];
+	showAlphaKeypad();
+
+	function showKeyboardX(){
+        key = document.getElementById("keypad")
+        if(key.style.display == 'none' || key.style.display == ""){
+            key.style.display = "inline";
+            return
+        }
+
+        key.style.display = "none";
+    }
+
+
+
+
+function getCharButtonSetID(character,id){
+  return '<button onMouseDown="press(\''+character+'\');" class="keyboardButton button blue" id="'+id+'">' +"<span style='width:32px'>"+character+"</span>"+ "</button>";
+}
+
+function getButtonString(id,string){
+  if (id == "Space"){
+    id = "Whitespace";
+  }
+  return "<button onMouseDown='press(this.id);' class='keyboardButton' id='"+id+"'>"+string+"</button>";
+}
+
+function getButtons(chars){
+  var buttonLine = "";
+  for(var i=0; i<chars.length; i++){
+    character = chars.substring(i,i+1);
+    buttonLine += getCharButtonSetID(character,character)
+  }
+  return buttonLine;
+}
+
+function press(pressedChar){
+	var txt = document.getElementById("txt_search");
+  switch (pressedChar) {
+    case 'backspace':
+      txt.value = txt.value.substring(0,txt.value.length-1);
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'Whitespace':
+      txt.value+= " ";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'clear':
+      txt.value = "";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'num':
+      showNumericKeypad();
+      return;
+    case 'slash':
+      txt.value+= "/";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'dash':
+      txt.value+= "-";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'abc':
+      showAlphaKeypad();
+      return
+  }
+  
+  txt.value+= pressedChar;
+  datatable.fnFilter(txt.value).draw();
+}
+
+function showNumericKeypad(){
+  document.getElementById("keypad").style.height = "145";
+  keyboard.innerHTML = getButtons("123");
+  keyboard.innerHTML+= getButtons("456");
+  keyboard.innerHTML+= getButtons("7890");
+  keyboard.innerHTML+= getButtonString('space','<span>Space</span>');
+  keyboard.innerHTML+= getButtonString('clear','<span>Clear</span>');
+  keyboard.innerHTML+= getButtonString('backspace','<span>Bksp</span>');
+  keyboard.innerHTML+= getButtonString('abc','<span>abc</span>');
+  keyboard.innerHTML+= getButtonString('dash','<span>-</span>');
+  keyboard.innerHTML+= getButtonString('slash','<span>/</span>');
+}
+
+function showAlphaKeypad(){
+  document.getElementById("keypad").style.height = "290 !important";  
+  keyboard.innerHTML= getButtons("0123456789") + "</br>";
+  keyboard.innerHTML+= getButtons("QWERTYUIOP") + "</br>";
+  keyboard.innerHTML+= getButtons("ASDFGHJKL:") + "</br>";
+  keyboard.innerHTML+= getButtons("ZXCVBNM,.?");
+  keyboard.innerHTML+= getButtonString('backspace','<span>Bksp</span>');
+  keyboard.innerHTML+= getButtonString('Space','<span>Space</span>');
+  keyboard.innerHTML+= getButtonString('clear','<span>Clear</span>');
+}
+
+  
 </script>
+
+<style type="text/css">
+	  #keypad{
+        background-color: #FFFFFF;
+        border: 2px solid #9999FF;
+        border-radius: 15px 15px 15px 15px;
+        display: none;
+        height: 304px;
+        padding: 5px;
+        position: absolute;
+        right: 5px;
+        top: 48%;
+        width: 750px;
+        opacity: 0.8;
+    }
+
+	#backspace{
+	  position:absolute;
+	  left:100px;
+	  bottom:6px;
+	}
+
+	#whitespace{
+	  position:absolute;
+	  left:220px;
+	  bottom:6px;
+	  width:200px;
+	}
+
+	#clear{
+	  position:absolute;
+	  left:470px;
+	  bottom:6px;
+	}
+
+	.keyboardButton{
+		background-color: lightblue;
+		width: 70px;
+		height: 57px;
+    }
+
+
+
+</style>

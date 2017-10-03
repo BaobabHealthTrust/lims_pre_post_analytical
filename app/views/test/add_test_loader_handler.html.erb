@@ -108,11 +108,10 @@
 	</div>
 
 
-
-
-
-
-
+	<% added = "no" %>
+	<% if !params[:added].blank? %>
+		<% added = params[:added] %>
+	<% end %>
 
 	<div class="row">
 		<div style="border: thick solid lightgrey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
@@ -174,7 +173,7 @@
 
 <div class="footer">
   <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/scan_patient_barcode?option='+
-  'add_test_to_order'">|< Back Home</button>
+  'add_test_to_order'">|< Home</button>
     <span style="float: right;">
 	    <button class="btn btns btn-lg btn-danger"	id="log_out" onmousedown="document.location='/home'">
 	     	Cancel
@@ -191,6 +190,15 @@
 
 <script type="text/javascript">
 	
+
+    var va = '<%= added %>';
+
+    if (va == "yes")
+    {
+    	swal("Confirmation","Test Added Successfuly", "success");
+    }
+    
+
 	function delete_test(object)
 	{  var id = object.id.split('_');		
 	   $(id[0]).remove();	
