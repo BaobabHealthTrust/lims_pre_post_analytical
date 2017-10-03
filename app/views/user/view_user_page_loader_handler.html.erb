@@ -1,90 +1,205 @@
 
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "bootstrap" %>
+  <%= javascript_include_tag "datatable/js/jquery.dataTables.min" %>
+  <%= javascript_include_tag "datatable/js/dataTables.bootstrap.min" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
-  <%= stylesheet_link_tag "extras/main_window" %>
   <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "datatable/css/dataTables.bootstrap.min" %>
+
+<style type="text/css">
+	
+	#barcode-txt {
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px;
+  font-size: 30px;
+  margin: 3% 4%;
+  width: 60%
+}	
 
 </style>
+<div style=" height: 97%;" >
 
-<div id="lbl_main_window" class="container-fluid" style="">
-	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
-	<span style="color: blue;float: right; font-weight:bold;font-size: 2em;">
-	LIMS </span> <br/>
-	<span style="color: blue;  float: right;">Lab Information Management System </span>
+	<div class="row">
+		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
+			 background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3)); 
+			 box-shadow: 10px 10px 5px lightgrey; border-radius: 2%;">
 
-</div>
+			<h1 style="color: white;text-shadow: 2px 2px 4px #000000;">LIMS Order Entry</h1>
+				<p style="color: black;text-shadow: 2px 2px 4px #000000; font-weight:bold;">Facility Name <br/>
+					<span class="color:white;" style="">Kawale Health Centre</span></p>
 
+					<p style="color: black;text-shadow: 2px 2px 4px #000000;;font-weight:bold;">Ward/Location <br/>
+					<span class="text-white" style=""><%= session[:ward] %></span>
+				</p>
 
-<div id="main_window_container" class="container-fluid "  style="padding-top: 20px;">
+		</div>
 
-	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="background-color: #eeeeee; border-bottom: thick solid #eeeeee; padding-bottom: 5px;padding-top: 5px; margin-bottom: 15px;">
+		<div class="col-sm-7" style="margin-top: 1%;">
+			<div class="row">	
+					<div class="col-sm-8">
+						
+				
+					</div>
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
+							<h4 style="text-align: center;"> Viewing Users</h4>
+						</div>
+						
+					</div>
+			</div>
+			<div class="row" style="margin-top: 5.7%;">
+				<div class="col-sm-4">
+					<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+						<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
+						<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
+					</div>
+				</div>
 
-		<span>
-			<input type="text" name="user_name" class="input" placeholder="full name">
-			<%= select_tag "ward_location", options_for_select(['Doctor','Nurse']),
-				{:helpText => "Select Ward",
-	    		:field_type => "location"}%>
-	    	<button class="btn btn-success btn-sm">search</button>
-		</span>
+				<div class="col-sm-4">
+					<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
+						<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
+						<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+					</div>
+				</div>
 
-		<span style="float: right;">
-			<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >add user</button>
-		</span>
+				<div class="col-sm-4">
+					<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+						<% undispatched_sample_count = session[:un_dis_sample] %>
+								<% if undispatched_sample_count >0 %>
+									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
+									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
+										<%= undispatched_sample_count %></div>
+								<% else %>
+									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
+									<%= undispatched_sample_count %></div>
+								<% end %>
 
-	</div>
-	
-	<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="overflow-x: 10px;">
-		<table class="table">
-			<thead style="background-color: #eeeeee;">
-				<tr>
-					<td>User Id</td>
-					<td>Name</td>
-					<td>Email</td>
-					<td>Phone Number</td>
-					<td>Designation</td>
-					<td>Actions</td>
-				</tr>
-			</thead>
-			<tbody style="">
-				<tr>
-					<td>100</td>
-					<td>Gift Malolo</td>
-					<td>gift@.com</td>
-					<td>0992293939</td>
-					<td>Doctor</td>
-					<td>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >view
-						</button>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
-						</button>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
-						</button>
-					</td>
-				</tr>
-				<tr>
-					<td>100</td>
-					<td>Gift Malolo</td>
-					<td>gift@.com</td>
-					<td>0992293939</td>
-					<td>Doctor</td>
-					<td>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >view
-						</button>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >delete
-						</button>
-						<button class="btn btn-primary btn-sm" onmousedown="document.location='/add_user_page_loader'" >edit
-						</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 
+
+
+
+
+
+
+	<div class="row">
+		<div style="border: thick solid lightgrey;padding: 2%;  height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;
+		">
+		<table class="table" id="tb">
+				<thead style="background-color: #eeeeee;">
+					<tr>
+						
+						<td>Name</td>
+						<td>Sex</td>
+						<td>Email</td>
+						<td>Phone Number</td>
+						<td>Username</td>
+						<td>Designation</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
+				<tbody style="">
+
+					<% if !@rows.blank? %>
+						<% for r in @rows %>
+							<tr id="<%= r['staff_id'] %>" >
+								
+								<td>
+									<%= r.user_name %>
+								</td>
+								<td>
+									<%= r['sex'] %>
+								</td>
+								<td>
+									<%= r['email'] %>
+								</td>
+								<td>
+									<%= r['phoneNumber'] %>
+								</td>
+								<td>
+									<%= r['username'] %>
+								</td>
+								<td>
+									<%= r['name'] %>
+								</td>
+								<td>									
+									<button class="btn btn-danger btn-lg" 
+										onmousedown="delete_user('<%= r['staff_id'] %>')" >delete
+									</button>
+									<button class="btn btn-primary btn-lg" onmousedown="document.location='/add_user_page_loader'" >view
+									</button>
+									
+								</td>
+							</tr>
+						<% end %>
+
+					<% end %>					
+					
+				</tbody>
+		    </table>
+	
+		</div>
+	</div>
+
 </div>
+		
+<div class="footer">
+	<button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'">|< Back Home</button>
+	<span style="float: right;">
+			<button class="btn btn-lg btn-info" 
+	     					id="log_out"
+	     					onmousedown="document.location= '<%= @location %>' ">
+	     				Enter Patient Id
+	    	</button>
+	    	<button class="btn btn-lg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location= '<%= @location %>' ">
+	     				Cancel
+	    	</button>
+	</span>
+</div>
+
 
 <div class="footer">
-  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+    <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'" >Back</button>
+  	<span style="float: right;">
+			<button class="btn btn-primary btn-lg" onmousedown="document.location='/add_user_page_loader'" >add user</button>
+    </span>
 </div>
+
+
+
+<script type="text/javascript">
+	
+	function delete_user(staff_id)
+	{	
+		var _url = '/delete_user?staff='+staff_id;
+		
+		jQuery.ajax({
+						async: false,
+						url: _url,
+						success: function(res)
+						{
+							$('staff_id').remove();
+
+							document.location="/view_user_page_loader";
+						},
+						error: function(err)
+						{
+							
+						}
+		})
+	}
+
+	$("#tb").dataTable();
+
+</script>

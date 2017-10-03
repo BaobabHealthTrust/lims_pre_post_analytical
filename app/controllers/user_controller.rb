@@ -7,20 +7,24 @@ class UserController < ApplicationController
 
 	def main_home
 		@role = @@roles
-		@undispatched_sample_count = UndispatchedSample.count_undispatched_samples
-
-		render :layout => true		
+		@undispatched_sample_count = UndispatchedSample.count_undispatched_samples(session[:ward])
+		session[:un_dis_sample] = @undispatched_sample_count
+		render :layout => false		
 	end
 
 	def log_in_handler
 		status = User::log_in(params[:user][:username],params[:user][:password])		
+		
 		if status[0] == true
 			@@roles = status[1]			
 			session[:ward] = params[:ward_location]
+			session[:user_id] = status[2]['id']
 		 	redirect_to '/home'
 		else
 		 	redirect_to  '/' , flash: {error: "wrong password or username"}
 		end
+
+		
 	end
 
 	def add_user
@@ -52,7 +56,9 @@ class UserController < ApplicationController
 	end
 
 	def view_user_page_loader_handler
-		
+		@rows = User.get_users
+
+		render :layout => false	
 	end
 
 	def log_out_handler
@@ -64,15 +70,24 @@ class UserController < ApplicationController
 	end
 
 	def settings_event_handler
-		
+		render :layout => false	
 	end
 
 	def search_user_by_username
 		user_name = params[:name]
+		
 		rst = User.search_user_by_username(user_name)
 		user_id = UserType.get_type_id(rst[0].designation)	
 		roles = UserTypeRole.get_user_right(user_id)
 		render :json => [rst,roles].to_json
+	end
+
+
+	def delete_user
+		staff = params[:staff]
+		User.delete_user(staff)
+
+		render plain: "done"
 	end
 
 end

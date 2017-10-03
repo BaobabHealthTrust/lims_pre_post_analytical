@@ -2,6 +2,7 @@ class TargetLabController < ApplicationController
 
 	def target_lab_main_page_loader_handler
 		@labs = TargetLab.get_target_labs
+		 render :layout => false
 	end
 
 

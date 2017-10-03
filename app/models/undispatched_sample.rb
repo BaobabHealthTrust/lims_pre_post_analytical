@@ -13,24 +13,24 @@ class UndispatchedSample < ApplicationRecord
    		row.save()
    end
 
-   def self.retrive_undispatched_samples(lab)
-   		row = UndispatchedSample.find_by_sql("SELECT * FROM undispatched_samples WHERE target_lab='#{lab}'")
+   def self.retrive_undispatched_samples(lab,location)
+   		row = UndispatchedSample.find_by_sql("SELECT * FROM undispatched_samples WHERE target_lab='#{lab}' AND order_location='#{location}'")
  
    		if (!row.blank?)
    			return row
    		end
    end
 
-   def self.count_undispatched_samples
-   		row = UndispatchedSample.find_by_sql("SELECT count(*) AS UndispatchedSample FROM undispatched_samples")   		
+   def self.count_undispatched_samples(location)
+   		row = UndispatchedSample.find_by_sql("SELECT count(*) AS UndispatchedSample FROM undispatched_samples WHERE order_location='#{location}'")   		
    		if (!row.blank?)
    			return row[0].UndispatchedSample
    		end
    end
 
-   def self.count_undispatched_samples_by_target_lab
+   def self.count_undispatched_samples_by_target_lab(location)
    		row = UndispatchedSample.find_by_sql("SELECT count(*) AS total,
-   									 undispatched_samples.target_lab AS lab FROM undispatched_samples
+   									 undispatched_samples.target_lab AS lab FROM undispatched_samples WHERE order_location='#{location}'
 												GROUP BY undispatched_samples.target_lab")   	
 		
    		if (!row.blank?)

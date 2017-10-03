@@ -18,7 +18,7 @@ class SampleOrderController < ApplicationController
           "date_of_birth": "",
           "gender": "",
           "national_patient_id": "100",
-					"requesting_clinician": params[:clinician],
+					"requesting_clinician": params[:clinician][:name],
 					"sample_type": params[:sample_type],
 					"tests": tests,
 					"date_sample_drawn": Time.now,
@@ -85,6 +85,7 @@ class SampleOrderController < ApplicationController
 
 	def confirm_order
     @order = session[:order]
+    render :layout => false 
 	end
 
 	def submite_order
@@ -99,7 +100,7 @@ class SampleOrderController < ApplicationController
     UndispatchedSample.capture_sample(dat['tracking_number'],order['sample_type'],order['national_patient_id'],
                                   p_name,order['date_sample_drawn'],order['gender'],order['target_lab'],session[:ward])
 
-
+    
 		session.delete(:order)
   
 	end
@@ -155,7 +156,7 @@ class SampleOrderController < ApplicationController
 
     @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
     @@sample_results_glo =  @sample_results
-	
+	  render :layout => false 
 	end
 
 	def view_individual_sample_test_results
@@ -189,7 +190,7 @@ class SampleOrderController < ApplicationController
           details = []
           end           
         end
-       
+        render :layout => false 
     end
       
 	end

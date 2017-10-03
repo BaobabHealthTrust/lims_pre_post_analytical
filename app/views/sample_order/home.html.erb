@@ -1,5 +1,6 @@
 
 <script type="text/javascript">
+    var tt_cancel_destination = "/home";
 	function retrive_lab_catlog(value)
 	{
 	   $('touchscreenInput'+tstCurrentPage).setAttribute('ajaxURL', "/lab_samples?lab="+value);
@@ -15,7 +16,7 @@
 
 <%= form_tag("/capture_order_details", id: "sample_ordering_form", method: "post", enctype: 'multipart/form-data') do %>
 	
-	<%= text_field(:clinician, :helpText => "Requesting Clinician", 
+	<%= text_field(:clinician,:name, :helpText => "Requesting Clinician", 
 		:textCase => "lower",
 	    :field_type => "text")%><br>
 	<%= select_tag(:target_lab,  nil, 
@@ -36,7 +37,8 @@
 	<%= select_tag 'test[]', nil, 
 		:helpText=> "Select Test(s)", 
 		:multiple =>"multiple",
-		:tt_onLoad => "retrive_sample_test_types($('selected_sample').value)"
+		:tt_onLoad => "retrive_sample_test_types($('selected_sample').value)",
+		:tt_pageStyleClass => ""
 	    %><br>	
 	<%= select_tag(:priority,  options_for_select(['Routin','Stat']), 
 		:helpText=> "Specify Priority"

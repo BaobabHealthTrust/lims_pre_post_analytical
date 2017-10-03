@@ -8,6 +8,10 @@ Rails.application.config.assets.version = '1.0'
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( extra* extras/* bootstrap* jquery* modal.js)
+Rails.application.config.assets.precompile += %w( datatable/js/jquery.dataTables.min.js )
+Rails.application.config.assets.precompile += %w( datatable/js/dataTables.bootstrap.min.js )
+Rails.application.config.assets.precompile += %w( datatable/css/dataTables.bootstrap.min.css )
+Rails.application.config.assets.precompile += %w( sw.min.js )
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

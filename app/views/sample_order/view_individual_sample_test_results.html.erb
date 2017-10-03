@@ -1,172 +1,171 @@
 
-
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
-  <%= stylesheet_link_tag "extras/main_window" %>
   <%= stylesheet_link_tag "extras/footer" %>
 
 <style type="text/css">
-   		#test_results{   			
-    		height: 300px;
-    		overflow: auto;
-    		overflow-x: hidden;
-    		font-weight: normal !important;
-   		}
-   		#test-names-holder{
-   			background-color: #f9f9f9;
-    		height: 350px;
-    		overflow: auto;
-    		overflow-x: hidden;
-    		font-weight: normal !important;
-   		}
-   </style>
-
-<div id="lbl_main_window" class="container-fluid" style="">
-	<span id="lbl1" style=" color: blue; font-weight:bold;font-size: 2em; "> Lab Order Entry </span> 
 	
-	<div style="float: right;">
-		<div >
-			<span style="font-size: 2em; color: blue; font-weight: bold; float: left;" >LIMS </span>
-			<span style="float: right;"> <%= image_tag("extras/mw.png") %></span>
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%;" >
+
+	<div class="row">
+		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
+			 background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3)); 
+			 box-shadow: 10px 10px 5px lightgrey; border-radius: 2%;">
+
+			<h1 style="color: white;text-shadow: 2px 2px 4px #000000;">LIMS Order Entry</h1>
+				<p style="color: black;text-shadow: 2px 2px 4px #000000; font-weight:bold;">Facility Name <br/>
+					<span class="color:white;" style="">Kawale Health Centre</span></p>
+
+					<p style="color: black;text-shadow: 2px 2px 4px #000000;;font-weight:bold;">Ward/Location <br/>
+					<span class="text-white" style=""><%= session[:ward] %></span>
+				</p>
+
 		</div>
-		
-	</div>
-</div>
 
+		<div class="col-sm-7" style="margin-top: 1%;">
+			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
 
-<div id="main_window_container" class="container-fluid">
-	
-			<div class="col-sm-offset-1 col-sm-3 " style=" border: thick solid #eeeeee; border-radius:20px; margin-top: 10px; padding-bottom: 15px;">
-		
-				<table class="table" >
-					<tr style=" border-bottom: thick solid black;">
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Patient Id:
-						</td>
-						<td>
-							00000000000
-						</td>
-					</tr>
-
-					<tr>
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Patient Name:
-						</td>
-						<td>
-							Gift Malolo
-						</td>
-					</tr>
-
-					<tr>
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Patient Gender:
-						</td>
-						<td>
-							Male
-						</td>
-					</tr>
-
-					<tr>
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Patient DOB:
-						</td>
-						<td>
-							05-07-1990
-						</td>
-					</tr>
-
-					<tr>
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Sample Ordered:
-						</td>
-						<td>
-							Blood
-						</td>
-					</tr>
-
-					<tr>
-						<td style="color:#1c2a48;  font-weight:bold;">
-							Date Sample Ordered:
-						</td>
-						<td>
-							05-10-2017
-						</td>						
-					</tr>
-
-				</table>
-		</div>
-		
-
-			<% counter =0 %>			
-
-			<div class="col-sm-7 " id="test-names-holder" style="margin-top: 10px; background-color: #e0e0e0;">
-				<div class="panel panel-default">
-
-					<div class="panel-heading" >Ordered Tests <span style="float: right;">Total Test:100</span></div>
-					
-					<div class="panel-body" style="color:#1c2a48; background-color: #e0e0e0;">	
-						<table class="table">
-							<thead>
-								<tr>
-									<th>
-										Test Name
-									</th>
-									<th>
-										Result Status
-									</th>
-									<th>
-										Action
-									</th>
-								</tr>
-							</thead>
+				<div class="row">	
+					<div class="col-sm-8">
+						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
 							
-							<tbody>
-								<% @test_types.each do |tests| %>
-									<tr>
-										<td>
-											<%= tests %> 
-										</td>
-										<td>
-											<% if @test_status[tests] == "not available" %>
+							<table class="table" style="font-size: 1em;">
+								<tr>
+									<td>Patient Id:</td>
+									<td>10000</td>
+								</tr>
+								<tr>
+									<td>Patient Name:</td>
+									<td>Gift Malolo</td>
+								</tr>
+								<tr>
+									<td>Gender</td>
+									<td>Male</td>
+								</tr>
+							</table>
+						</div>
+				
+					</div>
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
+							<h4 style="text-align: center;"> Viewing Test Result </h4>
+						</div>
+						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey; padding: 1.5%;">
+							<h4 style="text-align: center;">Blood</h4>
+
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
+							<div class="panel-body" style="font-size: 1em;font-weight:bold; text-align: center;">1000 </div>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
+							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
+							<div class="panel-body" style="font-size: 1em; font-weight:bold; text-align: center;">1000 </div>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+								<% undispatched_sample_count = session[:un_dis_sample] %>
+								<% if undispatched_sample_count >0 %>
+									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
+									<div class="panel-body" style="font-size: 1em; color:red; font-weight:bold; text-align: center;">
+										<%= undispatched_sample_count %></div>
+								<% else %>
+									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+									<div class="panel-body" style="font-size: 1em; color:#1c2a48; font-weight:bold; text-align: center;">
+									<%= undispatched_sample_count %></div>
+								<% end %>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<div class="row">
+		<div style="border: thick solid lightgrey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" >
+		    	<table class="table">
+					<thead>
+						<tr>
+							<th>
+								Test Name
+							</th>
+						    <th>
+								Result Status
+						    </th>
+							<th>
+								Action
+							</th>
+						</tr>
+					</thead>
+							
+					<tbody>
+						<% @test_types.each do |tests| %>
+							<tr>
+								<td>
+									<%= tests %> 
+								</td>
+								<td>
+									<% if @test_status[tests] == "not available" %>
 												<label style="color:red;">
 													<%=  @test_status[tests] %>
 												</label>
-											<% else %>
+									<% else %>
 												<label style="color:green;">
 													<%=  @test_status[tests] %>
 												</label>
-											<% end %>
-
-											
-										</td>
-										<td>
-
-											<% if @test_status[tests] == "available" %>
-												<div id = "<%= @id +'_'+tests %>" 
+									<% end %>											
+								</td>
+								<td>
+									 <% if @test_status[tests] == "available" %>
+										<div id = "<%= @id +'_'+tests %>" 
 													onclick="display_test_results(this.id);"
 													style="cursor: pointer;color:black;"
-													class="btn btn-info"
+													class="btn btn-info btn-lg"
 													data-toggle="modal" data-target="#rst">
 													view results 
 										
-												</div>	
+										</div>	
 
-											<% end %>
+									<% end %>
  
-										</td>
-									</tr>								
-								<%end%>
-							</tbody>
+								</td>
+							</tr>								
+						<%end%>
+					</tbody>
 
-						</table>
-
-					</div>
-
-				</div>
+				</table>
 			</div>
+		</div>
+	</div>
+
+</div>
 		
-			<div id="rst" class="modal fade" role="dialog">
+<div id="rst" class="modal fade" role="dialog">
 				  <div class="modal-dialog modal-lg">
 				  		<div class="modal-content">
 				  				<div class="modal-header">
@@ -185,8 +184,8 @@
 						        </div> 
 
 						        <div class="modal-footer">
-						           <button type="button" class="btn btn-primary" data-dismiss="modal">print</button>
-						           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						           <button type="button" class="btn btn-primary btn-lg" data-dismiss="modal">print</button>
+						           <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
 
 						        </div>
 
@@ -194,16 +193,20 @@
 				  </div>
 			</div>	
 
-</div>
-
 
 <div class="footer">
-  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/'">|< Back Home</button>
+  <button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_results'">|< Back Home</button>
   <span style="float: right;">
-	    	<button class="btn btl-xxlg btn-danger" 
+	    	<button class="btns btn btn-lg btn-primary" 
 	     					id="log_out"
-	     					onmousedown="document.location='/view_results'">
+	     					onmousedown="document.location='/home'">
 	     				Cancel
+	    	</button>
+
+	    	<button class="btns btn btn-lg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location='/'">
+	     				Log Out
 	    	</button>
 	    </span>
 </div>

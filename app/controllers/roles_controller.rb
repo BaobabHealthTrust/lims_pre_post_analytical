@@ -26,6 +26,7 @@ class RolesController < ApplicationController
 			@a_roles = []
 		end
 	 @asigned_roles
+	 render :layout => false
 	end
 
 	def insert_update_user_roles

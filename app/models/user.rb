@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+	cattr_accessor :current
 
 	def self.log_in(username,password)
 		user = User.find_by_sql("SELECT * FROM users WHERE username='#{username}'")
@@ -12,7 +13,7 @@ class User < ApplicationRecord
 				status = true
 			end		
 		end
-		return status, roles
+		return status, roles, user
 	end
 
 	def self.get_user_type(type_id)
@@ -62,6 +63,22 @@ class User < ApplicationRecord
 		end
 
 	end
+
+	def self.get_users
+		row = User.find_by_sql("SELECT users.staff_id,users.username, users.name AS user_name, users.sex,users.email,users.phoneNumber, user_types.name FROM users 
+								INNER JOIN user_types ON users.user_type_id = user_types.id")		
+		if (!row.blank?)
+			return row
+		end
+
+	end
+
+
+	def self.delete_user(staff)
+		user = User.find_by(:staff_id => staff)
+		user.destroy();
+	end
+
 
 		
 end	

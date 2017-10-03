@@ -15,5 +15,7 @@ class PatientController < ApplicationController
 		elsif option == "add_test_to_order"
 			@location = "/orders"
 		end
+
+		render :layout => false	
 	end
 end

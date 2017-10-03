@@ -3,6 +3,7 @@ class WardController < ApplicationController
 
 	def ward_main_page_loader_handler
 		@wards = (Ward::retrieve_wards)
+		 render :layout => false
 	end
 
 	def add_ward_page_loader_handler
