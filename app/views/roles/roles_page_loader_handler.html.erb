@@ -17,9 +17,8 @@
 }	
 
 </style>
-<div style=" height: 97%;" >
-
-	<div class="row">
+<div style=" height: 97%;" class="container-fluid">
+<div class="row">
 		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
 			 background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3)); 
 			 box-shadow: 10px 10px 5px lightgrey; border-radius: 2%;">
@@ -35,20 +34,22 @@
 		</div>
 
 		<div class="col-sm-7" style="margin-top: 1%;">
-			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
-				<div class="row">	
+			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;
+			    ">
+
+				<div>	
 						<div class="col-sm-8">
 							
 					
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
-								<h4 style="text-align: center;">User System Roles</h4>
+								<h4 style="text-align: center;">System  User Roles</h4>
 							</div>
 							
 						</div>
 				</div>
-				<div class="row" style="margin-top: 5.7%;">
+				<div  style="margin-top: 12.8%;">
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
@@ -64,6 +65,7 @@
 					</div>
 
 					<div class="col-sm-4">
+						
 						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
 							<% undispatched_sample_count = session[:un_dis_sample] %>
 									<% if undispatched_sample_count >0 %>
@@ -78,12 +80,10 @@
 
 						</div>
 					</div>
-				</div>
+			    </div>
 			</div>
 		</div>
 	</div>
-
-
 
 
 

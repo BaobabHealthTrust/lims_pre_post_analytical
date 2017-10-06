@@ -14,7 +14,7 @@
 	  transform: translateY(4px);	
 </style>
 
-<div style=" height: 97%;" >
+<div style=" height: 97%;" class="container-fluid" >
 
 	<div class="row">
 		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
@@ -32,9 +32,10 @@
 		</div>
 
 		<div class="col-sm-7" style="margin-top: 1%;">
-			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
+			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;
+			    ">
 
-				<div class="row">	
+				<div>	
 						<div class="col-sm-8">
 							
 					
@@ -46,7 +47,7 @@
 							
 						</div>
 				</div>
-				<div class="row" style="margin-top: 5.7%;">
+				<div  style="margin-top: 12.8%;">
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
@@ -122,7 +123,7 @@
 					<% end %>
 
 				    <% if given_role == "yes" %> 
-						<% if counter == 1 or counter == 2 %>
+						<% if counter == 1 or counter == 2 or counter ==3 %>
 							<% if counter == 1 %>
 							   <div>
 							
@@ -145,15 +146,11 @@
 											</span>
 									</div>	
 										
-								</div>
+								
 							<% end %>
 
-							<% counter = counter + 1 %>
-						
-						
-						<% elsif counter == 3 or counter == 4 %>
 							<% if counter == 3 %>		
-								<div>
+								
 
 									<div style="background-color: #1c2a48; cursor: pointer;margin-bottom: 10px; color:white;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
 											class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
@@ -161,9 +158,14 @@
 																 <%= image_tag("extras/order_test.png") %>
 											</span>
 									</div>
+								</div>
 							<% end %>
-
+							<% counter = counter + 1 %>
+						
+						
+						<% elsif counter == 4 or counter == 5 or counter == 6 %>
 							<% if counter == 4 %>
+									<div>
 										<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
 											class="button col-sm-offset-1 col-sm-5 btn btn-lg "
 											 onmousedown="document.location='<%= location %>';">
@@ -172,15 +174,10 @@
 											</span>
 										</div>			
 									
-								</div>
+								
 							<% end %>
-
-							<% counter = counter + 1 %>
-						
-
-						<% elsif counter == 5 or counter == 6 %>
 							<% if counter == 5 %>	
-								<div>
+								
 									<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
 										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
 										<span style="float: right;"><%= role %>
