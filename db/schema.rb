@@ -48,12 +48,15 @@ ActiveRecord::Schema.define(version: 20170926190658) do
   end
 
   create_table "undrawn_samples", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "tracking_number"
     t.string "sample_type"
     t.string "patient_id"
     t.string "patient_name"
     t.string "patient_gender"
+    t.string "date_of_birth"
     t.string "date_requested"
     t.string "order_location"
+    t.string "requested_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

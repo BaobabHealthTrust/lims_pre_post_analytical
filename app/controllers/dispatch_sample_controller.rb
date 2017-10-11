@@ -39,9 +39,10 @@ class DispatchSampleController < ApplicationController
 	   	
 	   	trac.each do |r|	   		
 	   		UndispatchedSample.remove_dispatched_sample(r)
+	   		session[:un_dis_sample] = session[:un_dis_sample] - 1
 	   	end
 
-	   	redirect_to '/undispatched_samples',  flash: {success: "sample(s) dispatched"}
+	   	redirect_to '/view_undispatched_samples'
 	end
 	
 end

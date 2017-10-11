@@ -1,4 +1,5 @@
 {
+#mirth connect resources
 "create_order": '/create_hl7_order',
 "update": '/pass_json/',
 "add_new_test": '/', 
@@ -6,5 +7,11 @@
 #national dashboard resources
 "retrieve_lab_catalog": '/lab_catalog',
 "add_test": '/add_test',
-"capture_dispatcher": "/capture_sample_dispatcher"
+"capture_dispatcher": "/capture_sample_dispatcher",
+
+#dde3.0 resources
+"authenticate": '/v1/authenticate',
+"create_user" : '/v1/add_user',
+"get_patient" : '/v1/search_by_identifier', 
+"validate_token": '/v1/authenticated'
 }

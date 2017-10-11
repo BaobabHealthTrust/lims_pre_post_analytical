@@ -57,19 +57,30 @@
 
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
-							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
-							<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+							<% if @requested_sample >0 %>
+								<div  class="panel-heading" style="color: red ; font-weight:bold; text-align: center;">	 
+								  Requested Orders</div>
+								<div class="panel-body" style="color:red; font-size: 2em; font-weight:bold; text-align: center;">
+								 <%= @requested_sample %> </div>
+							<% else %>
+								<div  class="panel-heading" style="color: #1c2a48; font-weight:bold; text-align: center;"> 
+								  Requested Orders</div>
+								<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">
+								 <%= @requested_sample %> 
+								</div>
+							<% end %>
+						
 						</div>
 					</div>
 
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
 								<% if @undispatched_sample_count >0 %>
-									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
+									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Undispatched Samples</div>
 									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
 										<%= @undispatched_sample_count %></div>
 								<% else %>
-									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Undispatched Samples</div>
 									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
 									<%= @undispatched_sample_count %></div>
 								<% end %>
@@ -116,7 +127,7 @@
 						<% location = "/scan_patient_barcode?option='+'add_test_to_order" %>
 
 					<% elsif role == "draw sample" %>
-						<% location = "/scan_patient_barcode?option='+'draw_sample" %>
+						<% location = "/draw_sample" %>
 
 					<% elsif role == "system settings" %>
 						<% location = "/view_settings" %>

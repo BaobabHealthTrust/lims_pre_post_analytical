@@ -18,7 +18,7 @@
 	  transform: translateY(4px);	
 </style>
 
-<div style=" height: 97%;" >
+<div style=" height: 97%;" class="container-fluid" >
 
 	<div class="row">
 		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
@@ -38,22 +38,22 @@
 		<div class="col-sm-7" style="margin-top: 1%;">
 			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
 
-				<div class="row">	
+				<div>	
 					<div class="col-sm-8">
 						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
-							
+							<% data = session[:patient_demo] %>
 							<table class="table" style="font-size: 1em;">
 								<tr>
 									<td>Patient Id:</td>
-									<td>10000</td>
+									<td><%= data['npid']%></td>
 								</tr>
 								<tr>
 									<td>Patient Name:</td>
-									<td>Gift Malolo</td>
+									<td><%= data['name']%></td>
 								</tr>
 								<tr>
 									<td>Gender</td>
-									<td>Male</td>
+									<td><%= data['gender']%></td>
 								</tr>
 							</table>
 						</div>
@@ -69,7 +69,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div style="margin-top: 12.8%;">
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>

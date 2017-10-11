@@ -3,6 +3,7 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
+  <%= javascript_include_tag "sw.min" %>
 
 <style type="text/css">
 	
@@ -16,7 +17,7 @@
 }	
 
 </style>
-<div style=" height: 97%;" >
+<div style=" height: 97%;" class="container-fluid" >
 
 	<div class="row">
 		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
@@ -36,7 +37,7 @@
 		<div class="col-sm-7" style="margin-top: 1%;">
 			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;">
 
-				<div class="row">	
+				<div>	
 						<div class="col-sm-8">
 							
 					
@@ -48,7 +49,7 @@
 							
 						</div>
 				</div>
-				<div class="row" style="margin-top: 5.7%;">
+				<div   style="margin-top: 12.8%;">
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
@@ -85,7 +86,9 @@
 
 
 
-
+	<% if !params[:err].blank? %>
+		<% error = params[:err] %>
+	<% end %>
 
 
 
@@ -135,26 +138,32 @@
 </div>
 
 <script type="text/javascript">
-	
-	function deleteWard(id)
-	{	
-		var _url = "/delete_ward?ward_id=" + id;
 		
-		jQuery.ajax({
-						async: false,
-						url: _url,
-						type: 'post',
-						success: function(res)
-						{
-							$(id).remove();							
-						},
-						error: function(err)
-						{
-							$(id).remove();							
-											
-						}
-		
-		})
+	function focusForBarcodeInput(){
+	  var barcode = document.getElementById("barcode-txt");
+	  if (barcode) 
+	    barcode.focus();
+
 	}
+
+	function barcodeScan(){
+	  usertext=document.getElementById("barcode-txt");
+	  if (usertext.value.match(/.+\$$/i) != null){	  	
+	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
+	    document.location = "/scan_patient?npid=" + usertext.value.trim();
+	  }
+	}
+
+	setInterval("focusForBarcodeInput();",300);
+	setInterval("barcodeScan();",300);
+
+	var error = '<%= error %>';
+
+	if (error == "true")
+	{
+		swal("Error","Error Scanning Patient","warning");
+	}
+	
+	
 
 </script>

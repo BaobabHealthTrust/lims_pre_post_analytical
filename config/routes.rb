@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   get '/capture_dispatcher' => 'dispatch_sample#capture_dispatcher'
   post '/save_dispatcher_details' => 'dispatch_sample#save_dispatcher_details'
 
+#undrawn samples routes
+  get '/draw' => 'sample_order#draw_sample'
+
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'
   get  '/add_ward_page_loader' => 'ward#add_ward_page_loader_handler'
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
 
 #patient controller routes
   get '/scan_patient_barcode' => 'patient#home_scan_patient_handler'
+  get '/scan_patient' => 'patient#scan_patient'
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'

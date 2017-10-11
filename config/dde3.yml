@@ -1,15 +1,16 @@
+default: &default
+    dde_url: http://10.5.50.220:3009
+    application_name: lims_order_entry
+    site_code: kch
+    dde_default_username: test10
+    dde_default_password: test10
+    dde_application_username: test30
+    dde_application_password: test30
+
 development:
-  dde_url: http://192.168.6.211:3009
-  application_name: lims_order_entry
-  site_code: kch
-  dde_default_username: admin
-  dde_default_password: admin
-  dde_application_username: lims_order_entry
-  dde_application_password: lims_order_entry
-
+  <<: *default
 test:
-  <<: *development
-
+  <<: *default
 production:
-  <<: *development
+  <<: *default
 

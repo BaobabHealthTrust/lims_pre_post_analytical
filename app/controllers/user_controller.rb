@@ -8,7 +8,9 @@ class UserController < ApplicationController
 	def main_home
 		@role = @@roles
 		@undispatched_sample_count = UndispatchedSample.count_undispatched_samples(session[:ward])
+		@requested_sample = UndrawnSample.count_requested_samples(session[:ward])
 		session[:un_dis_sample] = @undispatched_sample_count
+		session[:requested_sample] = @requested_sample
 		render :layout => false		
 	end
 
@@ -18,7 +20,7 @@ class UserController < ApplicationController
 		if status[0] == true
 			@@roles = status[1]			
 			session[:ward] = params[:ward_location]
-			session[:user_id] = status[2]['id']
+			session[:user] = status[2]['id']
 		 	redirect_to '/home'
 		else
 		 	redirect_to  '/' , flash: {error: "wrong password or username"}

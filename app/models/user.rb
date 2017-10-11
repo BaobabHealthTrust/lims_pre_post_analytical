@@ -64,6 +64,17 @@ class User < ApplicationRecord
 
 	end
 
+
+	def self.search_user_by_id(user_id)
+		rst = User.find_by_sql("SELECT * FROM users WHERE users.id='#{user_id}'")
+		if !rst.blank?
+			return rst
+		else
+			return "false"
+		end
+
+	end
+
 	def self.get_users
 		row = User.find_by_sql("SELECT users.staff_id,users.username, users.name AS user_name, users.sex,users.email,users.phoneNumber, user_types.name FROM users 
 								INNER JOIN user_types ON users.user_type_id = user_types.id")		
