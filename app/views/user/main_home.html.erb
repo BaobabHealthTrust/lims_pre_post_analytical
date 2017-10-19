@@ -41,17 +41,17 @@
 					
 						</div>
 						<div class="col-sm-4">
-							<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
-								<h4 style="text-align: center;"> Home</h4>
+							<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+								<h4 style="text-align: center;font-weight: bold"> Home</h4>
 							</div>
 							
 						</div>
 				</div>
 				<div  style="margin-top: 12.8%;">
 					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+						<div class="panel panel-default" style="color: #1c2a48;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
+							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">0 </div>
 						</div>
 					</div>
 
@@ -65,7 +65,7 @@
 							<% else %>
 								<div  class="panel-heading" style="color: #1c2a48; font-weight:bold; text-align: center;"> 
 								  Requested Orders</div>
-								<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">
+								<div class="panel-body" style="color: #1c2a48; font-size: 2em; font-weight:bold; text-align: center;">
 								 <%= @requested_sample %> 
 								</div>
 							<% end %>
@@ -231,7 +231,17 @@
 	</div>
 
 </div>
-		
+
+<div class="footer">
+ 
+  	<span style="float: right;">
+			<button class="btns btn btn-lg btn-danger" 
+	     					id="log_out"
+	     					onmousedown="document.location='/log_out'">
+	     				Log Out
+	    	</button>
+    </span>
+</div>
 
 <script type="text/javascript">
 	

@@ -37,5 +37,14 @@ class UndrawnSample < ApplicationRecord
 		row.destroy()
 	end
 
+	def self.retrive_undrawn_sample(number)
+
+		sample = UndrawnSample.find_by_sql("SELECT * FROM undrawn_samples WHERE tracking_number='#{number}'")
+		if !sample.blank?
+			return sample
+		end
+	
+	end
+
 
 end

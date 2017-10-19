@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get  '/view_user_page_loader' => 'user#view_user_page_loader_handler'
   post '/search_by_username' => 'user#search_user_by_username'
   get  '/search_by_username' => 'user#search_user_by_username'
-  get '/delete_user' => 'user#delete_user'
+  get  '/delete_user' => 'user#delete_user'
+  get  '/log_out' => 'user#log_out'
 
 #dispatch controller routes
   get '/un_dispatched_samples' => 'dispatch_sample#dispatch_sample_main_page_loader_handler'
@@ -21,7 +22,8 @@ Rails.application.routes.draw do
   post '/save_dispatcher_details' => 'dispatch_sample#save_dispatcher_details'
 
 #undrawn samples routes
-  get '/draw' => 'sample_order#draw_sample'
+  post '/draw' => 'sample_order#draw_sample'
+  get  '/draw' => 'sample_order#draw_sample'
 
 # ward controller routes
   get  '/ward_main_page_loader' => 'ward#ward_main_page_loader_handler'
@@ -44,6 +46,8 @@ Rails.application.routes.draw do
 #patient controller routes
   get '/scan_patient_barcode' => 'patient#home_scan_patient_handler'
   get '/scan_patient' => 'patient#scan_patient'
+  get '/search_patient_by_id' => 'patient#search_patient_by_id'
+  get '/search_patient' => 'patient#search_patient_by_id_page_loader_handler'
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'
@@ -69,6 +73,8 @@ Rails.application.routes.draw do
   get  '/result_meausures' => 'sample_order#get_result_measures'
   get  '/request_order' => 'sample_order#order_request_page_loader_handler'
   post '/capture_order_request_details' => 'sample_order#capture_order_request_details'
+  get  '/print_tracking_number' => 'sample_order#print_tracking_number'
+  get '/print' => 'sample_order#print'
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'

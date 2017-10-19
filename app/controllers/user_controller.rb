@@ -1,12 +1,12 @@
 
 class UserController < ApplicationController
-	@@roles = []
+	
 	def form_loader
 		@wards = (Ward::retrieve_wards).pluck(:name)
 	end
 
 	def main_home
-		@role = @@roles
+		@role = session[:roles]
 		@undispatched_sample_count = UndispatchedSample.count_undispatched_samples(session[:ward])
 		@requested_sample = UndrawnSample.count_requested_samples(session[:ward])
 		session[:un_dis_sample] = @undispatched_sample_count
@@ -18,15 +18,20 @@ class UserController < ApplicationController
 		status = User::log_in(params[:user][:username],params[:user][:password])		
 		
 		if status[0] == true
-			@@roles = status[1]			
 			session[:ward] = params[:ward_location]
 			session[:user] = status[2]['id']
+			session[:roles] = status[1]
 		 	redirect_to '/home'
 		else
 		 	redirect_to  '/' , flash: {error: "wrong password or username"}
 		end
 
 		
+	end
+
+	def log_out
+		reset_session
+		redirect_to '/'
 	end
 
 	def add_user

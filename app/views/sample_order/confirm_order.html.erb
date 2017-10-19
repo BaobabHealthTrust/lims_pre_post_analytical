@@ -57,20 +57,24 @@
 				
 					</div>
 					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
-							<h4 style="text-align: center;"> Order Confirmation </h4>
+						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+							<h4 style="text-align: center;font-weight: bold;"> Order Confirmation </h4>
 						</div>
 						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey; padding: 1.5%;">
-							<h4 style="text-align: center;">Blood</h4>
+							<h4 style="text-align: center;">
+								<% if !@order.blank? %>
+									<%= @order['sample_type'] %> 
+								<% end %>
+							</h4>
 
 						</div>
 					</div>
 				</div>
 				<div style="margin-top: 12.8%;">
 					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+						<div class="panel panel-default" style="color: #1c2a48 ;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-							<div class="panel-body" style="font-size: 1em;font-weight:bold; text-align: center;">1000 </div>
+							<div class="panel-body" style="color: #1c2a48;font-size: 1em;font-weight:bold; text-align: center;">0 </div>
 						</div>
 					</div>
 
@@ -97,11 +101,11 @@
 						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
 								<% undispatched_sample_count = session[:un_dis_sample] %>
 								<% if undispatched_sample_count >0 %>
-									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
+									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Undispatched Samples</div>
 									<div class="panel-body" style="font-size: 1em; color:red; font-weight:bold; text-align: center;">
 										<%= undispatched_sample_count %></div>
 								<% else %>
-									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
+									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Undispatched Samples</div>
 									<div class="panel-body" style="font-size: 1em; color:#1c2a48; font-weight:bold; text-align: center;">
 									<%= undispatched_sample_count %></div>
 								<% end %>

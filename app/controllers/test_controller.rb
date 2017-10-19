@@ -10,10 +10,10 @@ class TestController < ApplicationController
 	end
 
 	def add_test_loader_handler
-		id = "100"
+		id = session[:patient_demo]['npid']
     	url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
 		@sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
-		 render :layout => false 		
+	    render :layout => false 		
 	end
 
 

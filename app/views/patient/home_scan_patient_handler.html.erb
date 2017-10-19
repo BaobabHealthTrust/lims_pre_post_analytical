@@ -43,39 +43,51 @@
 					
 						</div>
 						<div class="col-sm-4">
-							<div class="panel panel-default" style="color: red;box-shadow: 10px 10px 5px lightgrey;">
-								<h4 style="text-align: center;"> Patient Identfication</h4>
+							<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
+								<h4 style="text-align: center; font-weight: bold;"> Patient Identfication</h4>
 							</div>
 							
 						</div>
 				</div>
 				<div   style="margin-top: 12.8%;">
 					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px lightgrey;">
+						<div class="panel panel-default" style="color: #1c2a48;box-shadow: 10px 10px 5px lightgrey;">
 							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">1000 </div>
+							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">0 </div>
 						</div>
 					</div>
 
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px lightgrey;">
-							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Samples Not Drawn</div>
-							<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">1000 </div>
+							<% requested_sample = session[:requested_sample] %>
+							<% if requested_sample >0 %>
+								<div  class="panel-heading" style="color: red ; font-weight:bold; text-align: center;">	 
+								  Requested Orders</div>
+								<div class="panel-body" style="color:red; font-size: 2em; font-weight:bold; text-align: center;">
+								 <%= requested_sample %> </div>
+							<% else %>
+								<div  class="panel-heading" style="color: #1c2a48; font-weight:bold; text-align: center;"> 
+								  Requested Orders</div>
+								<div class="panel-body" style="font-size: 2em; font-weight:bold; text-align: center;">
+								 <%= requested_sample %> 
+								</div>
+							<% end %>
+						
 						</div>
 					</div>
 
 					<div class="col-sm-4">
 						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px lightgrey;">
-							<% undispatched_sample_count = session[:un_dis_sample] %>
-									<% if undispatched_sample_count >0 %>
-										<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Samples Not dispatched</div>
-										<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
-											<%= undispatched_sample_count %></div>
-									<% else %>
-										<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Not dispatched</div>
-										<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
+								<% undispatched_sample_count = session[:un_dis_sample] %>
+								<% if undispatched_sample_count >0 %>
+									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Undispatched Samples</div>
+									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
 										<%= undispatched_sample_count %></div>
-									<% end %>
+								<% else %>
+									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Undispatched Samples</div>
+									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
+									<%= undispatched_sample_count %></div>
+								<% end %>
 
 						</div>
 					</div>
@@ -119,8 +131,8 @@
  <span style="float: right;">
 			<button class="btn btns btn-lg btn-info" 
 	     					id="log_out"
-	     					onmousedown="document.location= '<%= @location %>' ">
-	     				Enter Patient Id
+	     					onmousedown="document.location='/search_patient' ">
+	     				Search Patient by Id
 	    	</button>
 	    	<button class="btn btns btn-lg btn-danger" 
 	     					id="log_out"

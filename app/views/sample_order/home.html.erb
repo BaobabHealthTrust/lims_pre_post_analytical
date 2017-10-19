@@ -29,7 +29,6 @@
 	<%= select_tag(:sample_type,  nil, 
 		:helpText=> "Select Sample Type", 
 		:tt_requireNextClick =>true,
-		:ajaxUrl => "",
 		:tt_pageStyleClass=>"NoKeyboard",
 		:tt_onLoad => "retrive_lab_catlog($('target_lab').value)",
 		:id => "selected_sample"
@@ -37,6 +36,7 @@
 	<%= select_tag 'test[]', nil, 
 		:helpText=> "Select Test(s)", 
 		:multiple =>"multiple",
+		:tt_pageStyleClass=>"NoKeyboard",
 		:tt_onLoad => "retrive_sample_test_types($('selected_sample').value)",
 		:tt_pageStyleClass => ""
 	    %><br>	

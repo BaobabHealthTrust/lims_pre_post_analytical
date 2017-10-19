@@ -1,0 +1,8 @@
+
+<%= form_tag("/search_patient_by_id", id: "login_form", method: 'get', enctype: 'multipart/form-data') do %>
+
+	<%= text_field(:patient,:npid, :helpText => "Patient NPID", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+	
+<%end%>
