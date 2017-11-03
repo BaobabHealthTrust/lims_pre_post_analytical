@@ -1,0 +1,80 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
+	<div style="margin-left: 1%;color: white;text-shadow: 2px 2px 4px #000000;">	
+		<h1>
+			LIMS Order Entry
+			<span  style="float: right;">
+				<input type="button" value="log Out" class="btn btn-lg btn-danger" onmousedown="document.location='/user/tab_log_in'">
+			</span>
+		</h1>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto; 
+		">
+			
+			<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 5%;background">
+				<% counter =1 %>
+				
+				<% @role.each do |r| %>
+					<% given_role = r.split("_")[1] %>
+					<% role = r.split("_")[0] %>
+
+					<% if role == "view order results" %>
+						<% location = "/tab_patient_search_option?option='+'view_results" %>
+						<% image = image_tag("extras/search.png") %>
+
+						<div>
+							
+								<div id="order_test" style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;" 
+										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
+										
+									<span style="float: right;"> <%= role %>
+										<%= image %>
+									</span>											
+								</div>
+						
+
+					<% elsif role == "request order" %>
+						<% location = "/tab_patient_search_option?option='+'request_order" %>
+						<% image = image_tag("extras/dispa.png") %>
+
+								<div style="background-color: #1c2a48; cursor: pointer; margin-bottom: 15px; color:white; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
+												class= "button col-sm-offset-1 col-sm-5 btn btn-lg "
+												onmousedown="document.location='<%= location %>';">
+													
+									<span style="float: right;"> <%= role %>
+										<%= image %>
+									</span>
+								</div>	
+						</div>	
+
+					<% end %>
+
+				<% end %>
+				<% counter = 1 %>		
+
+			</div>
+
+
+		</div>
+	</div>
+
+</div>
+

@@ -162,14 +162,18 @@
 	    <button class="btn btns btn-lg btn-danger"	id="log_out" onmousedown="document.location='/home'">
 	     	Cancel
 	   	</button>
-	   	 <button class="btn btns btn-lg btn-primary"	id="log_out" 
+	   	 <button class="btn btns btn-lg btn-success"	id="log_out" 
+	   	 	onmousedown="document.location='/draw?tracking_number='+'<%= numbers.to_s %>'+'&option='+'all'";>
+	     	Drawn
+	   	</button>
+	   	<button class="btn btns btn-lg btn-primary"	id="log_out" 
 	   	 	onmousedown="document.location='/draw?tracking_number='+'<%= numbers.to_s %>'+'&option='+'all'";>
 	     	Draw All
 	   	</button>
 		<button class="btns btn btn-lg btn-danger" 
 	     					id="log_out"
 	     					onmousedown="document.location='/'">
-	     				Log Out
+	     	Log Out
 	    	</button>
     </span>
 </div>

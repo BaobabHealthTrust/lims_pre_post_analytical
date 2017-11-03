@@ -83,8 +83,71 @@ class PatientController < ApplicationController
 		
 	end
 
+	def tab_search_patient_by_npid_loader
+		render :layout => false
+	end
+
+	def tab_patient_search_option
+		@option = params[:option]
+		render :layout => false
+	end
+
+
 	def search_patient_by_id_page_loader_handler
 
+	end
+
+	def search_patient_by_name
+		name = params[:name]
+		name = name.split(" ")
+		gender = params[:gender]
+		token = File.read("#{Rails.root}/tmp/token")
+		api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+    	api_url =  YAML.load_file("#{Rails.root}/config/dde3.yml")[Rails.env]
+    	patients = []
+    	counter = 0
+    	if token.present?
+		 	request = "#{api_url['dde_url']}#{api_resources['get_patient_by_name']}"
+		 	dat = {
+			    		"given_name": name[0],
+			    		"family_name": name[1],
+			    		"gender": gender,
+			    		"token": token
+			    		}
+
+			res = JSON.parse(RestClient.post(request,dat.to_json, :content_type => 'application/json')) rescue nil
+			
+			if !res.blank? && res['status'] == 200
+				res['data']['hits'].each do |patient|
+					details = []
+					name = patient['names']['given_name'].to_s+" "+patient['names']['family_name'].to_s
+					gender = patient['gender']
+					birthdate = patient['birthdate']
+					home_district = patient['addresses']['home_district']
+					
+					details[0] = name
+					details[1] = gender
+					details[2] = birthdate
+					details[3] = home_district
+					details[4] = patient['_id']
+					patients[counter] = details
+					counter = counter + 1
+				end
+
+
+				render :json => patients.to_json
+			else
+				render plain: res.to_json
+			end
+
+		else
+			render plain: "wronged".to_json
+		end
+    	
+	end
+
+	def tab_search_patient_by_name
+		render :layout => false
 	end
 
 	def search_patient_by_id

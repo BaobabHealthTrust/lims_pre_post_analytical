@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 # user controller routes 
   post '/login' => 'user#log_in_handler'
   get  '/home' => 'user#main_home'
-  get  '/' => 'user#form_loader'
+  get  '/' => 'user#device_selector'
   get  '/view_settings' => 'user#settings_event_handler'
   get  '/add_user_page_loader' => 'user#add_user_page_loader_handler'
   post '/add_user' => 'user#add_user'
@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   get  '/search_by_username' => 'user#search_user_by_username'
   get  '/delete_user' => 'user#delete_user'
   get  '/log_out' => 'user#log_out'
+  get  'user/tab_home_page_loader'
+  get  'user/tab_log_in'
+  get  'user/form_loader'
+
 
 #dispatch controller routes
   get '/un_dispatched_samples' => 'dispatch_sample#dispatch_sample_main_page_loader_handler'
@@ -48,6 +52,10 @@ Rails.application.routes.draw do
   get '/scan_patient' => 'patient#scan_patient'
   get '/search_patient_by_id' => 'patient#search_patient_by_id'
   get '/search_patient' => 'patient#search_patient_by_id_page_loader_handler'
+  get '/tab_patient_search_option' => 'patient#tab_patient_search_option'
+  get '/tab_search_patient_by_name' => 'patient#tab_search_patient_by_name'
+  post '/get_patient_details' => 'patient#search_patient_by_name'
+  get  '/search_patient_by_npid' => 'patient#tab_search_patient_by_npid_loader'
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'
@@ -74,7 +82,9 @@ Rails.application.routes.draw do
   get  '/request_order' => 'sample_order#order_request_page_loader_handler'
   post '/capture_order_request_details' => 'sample_order#capture_order_request_details'
   get  '/print_tracking_number' => 'sample_order#print_tracking_number'
-  get '/print' => 'sample_order#print'
+  get  '/print' => 'sample_order#print'
+  get  '/get_patient_results' => "sample_order#tab_view_sample_results"
+  get  '/tab_view_individual_results' => "sample_order#tab_view_individual_sample_test_results"
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'
@@ -88,6 +98,9 @@ Rails.application.routes.draw do
   get  '/orders' => 'test#add_test_loader_handler'
   get  '/adding_test' => 'test#add_test_to_sample_loader_handler'
   post '/add_test_to_sample' => 'test#add_test_to_sample'
+
+
+
 
 #system point of starting
   root 'user#form_loader'

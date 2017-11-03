@@ -13,5 +13,6 @@
 "authenticate": '/v1/authenticate',
 "create_user" : '/v1/add_user',
 "get_patient" : '/v1/search_by_identifier', 
-"validate_token": '/v1/authenticated'
+"validate_token": '/v1/authenticated',
+"get_patient_by_name": '/v1/search_by_name_and_gender'
 }

@@ -113,24 +113,32 @@
 
 					<% if role == "order test" %>
 						<% location = "/scan_patient_barcode?option='+'order_test" %>
+						<% image = image_tag("extras/tubes-icon.png") %>
 
 					<% elsif role == "view order results" %>
 						<% location = "/scan_patient_barcode?option='+'view_results" %>
+						<% image = image_tag("extras/search.png") %>
 
 					<% elsif role == "dispatch sample" %>
 						<% location = "/un_dispatched_samples"%>
+						<% image = image_tag("extras/dispa.png") %>
 
 					<% elsif role == "request order" %>
 						<% location = "/scan_patient_barcode?option='+'request_order" %>
+						<% image = image_tag("extras/dispa.png") %>
 
 					<% elsif role == "add test" %>
 						<% location = "/scan_patient_barcode?option='+'add_test_to_order" %>
+						<% image = image_tag("extras/add1.png") %>
 
 					<% elsif role == "draw sample" %>
 						<% location = "/draw_sample" %>
+						<% image = image_tag("extras/add1.png") %>
 
 					<% elsif role == "system settings" %>
 						<% location = "/view_settings" %>
+						<% image = image_tag("extras/se.png") %>
+
 					<% end %>
 
 				    <% if given_role == "yes" %> 
@@ -142,7 +150,7 @@
 										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
 										
 										<span style="float: right;"> <%= role %>
-																 <%= image_tag("extras/order_test.png") %>
+																 <%= image %>
 										</span>
 											
 									</div>
@@ -153,7 +161,7 @@
 												class= "button col-sm-offset-1 col-sm-5 btn btn-lg "
 												onmousedown="document.location='<%= location %>';">
 													<span style="float: right;"><%= role %>
-																	 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 											</span>
 									</div>	
 										
@@ -166,7 +174,7 @@
 									<div style="background-color: #1c2a48; cursor: pointer;margin-bottom: 10px; color:white;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
 											class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
 											<span style="float: right;"><%=role %>
-																 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 											</span>
 									</div>
 								</div>
@@ -181,7 +189,7 @@
 											class="button col-sm-offset-1 col-sm-5 btn btn-lg "
 											 onmousedown="document.location='<%= location %>';">
 											<span style="float: right;"><%=role %>
-																 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 											</span>
 										</div>			
 									
@@ -192,7 +200,7 @@
 									<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
 										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
 										<span style="float: right;"><%= role %>
-															 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 										</span> 
 									</div>
 							<% end %>
@@ -202,7 +210,7 @@
 											class="button col-sm-offset-1 col-sm-5 btn btn-lg  "
 											onmousedown="document.location='<%= location %>';">
 											<span style="float: right;"><%= role %> 
-																 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 										</span>
 										</div>				
 								</div>
@@ -212,10 +220,10 @@
 						
 						<% elsif counter == 7 %>	
 								<div>
-										<div style="background-color: red; cursor: pointer; color:black;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
+										<div style="background-color: #1c2a48; cursor: pointer; color:white;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
 											class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
 											<span style="float: right;"><%= role %>
-																 <%= image_tag("extras/order_test.png") %>
+																<%= image %>
 											</span>
 										</div>
 								</div>			

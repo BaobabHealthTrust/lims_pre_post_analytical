@@ -249,7 +249,7 @@ class SampleOrderController < ApplicationController
               
             end
           result_measuers[test] = details
-          session[:rs] =  result_measuers[test]
+          session[:rs] =  result_measuers
           @test_status[test] = "available"
           details = []
           end           
@@ -259,9 +259,54 @@ class SampleOrderController < ApplicationController
       
 	end
 
+  def tab_view_individual_sample_test_results
+    results = @@sample_results_glo
+    @id = params[:id].split('_')[1]
+    result_measuers = {} 
+    details = []
+    @test_status = {}
+    results.each do |rst|
+        next if rst['_id'] != @id
+        @test_types = rst['results'].keys
+
+        @test_types.each do |test|
+
+          if rst['results'][test].length < 5
+
+            result_measuers[test] = {"measure_name" => "null","result" => "null"}
+            @test_status[test] = "not available"
+          elsif rst['results'][test].length >= 5
+            results = rst['results'][test].keys
+            results = results[4]
+            
+            rst['results'][test][results]['results'].each do |s|
+
+              details.push({"measure_name" => s[0],"result" => s[1]})
+              
+            end
+          result_measuers[test] = details
+          session[:rs] =  result_measuers
+          @test_status[test] = "available"
+          details = []
+          end           
+        end
+
+        render :layout => false 
+    end
+  end
+
+  def tab_view_sample_results
+      id = params[:id];
+      url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
+
+      @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
+      @@sample_results_glo =  @sample_results
+      render :layout => false 
+  end
+
   def get_result_measures
     test_type = params[:type]
-    measures = session[:rs]
+    measures = session[:rs][test_type]
     render :json => measures.to_json    
   end
 	

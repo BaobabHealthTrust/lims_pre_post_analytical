@@ -15,19 +15,55 @@ class UserController < ApplicationController
 	end
 
 	def log_in_handler
-		status = User::log_in(params[:user][:username],params[:user][:password])		
-		
-		if status[0] == true
+		if params.key?(:user)
+			username = params[:user][:username].downcase
+			password = params[:user][:password].downcase
+			status = User::log_in(username,password)	
+			
+			if status[0] == true
 			session[:ward] = params[:ward_location]
 			session[:user] = status[2]['id']
-			session[:roles] = status[1]
-		 	redirect_to '/home'
-		else
-		 	redirect_to  '/' , flash: {error: "wrong password or username"}
-		end
+			session[:roles] = status[1]			
+			 	redirect_to '/home'			 
+			else
+			 	redirect_to  '/' , flash: {error: "wrong password or username"}
+			end		
 
-		
+		else
+			username =  params[:username].downcase
+			password =  params[:password].downcase
+			status = User::log_in(username,password)	
+			
+			if status[0] == true
+			session[:ward] = params[:ward_location]
+			session[:user] = status[2]['id']
+			session[:roles] = status[1]			
+			 	redirect_to  :action => 'tab_home_page_loader'
+			else
+			 	redirect_to  '/' , flash: {error: "wrong password or username"}
+			end		
+		end	
 	end
+
+	def device_selector
+
+		render :layout => false
+	end
+
+	def tab_log_in
+		@wards = (Ward::retrieve_wards).pluck(:name)
+		render :layout => false
+
+	end
+
+	def tab_home_page_loader
+	
+		@role = session[:roles]
+
+		render :layout => false	
+
+	end
+
 
 	def log_out
 		reset_session

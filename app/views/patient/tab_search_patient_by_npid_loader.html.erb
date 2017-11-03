@@ -1,0 +1,241 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
+	<div style="margin-left: 1%;color: white;text-shadow: 2px 2px 4px #000000;">	
+		<h1>
+			LIMS Order Entry
+			<span  style="float: right;font-weight: bold;">
+				<input type="button" value="<| back" class="btn btn-lg btn-success" onmousedown="document.location='user/tab_home_page_loader'">
+				<input type="button" value="log Out" class="btn btn-lg btn-danger" onmousedown="document.location='/user/tab_log_in'">
+
+			</span>
+		</h1>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+
+		<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 3%;background">
+					
+			<div class="col-sm-offset-2 col-sm-10 col-sm-offset-1">	
+							
+				<div class="col-sm-offset-2 col-sm-8">
+					<label>Enter National Patient Id:</label>
+					<input id="npid" style="width: 100%;" type="text" name="patient_name" 
+						   placeholder="enter national patient id" class="input">
+				</div>
+			</div>
+		</div>
+
+		<div id="patients_table" class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top:2%;display: none;">
+				<table class="table table-striped" id="patients">
+					<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
+						<th>Id</th>	<th>Name</th> <th> Gender</th> <th>Birthdate</th> <td>Address</td>
+  					</tr>
+				</table>
+		</div>
+
+		</div>
+	</div>
+
+</div>
+
+
+<div id="keypad">
+		<span class="keypad">
+		</span>
+</div>
+
+
+<script type="text/javascript">	
+
+	var inpt = document.getElementById("npid");
+	inpt.setAttribute("onclick","pop_keyboard()");
+
+	function pop_keyboard()
+	{   showKeyboardX();
+	}
+
+	keyboard = document.getElementsByClassName("keypad")[0];
+	showAlphaKeypad();
+
+	function showKeyboardX(){
+        key = document.getElementById("keypad")
+        if(key.style.display == 'none' || key.style.display == ""){
+            key.style.display = "inline";
+            return
+        }
+
+        key.style.display = "none";
+    }
+
+function load_page(id)
+{
+	document.location = '/get_patient_results?id='+id;
+}
+function searchPatientByNPID(id)
+{  
+	document.location ='/get_patient_results?id='+id;
+}
+
+function getCharButtonSetID(character,id){
+  return '<button onMouseDown="press(\''+character+'\');" class="keyboardButton button blue" id="'+id+'">' +"<span style='width:32px'>"+character+"</span>"+ "</button>";
+}
+
+function getButtonString(id,string){
+  if (id == "Space"){
+    id = "Whitespace";
+  }
+  return "<button onMouseDown='press(this.id);' class='keyboardButton' id='"+id+"'>"+string+"</button>";
+}
+
+function getButtons(chars){
+  var buttonLine = "";
+  for(var i=0; i<chars.length; i++){
+    character = chars.substring(i,i+1);
+    buttonLine += getCharButtonSetID(character,character)
+  }
+  return buttonLine;
+}
+
+function press(pressedChar){
+	var txt = document.getElementById("npid");
+  switch (pressedChar) {
+    case 'backspace':
+      txt.value = txt.value.substring(0,txt.value.length-1);
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'Whitespace':
+      txt.value+= " ";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'clear':
+      txt.value = "";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'search':
+    	var npid = txt.value;
+    	searchPatientByNPID(npid);
+    	document.getElementById("keypad").style.display = "none";
+    	document.getElementsByClassName("keypad").style.display = "none";
+    	
+    case 'num':
+      showNumericKeypad();
+      return;
+    case 'slash':
+      txt.value+= "/";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'dash':
+      txt.value+= "-";
+       datatable.fnFilter(txt.value).draw();
+      return;
+    case 'abc':
+      showAlphaKeypad();
+      return
+  }
+  
+  txt.value+= pressedChar;
+  datatable.fnFilter(txt.value).draw();
+}
+
+function showNumericKeypad(){
+  document.getElementById("keypad").style.height = "145";
+  keyboard.innerHTML = getButtons("123");
+  keyboard.innerHTML+= getButtons("456");
+  keyboard.innerHTML+= getButtons("7890");
+  keyboard.innerHTML+= getButtonString('space','<span>Space</span>');
+  keyboard.innerHTML+= getButtonString('clear','<span>Clear</span>');
+  keyboard.innerHTML+= getButtonString('backspace','<span>Bksp</span>');
+  keyboard.innerHTML+= getButtonString('abc','<span>abc</span>');
+  keyboard.innerHTML+= getButtonString('dash','<span>-</span>');
+  keyboard.innerHTML+= getButtonString('slash','<span>/</span>');
+}
+
+function showAlphaKeypad(){
+  document.getElementById("keypad").style.height = "290 !important";  
+  keyboard.innerHTML= getButtons("0123456789") + "</br>";
+  keyboard.innerHTML+= getButtons("QWERTYUIOP") + "</br>";
+  keyboard.innerHTML+= getButtons("ASDFGHJKL:") + "</br>";
+  keyboard.innerHTML+= getButtons("ZXCVBNM,.?");
+  keyboard.innerHTML+= getButtonString('backspace','<span>Bksp</span>');
+  keyboard.innerHTML+= getButtonString('Space','<span>Space</span>');
+  keyboard.innerHTML+= getButtonString('clear','<span>Clear</span>');
+  keyboard.innerHTML+= getButtonString('search','<span>Search</span>');
+}
+
+
+</script>
+
+
+
+<style type="text/css">
+	
+     #keypad{
+        background-color: #FFFFFF;
+        border: 2px solid #9999FF;
+        border-radius: 15px 15px 15px 15px;
+        display: none;
+        height: 40%;
+        padding: 1%;
+        position: absolute;
+        right: 32%;
+        top: 38%;
+        width: 45%;
+        opacity: 1;
+    }
+
+	#backspace{
+	  position:absolute;
+	  left:5%;
+	  bottom:2%;
+	}
+
+	#whitespace{
+	  position:absolute;
+	  left:20%;
+	  bottom:2%;
+	  width:50%;
+	}
+
+	#clear{
+	  position:absolute;
+	  left:75%;
+	  bottom:2%;
+	}
+
+
+	#search{
+	  position:absolute;
+	  left:87%;
+	  bottom:2%;
+	  font-weight: bold;
+	  color:black;
+	  width: 12%;
+	  background-color: green !important;
+	}
+
+	.keyboardButton{
+		background: -moz-linear-gradient(right,#2193b0,#6dd5ed); 	
+		width: 10%;
+		height: 13%;
+    }
+
+
+
+</style>

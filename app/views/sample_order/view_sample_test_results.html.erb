@@ -151,8 +151,8 @@
 								<button class="btn btn-lg btn-info" 
 									onmousedown="document.location='/view_individual_test_results?id='+this.id"
 									id="<%= 'btn' + '_' + result['_id'].to_s %>">
-								View</button>
-								<button class="btn btn-lg btn-success">Print</button>
+								view</button>
+								<button class="btn btn-lg btn-success"><%= image_tag("extras/print.png") %></button>
 							</td>
 						</tr>
 					<%end%>
@@ -187,7 +187,6 @@
 	</span>   			  
 			   
 </div>
-
 
 
 <script type="text/javascript">
