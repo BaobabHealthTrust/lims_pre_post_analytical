@@ -88,7 +88,8 @@ class PatientController < ApplicationController
 	end
 
 	def tab_patient_search_option
-		@option = params[:option]
+		session[:tab_option] = params[:option]
+
 		render :layout => false
 	end
 
@@ -106,6 +107,7 @@ class PatientController < ApplicationController
     	api_url =  YAML.load_file("#{Rails.root}/config/dde3.yml")[Rails.env]
     	patients = []
     	counter = 0
+    	pat = {}
     	if token.present?
 		 	request = "#{api_url['dde_url']}#{api_resources['get_patient_by_name']}"
 		 	dat = {
@@ -131,9 +133,10 @@ class PatientController < ApplicationController
 					details[3] = home_district
 					details[4] = patient['_id']
 					patients[counter] = details
+					pat[details[4]] = details
 					counter = counter + 1
 				end
-
+				session[:tab_patients] = pat
 
 				render :json => patients.to_json
 			else

@@ -16,6 +16,19 @@ class TestController < ApplicationController
 	    render :layout => false 		
 	end
 
+	def tab_select_test
+		details = []
+		sample_type = params[:sample]
+		r_facility = params[:rec_lab]
+		details[0] = sample_type
+		details[1] = r_facility
+		session[:lab_sample] = details
+		dat = SampleOrderController.retrieve_lab_catalog(r_facility)
+		@test_types = dat["lab_cat"][sample_type]
+		
+		render :layout => false
+	end
+
 
 	def add_test_to_sample_loader_handler
 		@@trac_number = params[:trac_id]

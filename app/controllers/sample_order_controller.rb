@@ -1,10 +1,10 @@
 class SampleOrderController < ApplicationController
 
-	def home
-	   
-	end
+  def home
+     
+  end
 
-	def capture_order_details
+  def capture_order_details
     tests = params[:test]
     tests = tests.delete_if(&:empty?)
     patient = session[:patient_demo]
@@ -24,23 +24,23 @@ class SampleOrderController < ApplicationController
       first_name = who_order_test[0]
     end
 
-		order = {   	
-					"district": district,
-					"health_facility_name": config['facility_name'],
-					"first_name": patient_name[0],
+    order = {     
+          "district": district,
+          "health_facility_name": config['facility_name'],
+          "first_name": patient_name[0],
           "last_name": patient_name[1],
           "middle_name": " ",
           "date_of_birth": patient["birthdate"] || nil,
           "gender": patient['gender'],
           "national_patient_id": patient['npid'],
-					"requesting_clinician": params[:clinician][:name],
-					"sample_type": params[:sample_type],
-					"tests": tests,
-					"date_sample_drawn": Time.now.strftime("%Y%m%d%H%M%S"),
-					"sample_priority": params[:priority],
-					"target_lab": params[:target_lab],
-					"reason_for_test": params[:priority],					
-					"sample_collector_last_name": first_name || nil,
+          "requesting_clinician": params[:clinician][:name],
+          "sample_type": params[:sample_type],
+          "tests": tests,
+          "date_sample_drawn": Time.now.strftime("%Y%m%d%H%M%S"),
+          "sample_priority": params[:priority],
+          "target_lab": params[:target_lab],
+          "reason_for_test": params[:priority],         
+          "sample_collector_last_name": first_name || nil,
           "sample_collector_first_name": last_name || nil,
           "sample_collector_phone_number": '',
           "sample_collector_id": '',
@@ -50,14 +50,14 @@ class SampleOrderController < ApplicationController
           "date_dispatched": "",
           "date_received":  "",             
           "return_json": 'true'
-				}
+        }
 
-		session[:order] = order
-		
-		return redirect_to '/confirm_order'
+    session[:order] = order
+    
+    return redirect_to '/confirm_order'
 
-	end
-	
+  end
+  
   def capture_order_request_details
     tests = params[:test]
     tests = tests.delete_if(&:empty?)
@@ -110,14 +110,72 @@ class SampleOrderController < ApplicationController
    submite_order_request(order)
    redirect_to "/scan_patient_barcode?option=request_order"
   end
+
+
+  def tab_submite_order_request
+    test = params[:test]
+    sample_type = session[:lab_sample][0]
+    lab = session[:lab_sample][1]
+    patient = session[:tab_patients] 
+
+    tests = test.split(",")
+    tests = tests.delete_if(&:empty?)
+
+    patient_name = patient[0].split(" ")
+    curnt_user = User.search_user_by_id(session[:user])
+    if !curnt_user.blank?
+       requesting_clinician =  curnt_user[0]['name']
+    end
+    config = YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]
+    district =  config['district']
+        
+     who_order_test = requesting_clinician.split(" ")
+    if who_order_test.length > 1
+      first_name = who_order_test[0]
+      last_name = who_order_test[1]
+    elsif  who_order_test.length == 1
+      first_name = who_order_test[0]
+    end
+    order = {     
+          "district": district,
+          "health_facility_name": config['facility_name'],
+          "first_name": patient_name[0],
+          "last_name": patient_name[1],
+          "middle_name": " ",
+          "date_of_birth": patient[2] || nil,
+          "gender": patient[1],
+          "national_patient_id": patient[4],
+          "requesting_clinician": requesting_clinician || nil,
+          "sample_type": sample_type,
+          "tests": tests,
+          "date_sample_drawn": "",
+          "sample_priority": "",
+          "target_lab": lab,
+          "reason_for_test": "",         
+          "sample_collector_last_name": first_name || nil,
+          "sample_collector_first_name": last_name || nil,
+          "sample_collector_phone_number": '',
+          "sample_collector_id": '',
+          "sample_order_location": session[:ward],
+          "tracking_number": "",
+          "status": "not drawn",
+          "art_start_date": "",
+          "date_dispatched": "",
+          "date_received": "",             
+          "return_json": 'true'
+        }
+
+     submite_order_request(order)
+
+  end
   
 
-	def confirm_order
+  def confirm_order
     @order = session[:order]
     render :layout => false 
-	end
+  end
 
-	def submite_order
+  def submite_order
     order = session[:order]
     name = order[:sample_collector_first_name].to_s+" "+ order[:sample_collector_last_name].to_s
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
@@ -130,9 +188,9 @@ class SampleOrderController < ApplicationController
     session[:un_dis_sample] = session[:un_dis_sample] + 1
     print_and_redirect("/print_tracking_number?tracking_number="+dat['tracking_number'].to_s+"&col_name="+name.to_s+"&sample="+order[:sample_type].to_s+"&priority="+order[:sample_priority].to_s,"/scan_patient_barcode?option=order_test")
      
-		session.delete(:order)
+    session.delete(:order)
   
-	end
+  end
 
   def submite_order_request(order_requested)
         order = order_requested    
@@ -158,6 +216,12 @@ class SampleOrderController < ApplicationController
       lab = params[:lab]
       cat =  SampleOrderController.retrieve_lab_catalog(lab) 
       render plain: cat["samples"].collect{|l| "<li>"+ l}.join("<li>")+"</li>"
+  end
+
+  def get_sample
+    lab = params[:lab]
+    cat =  SampleOrderController.retrieve_lab_catalog(lab) 
+    render :json => cat["samples"]
   end
 
   def get_test_types
@@ -189,6 +253,7 @@ class SampleOrderController < ApplicationController
       )  
   end
 
+
   def print
       require 'auto12epl.rb'
       tracking_number = params[:tracking_number]
@@ -214,18 +279,18 @@ class SampleOrderController < ApplicationController
       )  
   end
 
-	def view_sample_test_results
+  def view_sample_test_results
     id = session[:patient_demo]['npid']
     url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
 
     @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
     @@sample_results_glo =  @sample_results
-	  render :layout => false 
-	end
+    render :layout => false 
+  end
 
-	def view_individual_sample_test_results
-  	results = @@sample_results_glo
-		@id = params[:id].split('_')[1]
+  def view_individual_sample_test_results
+    results = @@sample_results_glo
+    @id = params[:id].split('_')[1]
     result_measuers = {} 
     details = []
     @test_status = {}
@@ -257,7 +322,7 @@ class SampleOrderController < ApplicationController
         render :layout => false 
     end
       
-	end
+  end
 
   def tab_view_individual_sample_test_results
     results = @@sample_results_glo
@@ -304,39 +369,48 @@ class SampleOrderController < ApplicationController
       render :layout => false 
   end
 
+  def tab_request_sample
+    id = params[:id]
+    session[:tab_patients] = session[:tab_patients][id]
+
+    render :layout => false
+  end
+
   def get_result_measures
     test_type = params[:type]
     measures = session[:rs][test_type]
     render :json => measures.to_json    
   end
-	
-	def view_sample_to_add_new_test_handler
+  
+  def view_sample_to_add_new_test_handler
 
-	end
+  end
 
-	def view_sample_test_handler
+  def view_sample_test_handler
 
-	end
+  end
 
-	def draw_sample_handler
+  def draw_sample_handler
     @samples = UndrawnSample.retrieve_requested_samples(session[:ward])
     render :layout => false
-	end
+  end
 
-  def draw_sample
+  
+  
+
+  def print_sample
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
     request = "#{api_url['central_repo']}#{api_resources['update']}"
     tracking_number = params[:tracking_number] 
     option = params[:option]
 
-    if option != "all"
-  
-      data = {
-        "sample_status": "Drawn",
-        "_id": tracking_number
-      }
-        res = RestClient.post(request,data.to_json, :content_type => 'application/json')    
+    if session[:b_drawn].blank?
+      session[:b_drawn] = tracking_number
+    else
+      session[:b_drawn] = session[:b_drawn] +"_"+ tracking_number      
+    end
+
         sample =  UndrawnSample.retrive_undrawn_sample(params[:tracking_number])
         sample_type = sample[0]['sample_type']
         order_priority = "stat"               
@@ -346,45 +420,69 @@ class SampleOrderController < ApplicationController
         age = 0
         dob = sample[0]['date_of_birth']
         col_name = sample[0]['requested_by']
-        session[:requested_sample] = session[:requested_sample] - 1
-        UndrawnSample.remove_sampl(tracking_number)
         print_and_redirect("/print?tracking_number="+tracking_number.to_s+"&name="+name.to_s+"&npid="+npid.to_s+"&gender="+gender.to_s+"&age="+age.to_s+"&dob="+dob.to_s+"&col_name="+col_name.to_s+"&sample="+sample_type.to_s,"/draw_sample")
-    
-    elsif option == "all"
-      tracking_numbers = eval(tracking_number)
-
-      tracking_numbers.each do |tracking_number|
-        data = {
-        "sample_status": "Drawn",
-        "_id": tracking_number
-        }
-        res = RestClient.post(request,data.to_json, :content_type => 'application/json')    
-        sample =  UndrawnSample.retrive_undrawn_sample(tracking_number)
-        sample_type = sample[0]['sample_type']
-        order_priority = "stat"              
-        name = sample[0]['patient_name']
-        npid = sample[0]['patient_id']
-        gender = sample[0]['patient_gender']
-        age = 0
-        dob = sample[0]['date_of_birth']
-        col_name = sample[0]['requested_by']
-        session[:requested_sample] = session[:requested_sample] - 1
-        UndrawnSample.remove_sampl(tracking_number)
-        print_and_redirect("/print?tracking_number="+tracking_number.to_s+"&name="+name.to_s+"&npid="+npid.to_s+"&gender="+gender.to_s+"&age="+age.to_s+"&dob="+dob.to_s+"&col_name="+col_name.to_s+"&sample="+sample_type.to_s,"/draw_sample")
-    
-      end
-    end
+ 
 
       
   end
-	
+  
+  def draw_sample
+    samples =  params[:samples]
+    samples = samples.split(",");
+
+    api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+    api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
+    request = "#{api_url['central_repo']}#{api_resources['update']}"
+    tracking_number = params[:tracking_number] 
+    option = params[:option]
+
+    samples.each do |sample|
+      data = {
+        "sample_status": "Drawn",
+        "_id": sample
+      }
+
+
+       sampl =  UndrawnSample.retrive_undrawn_sample(sample)
+        sample_type = sampl[0]['sample_type']
+        order_priority = "stat"               
+        name = sampl[0]['patient_name']
+        npid = sampl[0]['patient_id']
+        gender = sampl[0]['patient_gender']
+        age = 0
+        dob = sampl[0]['date_of_birth']
+        col_name = sampl[0]['requested_by']
+        ward = sampl[0]['order_location']
+        date_requested = sampl[0]['date_requested']
+
+        UndispatchedSample.capture_sample(sample,sample_type,npid,name,date_requested,gender,"KCH",ward)
+        session[:un_dis_sample] = session[:un_dis_sample] + 1
+        res = RestClient.post(request,data.to_json, :content_type => 'application/json')    
+        session[:requested_sample] = session[:requested_sample] - 1
+        UndrawnSample.remove_sampl(sample)
+        session.delete(:b_drawn)
+    end
+    redirect_to "/draw_sample"
+  end
+
+
+  def get_samples_to_be_drawn
+    render plain: session[:b_drawn]
+  end
+
+  def 
+
+  def scan_undrawn_samples_loader
+    render  :layout => false
+  end
+
+
   def order_request_page_loader_handler
 
   end
 
 
 end
-
 
 
 

@@ -123,7 +123,9 @@
 						<% if !@samples.blank? %>
 						<% numbers = [] %>
 						<% counter = 0 %>				
+						
 							<% @samples.each do |sample| %>
+								<% data = "" %>
 								<tr id="tr<%= sample['tracking_number'] %>" >
 									<td><%= sample['tracking_number'] %></td>
 									<td><%= sample['sample_type'] %></td>
@@ -134,7 +136,9 @@
 									<td><%= sample['date_requested'] %></td>
 									<td><%= sample['requested_by'] %></td>
 									<td>
-										<button id="<%= sample['tracking_number'].to_s %>" class="btn btn-lg btn-primary" onmousedown="document.location='/draw?tracking_number='+this.id;"> draw</button>
+										<button id="<%= sample['tracking_number'].to_s %>" class="btn btn-lg btn-primary" 
+										onclick="document.location='/print_sample?tracking_number='+this.id;"> print</button>
+
 									</td>
 								</tr>	
 								<% numbers[counter] = sample['tracking_number'] %>
@@ -162,13 +166,10 @@
 	    <button class="btn btns btn-lg btn-danger"	id="log_out" onmousedown="document.location='/home'">
 	     	Cancel
 	   	</button>
-	   	 <button class="btn btns btn-lg btn-success"	id="log_out" 
-	   	 	onmousedown="document.location='/draw?tracking_number='+'<%= numbers.to_s %>'+'&option='+'all'";>
-	     	Drawn
-	   	</button>
+	 
 	   	<button class="btn btns btn-lg btn-primary"	id="log_out" 
-	   	 	onmousedown="document.location='/draw?tracking_number='+'<%= numbers.to_s %>'+'&option='+'all'";>
-	     	Draw All
+	   	 	onmousedown="check()">
+	     	Samples Drawn
 	   	</button>
 		<button class="btns btn btn-lg btn-danger" 
 	     					id="log_out"
@@ -180,6 +181,85 @@
 
 
 <script type="text/javascript">	
+
+	function get_samples()
+	{	var samples;
+		var _url = '/get_samples_to_be_drawn';
+		jQuery.ajax({
+					async: false,
+					url: _url,
+					success: function(res)
+					{	
+						samples = res;
+					},	
+					error: function(err)
+					{
+						alert(err.responseText);
+					}
+		});
+	}
+
+
+	function get_samples()
+	{	var samples;
+		var _url = '/get_samples_to_be_drawn';
+		jQuery.ajax({
+					async: false,
+					url: _url,
+					success: function(res)
+					{	
+						samples = res;
+					},	
+					error: function(err)
+					{
+						alert(err.responseText);
+					}
+		});
+
+		return samples;
+	}
+
+
+	function draw_samples()
+	{	var samples = get_samples();
+		document.location='/draw?samples=' + samples.toString();
+
+	}
+
+
+
+	function check()
+	{
+		swal("Checking","Having Undrawn Samples remaining from the printed samples?", "success",{
+			  buttons: {
+			    no: {
+					  text: "No",
+					  value: "no"
+					},
+			    yes: {
+			      text: "Yes",
+			      value: "yes",
+			         }
+			          },
+			})
+			.then((value) => {
+			  switch (value) {
+			 
+			    case "no":
+					swal("Confirmation","Samples Drawn","success");
+			        draw_samples();
+
+			      break;
+			 
+			    case "yes":
+		            swal("Warning","Please SCAN Barcodes of all the Undrawn Samples","success");
+		            document.location ='/scan_undrawn_samples';
+				   
+			      break;
+			 }
+		});
+
+	}
 
 	var datatable = $("#rst").dataTable();
 	var elms = document.getElementById("rst_filter").getElementsByTagName("*");

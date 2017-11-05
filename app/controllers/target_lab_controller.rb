@@ -33,4 +33,10 @@ class TargetLabController < ApplicationController
 		render plain: labs.collect{|l| "<li>"+ l.name}.join("<li>")+"</li>"
 	end
 
+	def get_lab
+		labs = TargetLab.get_target_labs
+		render :json => labs.to_json
+	end
+
+
 end

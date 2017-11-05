@@ -60,7 +60,7 @@
 	</div>
 
 </div>
-
+<% option = session[:tab_option] %>
 
 <div id="keypad">
 		<span class="keypad">
@@ -91,9 +91,19 @@
     }
 
 function load_page(id)
-{
-	document.location = '/get_patient_results?id='+id;
+{   var opt = '<%= option %>';
+	
+	if (opt == "request_order")
+	{   
+		document.location = '/tab_request_sample?id='+id;
+	}
+	else
+	{
+		document.location = '/get_patient_results?id='+id;
+	}	
+
 }
+
 function searchPatientByName(name,gender)
 {   var table = document.getElementById("patients");
 	var displayPatients = document.getElementById("patients_table");

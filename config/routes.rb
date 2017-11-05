@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post '/add_target_lab' => 'target_lab#add_target_lab'  
   post '/delete_lab' => 'target_lab#delete_target_lab' 
   get "/get_labs" => 'target_lab#get_labs'
+  get  '/get_lab' => 'target_lab#get_lab'
 
 
 #patient controller routes
@@ -85,6 +86,14 @@ Rails.application.routes.draw do
   get  '/print' => 'sample_order#print'
   get  '/get_patient_results' => "sample_order#tab_view_sample_results"
   get  '/tab_view_individual_results' => "sample_order#tab_view_individual_sample_test_results"
+  get  '/tab_request_sample' => 'sample_order#tab_request_sample'
+  get  '/retrive_sample' => 'sample_order#get_sample'
+  post '/post_tab_request_order' => 'sample_order#tab_submite_order_request'
+  get  '/print_barcode' => 'sample_order#print_barcode'
+  get  '/print_sample_barcode' => 'sample_order#print_sample_barcode'
+  get  '/get_samples_to_be_drawn' => 'sample_order#get_samples_to_be_drawn'
+  get  '/print_sample' => 'sample_order#print_sample'
+  get  '/scan_undrawn_samples' => 'sample_order#scan_undrawn_samples_loader'
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'
@@ -98,7 +107,7 @@ Rails.application.routes.draw do
   get  '/orders' => 'test#add_test_loader_handler'
   get  '/adding_test' => 'test#add_test_to_sample_loader_handler'
   post '/add_test_to_sample' => 'test#add_test_to_sample'
-
+  get  '/tab_select_tests' => 'test#tab_select_test'
 
 
 

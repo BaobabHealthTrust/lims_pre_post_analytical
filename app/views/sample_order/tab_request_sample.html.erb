@@ -1,0 +1,134 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
+	<div style="margin-left: 1%;color: white;text-shadow: 2px 2px 4px #000000;">	
+		<h1>
+			LIMS Order Entry
+			<span  style="float: right;font-weight: bold;">
+				<input type="button" value="<| back" class="btn btn-lg btn-success" onmousedown="document.location='user/tab_home_page_loader'">
+				<input type="button" value="log Out" class="btn btn-lg btn-danger" onmousedown="document.location='/user/tab_log_in'">
+
+			</span>
+		</h1>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 2%;">
+				<div>
+					<label>Specify Order Priority:</label>
+					<select class="form-control" id="priority" name="priority">
+						<option value="Routine">Routine</option>
+						<option value="Stat">Stat</option>
+					</select>
+				</div>
+				<div style="margin-top: 2%;">
+					<label>Specify Target Lab:</label>
+					<select  class="form-control" id="lab" name="lab">
+						
+					</select>
+				</div>
+				<div style="margin-top: 2%;">
+					<label>Select Specimen Type:</label>
+					<select class="form-control" id="specimen" name="specimen">
+						
+					</select>
+				</div>
+			</div>
+		
+
+		</div>
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+	var lab = document.getElementById("lab");
+	var _url = "/get_lab";
+	jQuery.ajax({
+			async: false,
+			url: _url,
+			success: function(res)
+			{
+				for(var counter=0;counter<res.length;counter++)
+				{
+					var nam = res[counter].name;
+					var opt = document.createElement("option");
+					opt.innerHTML = nam;
+					opt.value = nam;
+					opt.setAttribute("onclick","getLab(this.value)");
+					lab.appendChild(opt);
+				}	
+			},
+			error: function(err)
+			{
+				console.log(err.responseText);
+			}
+
+	})
+
+	function clearSpecimens()
+	{
+		$("#specimen").empty();
+
+	}
+
+	function getLab(lab)
+	{
+		clearSpecimens();
+		retrieveSpecimen(lab);
+	}
+
+	function retrieveSpecimen(lab)
+	{
+		var spe = document.getElementById("specimen");
+		var _url = '/retrive_sample?lab='+lab;
+		
+		jQuery.ajax({
+				async: false,
+				url: _url,
+				success: function(res)
+				{ 
+					for(var counter=0;counter<res.length;counter++)
+					{
+						var nam = res[counter];
+						var opt = document.createElement("option");
+						opt.innerHTML = nam;
+						opt.value = nam;
+						opt.setAttribute("onclick","getSpecimen(this.value)");
+						spe.appendChild(opt);
+					}	
+				},
+				error: function(err)
+				{
+					console.log(err.responseText);
+				}
+
+		})
+	}
+
+	function getSpecimen(specimen)
+	{   var lab = document.getElementById("lab");
+		var lab_va = lab.value;
+		document.location='/tab_select_tests?sample='+specimen+'&rec_lab='+lab_va;	
+	}
+
+</script>

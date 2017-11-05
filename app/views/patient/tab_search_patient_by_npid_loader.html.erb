@@ -61,6 +61,7 @@
 		</span>
 </div>
 
+<% option = session[:tab_option] %>
 
 <script type="text/javascript">	
 
@@ -90,7 +91,17 @@ function load_page(id)
 }
 function searchPatientByNPID(id)
 {  
-	document.location ='/get_patient_results?id='+id;
+  var opt = '<%= option %>';
+  
+  if (opt == "request_order")
+  {   
+    document.location = '/tab_request_sample?id='+id;
+  }
+  else
+  {
+    document.location = '/get_patient_results?id='+id;
+  }
+  
 }
 
 function getCharButtonSetID(character,id){

@@ -1,0 +1,128 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
+	<div style="margin-left: 1%;color: white;text-shadow: 2px 2px 4px #000000;">	
+		<h1>
+			LIMS Order Entry
+			<span  style="float: right;font-weight: bold;">
+				<input type="button" value="<| back" class="btn btn-lg btn-success" onmousedown="document.location='user/tab_home_page_loader'">
+				<input type="button" value="Finish" class="btn btn-lg btn-primary" onmousedown="submiteOrder();">
+				<input type="button" value="log Out" class="btn btn-lg btn-danger" onmousedown="document.location='/user/tab_log_in'">
+
+			</span>
+		</h1>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+			<div class="col-sm-offset-1 col-sm-10" style="margin-top: 2%;">
+				<table class="table">
+					<% counter=1 %>
+					<% control=3 %>
+					<% data1= "" %>
+					<% data2= "" %>
+					<% con1= 1 %>
+					<% con2= 2 %>
+					<% @test_types.each do |test| %>
+						<% if counter == control %>
+							<tr>
+								<td>
+									<input id="<%= data1 %>" onclick="getTest(this.id);" type="checkbox" 
+											value="<%= data1 %>" name=""> 
+									<label><%= data1 %></label>
+								</td>
+								<td>
+									<input id="<%= data2 %>" onclick="getTest(this.id);" type="checkbox" 
+											value="<%= data2 %>" name=""> 
+									<label><%= data2 %></label>
+								</td>	
+								<td>
+									<input id="<%= test %>" onclick="getTest(this.id);" type="checkbox" 
+											value="<%= test  %>" name=""> 
+									<label><%= test %></label>
+								</td>	
+
+								<% control = control + 3 %>					
+							</tr>
+						<% end %>
+						<% if counter == con1 %>
+							<% data1 = test %>
+							<% con1 = con1 + 2 %>
+						<% end %>
+						
+						<% if counter == con2 %>
+							<% data2 = test %>
+							<% con2 = con2 + 2 %>
+						<% end %>
+
+						<% counter = counter + 1 %>
+							
+					<% end %>
+				</table>
+			</div>
+		
+
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+	var test = [];
+
+	
+	
+	function getTest(id) 
+	{   var el = document.getElementById(id);
+		if (el.checked == true)
+		{
+			test.push(el.value);
+			
+		}
+		else
+		{
+			var pos = test.indexOf(el.value);
+			test.splice(pos,1);
+			
+		}
+		
+	}
+	function submiteOrder()
+	{
+		var _url = "/post_tab_request_order?test="+ test.toString();
+		jQuery.ajax({
+					async: false,
+					url: _url,
+					type: 'post',
+					success: function(res)
+					{
+						document.location ="/tab_patient_search_option?option=request_order";
+					},
+					error: function(err)
+					{
+						alert(err.responseText);
+					}
+		})
+	}
+
+</script>
