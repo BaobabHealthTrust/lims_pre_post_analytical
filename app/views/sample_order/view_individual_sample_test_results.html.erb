@@ -1,8 +1,11 @@
 
   <%= javascript_include_tag "jquery" %>
   <%= javascript_include_tag "bootstrap" %>
+  <%= javascript_include_tag "datatable/js/jquery.dataTables.min" %>
+  <%= javascript_include_tag "datatable/js/dataTables.bootstrap.min" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "datatable/css/dataTables.bootstrap.min" %>
   <%= stylesheet_link_tag "extras/edrs" %>
 
 <style type="text/css">
@@ -78,7 +81,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Patient Dashboard</h4>
+								<h4 style="text-align: center;font-weight: bold"> Sample Test Results</h4>
 							</div>
 							
 						</div>
@@ -168,8 +171,12 @@
 								</td>
 								<td>
 									<% sta = @test_status[tests].split("_") %>
-									<% if sta[1] != "authorised" %>
+									<% if sta[1] != "authorised" && sta[1] != "completed but Unauthorised" %>
 										<label style="color:red;">
+													<%=  sta[1] %>
+										</label>
+									<% elsif sta[1] == "completed but Unauthorised" %>
+										<label style="color:orange;">
 													<%=  sta[1] %>
 										</label>
 									<% else %>
@@ -182,9 +189,15 @@
 								<td>
 									
 									<% if sta[0] == "not available" %>
+										<% if sta[1] == "completed but Unauthorised" %>
+												<label style="color:orange;">
+													<%=  sta[0] %>
+												</label>
+										<% else %>
 												<label style="color:red;">
 													<%=  sta[0] %>
 												</label>
+										<% end %>
 									<% else %>
 												<label style="color:green;">
 													<%=  sta[0] %>
@@ -223,7 +236,7 @@
 							        <button type="button" class="close" data-dismiss="modal">&times;</button>
 							        <h4 class="modal-title">Test Results</h4>
 						        </div>
-						        <div class="modal-body" id="test_results">
+						        <div class="modal-body" id="test_results" style="overflow: auto;height:40%">
 						        	<table class="table" id="data">
 						
 										<tr style="background-color: #e0e0e0;">
@@ -235,10 +248,10 @@
 						        </div> 
 
 						        <div class="modal-footer">
-						            <button type="button" class="btn  btn-lg" data-dismiss="modal">
+						            <button type="button" class="buttons blue" data-dismiss="modal">
  										<%= image_tag("extras/print.png") %>
 						            </button>
-						            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
+						            <button type="button" class="buttons blue" data-dismiss="modal">Close</button>
 
 						        </div>
 
@@ -262,6 +275,7 @@
 
 
 <script type="text/javascript">
+	var datatable = $("data").dataTable();
 	
 	function display_test_results(id)
 	{      
