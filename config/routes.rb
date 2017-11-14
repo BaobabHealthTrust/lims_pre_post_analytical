@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/view_undispatched_samples' => 'dispatch_sample#view_undispatched_sample'
   get '/capture_dispatcher' => 'dispatch_sample#capture_dispatcher'
   post '/save_dispatcher_details' => 'dispatch_sample#save_dispatcher_details'
+  get  '/dispatch_sample' => 'dispatch_sample#dispatch_sample'
 
 #undrawn samples routes
   post '/draw' => 'sample_order#draw_sample'
@@ -57,6 +58,9 @@ Rails.application.routes.draw do
   get '/tab_search_patient_by_name' => 'patient#tab_search_patient_by_name'
   post '/get_patient_details' => 'patient#search_patient_by_name'
   get  '/search_patient_by_npid' => 'patient#tab_search_patient_by_npid_loader'
+  get  '/search_patient_by_name' => 'patient#work_search_patient_by_name'
+  get  '/work_search_pa_by_name' => 'patient#work_search_pa_by_name'
+  get  '/patient_dashboard' => 'patient#patient_dashboard'
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'

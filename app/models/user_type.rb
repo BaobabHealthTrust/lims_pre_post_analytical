@@ -35,6 +35,11 @@ class UserType < ApplicationRecord
 		end
 	end
 
+	def self.get_user_type_by_id(got_id)
+		type = UserType.find_by(id: got_id)
+		return type['name']
+	end
+
 	def self.get_user_type_name(type_id)
 		user_name = Role.find_by_sql("SELECT name AS user_name FROM user_types where id='#{type_id}'")
 		if !user_name.blank?

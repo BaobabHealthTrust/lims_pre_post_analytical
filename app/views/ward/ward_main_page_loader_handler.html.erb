@@ -7,6 +7,7 @@
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
   <%= stylesheet_link_tag "datatable/css/dataTables.bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/edrs" %>
 
 
 <style type="text/css">
@@ -21,84 +22,92 @@
 }	
 
 </style>
-<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
+<div style=" height: 97%;" class="container-fluid"  >
 
 	<div class="row">
-		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
-			 background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3)); 
-			 box-shadow: 10px 10px 5px #16222a;  border-radius: 2%;">
+		<div id="app_headers" class="col-sm-4" style="height: 26%;  
+			 box-shadow: 5px 5px 5px #16222a; border-radius: 2%;">
 
-			<h1 style="color: white;text-shadow: 2px 2px 4px #000000;">LIMS Order Entry</h1>
-				<p style="color: black;text-shadow: 2px 2px 4px #000000; font-weight:bold;">Facility Name <br/>
+			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
+			<div class="col-sm-5" style="border-right: thin solid black;">
+				<p style="color: black; font-weight:bold;">Facility Name <br/>
 					<span class="color:white;" style="">Kawale Health Centre</span></p>
 
-					<p style="color: black;text-shadow: 2px 2px 4px #000000;;font-weight:bold;">Ward/Location <br/>
+					<p style="color: black;font-weight:bold;">Ward/Location <br/>
 					<span class="text-white" style=""><%= session[:ward] %></span>
 				</p>
+			</div>
+			<div class="col-sm-5" >
+				<p style="color: black; font-weight:bold;">Current User<br/>
+					<span class="color:white;" style="font-weight:none !important;">Gift Malolo</span></p>
+				<p style="color: black; font-weight:bold;">User Designation<br/>
+					<span class="color:white;" style="font-weight:none !important;">Doctor</span></p>
+			</div>
 
 		</div>
-
-		<div class="col-sm-7" style="margin-top: 1%;">
-			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;box-shadow: 10px 10px 5px #16222a; 
+		
+		<div  class="col-sm-8">
+			<div style=" overflow: auto; height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
-				<div >	
+
+				<div>	
 						<div class="col-sm-8">
 							
 					
 						</div>
 						<div class="col-sm-4">
-							<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px #182848;">
-								<h4 style="text-align: center;font-weight: bold;"> Ward Settings</h4>
+							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
+								<h4 style="text-align: center;font-weight: bold"> Wards</h4>
 							</div>
 							
 						</div>
 				</div>
-				<div style="margin-top: 12.8%;">
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: orange;box-shadow: 10px 10px 5px #182848;">
-							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-							<div class="panel-body" style="color: #1c2a48;font-size: 2em;font-weight:bold; text-align: center;">0 </div>
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px #182848;">
-							<% requested_sample = session[:requested_sample] %>
-							<% if requested_sample >0 %>
-								<div  class="panel-heading" style="color: red ; font-weight:bold; text-align: center;">	 
-								  Requested Orders</div>
-								<div class="panel-body" style="color:red; font-size: 2em; font-weight:bold; text-align: center;">
-								 <%= requested_sample %> </div>
-							<% else %>
-								<div  class="panel-heading" style="color: #1c2a48; font-weight:bold; text-align: center;"> 
-								  Requested Orders</div>
-								<div class="panel-body" style="color: #1c2a48; font-size: 2em; font-weight:bold; text-align: center;">
-								 <%= requested_sample %> 
-								</div>
-							<% end %>
-						
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px #182848;">
-								<% undispatched_sample_count = session[:un_dis_sample] %>
-								<% if undispatched_sample_count >0 %>
-									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Undispatched Samples</div>
-									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
-										<%= undispatched_sample_count %></div>
-								<% else %>
-									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Undispatched Samples</div>
-									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
-									<%= undispatched_sample_count %></div>
-								<% end %>
-
-						</div>
-					</div>
+				<div  style="margin-top: 10%;">
+					<table class="table table-striped" style="height: 4%; font-size: 1em;">
+								<tr>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Requested Orders</td>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undispatched Samples</td>
+								</tr>
+								<tr>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">
+										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
+											1 
+										</label>
+									</td>
+										<% requested_sample = session[:requested_sample] %>
+										<% if requested_sample >0 %>
+											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+												 <%= requested_sample %>
+											
+											</td>
+										<% else %>
+									
+											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+												 <%= requested_sample %>
+											
+											</td>
+										<% end %>
+										
+										<% undispatched_sample_count = session[:un_dis_sample] %>
+										<% if undispatched_sample_count >0 %>
+											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+												<%= undispatched_sample_count %>
+											</td>
+										<% else %>
+											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+												<%= undispatched_sample_count %>
+											</td>
+										<% end %>
+									
+								</tr>
+					</table>					
 				</div>
 			</div>
 		</div>
 	</div>
+
+
 
 
 
@@ -131,10 +140,10 @@
 									<td><%= r['name'] %></td>
 									<td><%= r['category'] %></td>
 									<td>
-										<button class="btn btn-primary btn-lg" style="background-color: red" 
+										<button class="buttons red" style="background-color: red" 
 										 	onmousedown="deleteWard('<%= id %>')" >delete
 										</button>
-										<button class="btn btn-primary btn-lg" onmousedown="document.location='/add_user_page_loader'" >edit
+										<button class="buttons blue" onmousedown="document.location='/add_user_page_loader'" >edit
 										</button>
 									</td>
 								</tr>		
@@ -152,21 +161,16 @@
 </div>
 		
 <div class="footer">
-	<button class="btn-back btn btn-lg btn-success" onmousedown="document.location='/view_settings'">|< Back</button>
+	
+	<button class="buttons blue" onmousedown="document.location='/view_settings'">Back</button>
 	<span style="float: right;">
-			<button class="btn btns btn-lg btn-danger"	id="log_out" onmousedown="document.location='/home'">
-	     				Cancel
-	     	</button>
-			<button class="btn btns btn-lg btn-info" 
+			
+			<button class="buttons green" 
 	     					id="log_out"
 	     					onmousedown="document.location= '/add_ward_page_loader' ">
 	     				Add Ward
 	    	</button>
-	    	<button class="btns btn btn-lg btn-danger" 
-	     					id="log_out"
-	     					onmousedown="document.location='/'">
-	     				Log Out
-	    	</button>
+	    	
     </span>
 	</span>
 </div>

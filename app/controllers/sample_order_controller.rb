@@ -24,6 +24,7 @@ class SampleOrderController < ApplicationController
       first_name = who_order_test[0]
     end
 
+    
     order = {     
           "district": district,
           "health_facility_name": config['facility_name'],
@@ -281,6 +282,7 @@ class SampleOrderController < ApplicationController
 
   def view_sample_test_results
     id = session[:patient_demo]['npid']
+    @patient_demo = session[:patient_demo]
     url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
 
     @sample_results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
@@ -289,6 +291,7 @@ class SampleOrderController < ApplicationController
   end
 
   def view_individual_sample_test_results
+    @patient_demo = session[:patient_demo]
     results = @@sample_results_glo
     @id = params[:id].split('_')[1]
     result_measuers = {} 
@@ -300,24 +303,54 @@ class SampleOrderController < ApplicationController
 
         @test_types.each do |test|
 
-          if rst['results'][test].length < 5
-
+          if rst['results'][test].length < 4
+            key = rst['results'][test].keys[rst['results'][test].length - 1]
+            test_status = rst['results'][test][key]['test_status']
             result_measuers[test] = {"measure_name" => "null","result" => "null"}
-            @test_status[test] = "not available"
-          elsif rst['results'][test].length >= 5
+            @test_status[test] = "not available"+ "_"+ test_status
+          elsif rst['results'][test].length >= 4
             results = rst['results'][test].keys
-            results = results[4]
-            
-            rst['results'][test][results]['results'].each do |s|
+            if rst['results'][test].length == 4
+                results = results[3]
+               
+                if rst['results'][test][results]['test_status'] == "verified"
+                  rst['results'][test][results]['results'].each do |s|
 
-              details.push({"measure_name" => s[0],"result" => s[1]})
-              
+                    details.push({"measure_name" => s[0],"result" => s[1]})
+                    
+                  end
+                end
+            elsif rst['results'][test].length >= 5
+                if rst['results'][test].length == 6
+                   results = results[5]
+                 
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  end
+                elsif rst['results'][test].length == 5
+                     results = results[4]
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})                  
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  elsif rst['results'][test][results]['test_status'] == "completed"  
+                      result_measuers[test] = {"measure_name" => "null","result" => "null"}
+                      @test_status[test] = "not available"+ "_"+ "completed but Unauthorised"
+                  end
+                end
+
             end
+
           result_measuers[test] = details
-          session[:rs] =  result_measuers
-          @test_status[test] = "available"
+          session[:rs] =  result_measuers          
           details = []
-          end           
+          end 
         end
         render :layout => false 
     end
@@ -336,19 +369,47 @@ class SampleOrderController < ApplicationController
 
         @test_types.each do |test|
 
-          if rst['results'][test].length < 5
+          if rst['results'][test].length < 4
 
             result_measuers[test] = {"measure_name" => "null","result" => "null"}
             @test_status[test] = "not available"
-          elsif rst['results'][test].length >= 5
+          elsif rst['results'][test].length >= 4
             results = rst['results'][test].keys
-            results = results[4]
-            
-            rst['results'][test][results]['results'].each do |s|
+            if rst['results'][test].length == 4
+                results = results[3]
+               
+                if rst['results'][test][results]['test_status'] == "verified"
+                  rst['results'][test][results]['results'].each do |s|
 
-              details.push({"measure_name" => s[0],"result" => s[1]})
-              
+                    details.push({"measure_name" => s[0],"result" => s[1]})
+                    
+                  end
+                end
+            elsif rst['results'][test].length >= 5
+                if rst['results'][test].length == 6
+                   results = results[5]
+                 
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      
+                    end
+                  end
+                elsif rst['results'][test].length == 5
+                     results = results[4]
+                 
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      
+                    end
+                  end
+                end
+
             end
+
           result_measuers[test] = details
           session[:rs] =  result_measuers
           @test_status[test] = "available"

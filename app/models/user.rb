@@ -21,6 +21,13 @@ class User < ApplicationRecord
 		return roles
 	end
 
+	def self.get_user(got_id)
+		user = User.find_by_sql("SELECT * FROM users WHERE id='#{got_id}'")
+		if !user.blank?
+			return user[0]
+		end
+	end
+
 	def self.add_user(_id,first_name,last_name,sex,email,phone_number,username,password,designation)
 		password_has = BCrypt::Password.create(password)
 		user = User.new()

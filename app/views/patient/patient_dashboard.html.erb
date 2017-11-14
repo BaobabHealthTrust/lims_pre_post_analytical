@@ -12,8 +12,18 @@
 	.button:active {
 	  background-color: #3e8e41;
 	  box-shadow: 0 5px #666;
-	  transform: translateY(4px);	
+	  transform: translateY(4px);}
+
+	#barcode-txt {
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px;
+  font-size: 30px;
+  margin: 3% 4%;
+  width: 60%}
 </style>
+
+
 
 <div style=" height: 97%;" class="container-fluid"  >
 
@@ -138,164 +148,60 @@
 
 
 
+
 	<div class="row">
-		<div style="border-top: thick solid grey;  height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
-		overflow: auto;">
-			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 2%;">
-		    	<table class="table table-striped">
-					<thead>
-						<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
-							<th>
-								Test Name
-							</th>
-							<th>
-								Test Status
-							</th>
-						    <th>
-								Test Result Status
-						    </th>
-							<th>
-								Action
-							</th>
-						</tr>
-					</thead>
+
+		<div style="border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto; 
+		">
+		
+			<div class="col-sm-5" style="padding-top: 44px; margin-top: 3%;margin-left: 30%;">
+				<div class="col-sm-6">
 							
-					<tbody>
-						<% @test_types.each do |tests| %>
-							<tr>
-								<td>
-									<%= tests %> 
-								</td>
-								<td>
-									<% sta = @test_status[tests].split("_") %>
-									<% if sta[1] != "authorised" %>
-										<label style="color:red;">
-													<%=  sta[1] %>
-										</label>
-									<% else %>
-										<label style="color:green;">
-													<%=  sta[1] %>
-										</label>
-									<% end %>
-																				
-								</td>
-								<td>
-									
-									<% if sta[0] == "not available" %>
-												<label style="color:red;">
-													<%=  sta[0] %>
-												</label>
-									<% else %>
-												<label style="color:green;">
-													<%=  sta[0] %>
-												</label>
-									<% end %>											
-								</td>
-								<td>
-									 <% if sta[0] == "available" %>
-										<div id = "<%= @id +'_'+tests %>" 
-													onclick="display_test_results(this.id);"
-													style="cursor: pointer;"
-													class="buttons blue"
-													data-toggle="modal" data-target="#rst">
-													view results 
-										
-										</div>	
+					<div style="box-shadow: 3px 3px 3px #000000; cursor: pointer;color:white; margin-bottom: 10px; height: 35%;"
+											class="blue col-sm-12 buttons"
+											onmousedown="document.location='/sample_ordering';">
+						<span style="float: right;">
+							Order Test
+							<%= image_tag("extras/tubes-icon.png") %>
+						</span>
+					</div>	
+				</div>
+				<div  class="col-sm-6">
+							
+					<div style="box-shadow: 3px 3px 3px #000000; cursor: pointer;color:white; margin-bottom: 10px; height: 35%; "
+							class="blue col-sm-12 buttons"
+											onmousedown="document.location='/view_results';">
+						<span style="float: right;">
+							View Results
+							<%= image_tag("extras/search.png") %>
+						</span>
+					</div>	
+				</div>
 
-									<% end %>
- 
-								</td>
-							</tr>								
-						<%end%>
-					</tbody>
-
-				</table>
 			</div>
+
+
 		</div>
 	</div>
 
 </div>
-		
-<div id="rst" class="modal fade" role="dialog">
-				  <div class="modal-dialog modal-lg">
-				  		<div class="modal-content">
-				  				<div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title">Test Results</h4>
-						        </div>
-						        <div class="modal-body" id="test_results">
-						        	<table class="table" id="data">
-						
-										<tr style="background-color: #e0e0e0;">
-											<th>Measure Name</th>
-											<th>Result Value</th>
-										</tr>
-								
-									</table>
-						        </div> 
-
-						        <div class="modal-footer">
-						            <button type="button" class="btn  btn-lg" data-dismiss="modal">
- 										<%= image_tag("extras/print.png") %>
-						            </button>
-						            <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Close</button>
-
-						        </div>
-
-				  		</div>
-				  </div>
-			</div>	
-
 
 <div class="footer">
-
-  <span style="float: right;">
-	    
-
-	    	<button class="buttons green" 
-	     					id="log_out"
-	     					onmousedown="document.location='/view_results'">
-	     				Finish
-	    	</button>
-	    </span>
+ 
+  	
+	    	<span style="float: right;">
+		    	<button class="buttons blue" 
+		     					id="log_out"
+		     					onmousedown="document.location='/home' ">
+		     				Finish
+		    	</button>
+			</span>
 </div>
 
 
-<script type="text/javascript">
-	
-	function display_test_results(id)
-	{      
 
-		var id = id.split('_')[1];
-		var url_ = "/result_meausures?type=" + id;
-		var holder = document.getElementById('test_results');
-		var table = document.getElementById('data');
-		jQuery.ajax({
-					  sync: false,
-					  url: url_,
-					  success: function(res)
-					  { 
-					  	for (var counter=res.length-1;counter > -1;counter--)
-					  	{ 
-					  		var row = table.insertRow(1);
-					  		row.id ="data_row" + counter;					  		
-					  		var measure = row.insertCell(0);
-					  		var result = row.insertCell(1);			  		
-					  		
-					  		measure.innerHTML = res[counter].measure_name;
-					  		result.innerHTML = res[counter].result;
+<style type="text/css">
+	.icon {width: 40%;height: auto;}
 
-
-					  	}				  	
-							holder.style.display ="block"
-					  },
-					  error: function(er)
-					  {
-					  		
-					  }
-		})
-
-			
-	}
-
-</script>
+</style>

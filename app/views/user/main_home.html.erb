@@ -3,6 +3,8 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "extras/edrs" %>
+  <%= javascript_include_tag "sw.min" %>  
 
 <style type="text/css">
 	
@@ -11,28 +13,53 @@
 	.button:active {
 	  background-color: #3e8e41;
 	  box-shadow: 0 5px #666;
-	  transform: translateY(4px);	
+	  transform: translateY(4px);}
+
+	#barcode-txt {
+  border-color: black;
+  border-style: solid;
+  border-width: 0 0 1px;
+  font-size: 30px;
+  margin: 3% 4%;
+  width: 60%}
 </style>
 
-<div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
 
-	<div class="row">
-		<div class="col-sm-4" style="height: 32%; margin-top: 1%; margin-left: 2%;
-			 background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3)); 
-			 box-shadow: 10px 10px 5px #16222a; border-radius: 2%;">
 
-			<h1 style="color: white;text-shadow: 2px 2px 4px #000000;">LIMS Order Entry</h1>
-				<p style="color: white;text-shadow: 2px 2px 4px #000000; font-weight:bold;">Facility Name <br/>
-					<span class="color:white;" style="">Kawale Health Centre</span></p>
+<div style=" height: 97%;" class="container-fluid"  >
 
-					<p style="color: white;text-shadow: 2px 2px 4px #000000;;font-weight:bold;">Ward/Location <br/>
+	<div class="row" >
+		<div id="app_headers" class="col-sm-4" style="height: 26%;  
+			 box-shadow: 5px 5px 5px #16222a; border-radius: 2%;">
+
+			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
+			<div class="col-sm-5" style="border-right: thin solid black;">
+				<p style="color: black; font-weight:bold;">Facility Name <br/>
+					<span class="color:white;" style="">
+						<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
+						<%= file['facility_name'] %>
+					</span></p>
+
+					<p style="color: black;font-weight:bold;">Ward/Location <br/>
 					<span class="text-white" style=""><%= session[:ward] %></span>
 				</p>
+			</div> 
+			<div class="col-sm-5" >
+				<p style="color: black; font-weight:bold;">Current User<br/>
+					<span class="color:white;" style="font-weight:none !important;">
+					<% user = User::get_user(session[:user]) %>
+					<%= user['name'] %></span></p>
+				<p style="color: black; font-weight:bold;">User Designation<br/>
+					<span class="color:white;" style="font-weight:none !important;">
+					<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
+					<%= des %>
+					</span></p>
+			</div>
 
 		</div>
 
-		<div class="col-sm-7" style="margin-top: 1%;">
-			<div style=" overflow: auto; height: 32%; padding-top: 1%;padding-left: 1%;padding-right: 1%;border: thin solid lightgrey;box-shadow: 10px 10px 5px #16222a; 
+		<div  class="col-sm-8" >
+			<div style=" overflow: auto; height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
 
 				<div>	
@@ -41,52 +68,50 @@
 					
 						</div>
 						<div class="col-sm-4">
-							<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px #182848;">
+							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
 								<h4 style="text-align: center;font-weight: bold"> Home</h4>
 							</div>
 							
 						</div>
 				</div>
-				<div  style="margin-top: 12.8%;">
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: #1c2a48;box-shadow: 10px 10px 5px #182848;">
-							<div  class="panel-heading" style="color: #1c2a48 ; font-weight:bold; text-align: center;">Orders with No Results</div>
-							<div class="panel-body" style="font-size: 2em;font-weight:bold; text-align: center;">0 </div>
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color:lightgreen;box-shadow: 10px 10px 5px #182848;">
-							<% if @requested_sample >0 %>
-								<div  class="panel-heading" style="color: red ; font-weight:bold; text-align: center;">	 
-								  Requested Orders</div>
-								<div class="panel-body" style="color:red; font-size: 2em; font-weight:bold; text-align: center;">
-								 <%= @requested_sample %> </div>
-							<% else %>
-								<div  class="panel-heading" style="color: #1c2a48; font-weight:bold; text-align: center;"> 
-								  Requested Orders</div>
-								<div class="panel-body" style="color: #1c2a48; font-size: 2em; font-weight:bold; text-align: center;">
-								 <%= @requested_sample %> 
-								</div>
-							<% end %>
-						
-						</div>
-					</div>
-
-					<div class="col-sm-4">
-						<div class="panel panel-default" style="color: blue;box-shadow: 10px 10px 5px #182848;">
-								<% if @undispatched_sample_count >0 %>
-									<div  class="panel-heading" style="color:red; font-weight:bold; text-align: center;">Undispatched Samples</div>
-									<div class="panel-body" style="font-size: 2em; color:red; font-weight:bold; text-align: center;">
-										<%= @undispatched_sample_count %></div>
-								<% else %>
-									<div  class="panel-heading" style="color:#1c2a48; font-weight:bold; text-align: center;">Undispatched Samples</div>
-									<div class="panel-body" style="font-size: 2em; color:#1c2a48; font-weight:bold; text-align: center;">
-									<%= @undispatched_sample_count %></div>
-								<% end %>
-
-						</div>
-					</div>
+				<div  style="margin-top: 10%;">
+					<table class="table table-striped" style="height: 4%; font-size: 1em;">
+								<tr>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Requested Orders</td>
+									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undispatched Samples</td>
+								</tr>
+								<tr>
+									<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+										0
+									</td>
+										<% if @requested_sample >0 %>
+											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+												 <%= @requested_sample %>
+											
+											</td>
+										<% else %>
+									
+											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+												 <%= @requested_sample %>
+											
+											</td>
+										<% end %>
+									
+								
+										<% if @undispatched_sample_count >0 %>
+											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+												<%= @undispatched_sample_count %>
+											</td>
+										<% else %>
+											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+												<%= @undispatched_sample_count %>
+											</td>
+										<% end %>
+									
+								</tr>
+					</table>
+			
 			    </div>
 			</div>
 		</div>
@@ -100,11 +125,23 @@
 
 
 	<div class="row">
+
 		<div style="border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
 		overflow: auto; 
 		">
+		
+			<div class="col-sm-8">
+					<label style="padding-top: 20px;">Scan Patient Barcode</label>
+					<div  style="background-color:  #eeeeee; padding-left: 10%;">
+						<span> <%= image_tag("extras/barcode-2.png") %> </span>
+						<input class="input" type="text" name="scanned-barcode" id="barcode-txt"/>
+					</div>
+			</div>
+
 			
-			<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 5%;">
+
+
+			<div class="col-sm-4" style="padding-top: 44px;">
 				<% counter =1 %>
 				
 				<% @role.each do |r| %>
@@ -114,121 +151,64 @@
 					<% if role == "order test" %>
 						<% location = "/scan_patient_barcode?option='+'order_test" %>
 						<% image = image_tag("extras/tubes-icon.png") %>
+						<% if given_role == "yes" %> 
+								<% session[:order_test_roles] = "yes" %>
+						<% end %>	
 
 					<% elsif role == "view order results" %>
 						<% location = "/scan_patient_barcode?option='+'view_results" %>
 						<% image = image_tag("extras/search.png") %>
-
+						<% if given_role == "yes" %> 
+								<% session[:view_results_roles] = "yes" %>
+						<% end %>
 					<% elsif role == "dispatch sample" %>
-						<% location = "/un_dispatched_samples"%>
+						<% location = '/dispatch_sample'%>
 						<% image = image_tag("extras/dispa.png") %>
-
-					<% elsif role == "request order" %>
-						<% location = "/scan_patient_barcode?option='+'request_order" %>
-						<% image = image_tag("extras/dispa.png") %>
-
-					<% elsif role == "add test" %>
-						<% location = "/scan_patient_barcode?option='+'add_test_to_order" %>
-						<% image = image_tag("extras/add1.png") %>
+						 <% if given_role == "yes" %> 
+							<div style="margin-left: 15%;">
+							
+									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
+											class="blue col-sm-offset-2 col-sm-10 buttons "
+											onmousedown="document.location='<%= location %>';">
+											<span style="float: right;"><%= role %> 
+																<%= image %>
+											</span>
+									</div>	
+							</div>
+						<% end %>
 
 					<% elsif role == "draw sample" %>
 						<% location = "/draw_sample" %>
 						<% image = image_tag("extras/add1.png") %>
-
-					<% elsif role == "system settings" %>
-						<% location = "/view_settings" %>
-						<% image = image_tag("extras/se.png") %>
-
-					<% end %>
-
-				    <% if given_role == "yes" %> 
-						<% if counter == 1 or counter == 2 or counter ==3 %>
-							<% if counter == 1 %>
-							   <div>
+						 <% if given_role == "yes" %> 	
+							<div style="margin-left: 15%;">
 							
-									<div id="order_test" style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;" 
-										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
-										
-										<span style="float: right;"> <%= role %>
-																 <%= image %>
-										</span>
-											
-									</div>
-							<% end %>
-
-							<% if counter == 2 %>
-									<div style="background-color: #1c2a48; cursor: pointer; margin-bottom: 15px; color:white; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-												class= "button col-sm-offset-1 col-sm-5 btn btn-lg "
-												onmousedown="document.location='<%= location %>';">
-													<span style="float: right;"><%= role %>
-																<%= image %>
-											</span>
-									</div>	
-										
-								
-							<% end %>
-
-							<% if counter == 3 %>		
-								
-
-									<div style="background-color: #1c2a48; cursor: pointer;margin-bottom: 10px; color:white;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
-											class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%=role %>
-																<%= image %>
-											</span>
-									</div>
-								</div>
-							<% end %>
-							<% counter = counter + 1 %>
-						
-						
-						<% elsif counter == 4 or counter == 5 or counter == 6 %>
-							<% if counter == 4 %>
-									<div>
-										<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-											class="button col-sm-offset-1 col-sm-5 btn btn-lg "
-											 onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%=role %>
-																<%= image %>
-											</span>
-										</div>			
-									
-								
-							<% end %>
-							<% if counter == 5 %>	
-								
-									<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px;border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-										class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
-										<span style="float: right;"><%= role %>
-																<%= image %>
-										</span> 
-									</div>
-							<% end %>
-
-							<% if counter == 6 %>
-										<div style="background-color: #1c2a48; cursor: pointer;color:white; margin-bottom: 10px; border-top-right-radius: 50px;border-bottom-right-radius: 50px;"
-											class="button col-sm-offset-1 col-sm-5 btn btn-lg  "
+									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
+											class="blue col-sm-offset-2 col-sm-10 buttons "
 											onmousedown="document.location='<%= location %>';">
 											<span style="float: right;"><%= role %> 
 																<%= image %>
-										</span>
-										</div>				
-								</div>
-							<% end %>
-
-							<% counter = counter + 1 %>
-						
-						<% elsif counter == 7 %>	
-								<div>
-										<div style="background-color: #1c2a48; cursor: pointer; color:white;border-top-right-radius: 50px; border-bottom-right-radius: 50px;"
-											class="button col-sm-5 btn btn-lg " onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%= role %>
+											</span>
+									</div>	
+							</div>
+						<% end %>
+					<% elsif role == "system settings" %>
+						<% location = "/view_settings" %>
+						<% image = image_tag("extras/se.png") %>
+						 <% if given_role == "yes" %> 
+							<div style="margin-left: 15%;">
+							
+									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
+											class="blue col-sm-offset-2 col-sm-10 buttons "
+											onmousedown="document.location='<%= location %>';">
+											<span style="float: right;"><%= role %> 
 																<%= image %>
 											</span>
-										</div>
-								</div>			
+									</div>	
+							</div>
 						<% end %>
 					<% end %>
+				    
 				<% end %>
 				<% counter = 1 %>				
 
@@ -242,21 +222,71 @@
 
 <div class="footer">
  
-  	<span style="float: right;">
-			<button class="btns btn btn-lg btn-danger" 
+  	
+			<button class="buttons red" 
 	     					id="log_out"
 	     					onmousedown="document.location='/log_out'">
 	     				Log Out
 	    	</button>
-    </span>
+
+	    <span style="float: right;">
+	    	<button class="buttons blue" 
+	     					id="log_out"
+	     					onmousedown="document.location='/search_patient_by_name' ">
+	     				Search Patient by Name
+	    	</button>
+			<button class="buttons blue" 
+	     					id="log_out"
+	     					onmousedown="document.location='/search_patient' ">
+	     				Search Patient by Id
+	    	</button>
+	        	
+		</span>	
+   
 </div>
+<% if !params[:err].blank? %>
+		<% error = params[:err] %>
+<% end %>
+
+<% if !params[:option].blank? %>
+		<% access = params[:option] %>
+<% end %>
+
+
 
 <script type="text/javascript">
-	
-$(document).ready(function()
-{
-	document.getElementById("order_test").onmousedown = new function ("return false");
-})
+
 		
+	function focusForBarcodeInput(){
+	  var barcode = document.getElementById("barcode-txt");
+	  if (barcode) 
+	    barcode.focus();
+
+	}
+
+	function barcodeScan(){
+	  usertext=document.getElementById("barcode-txt");
+	  if (usertext.value.match(/.+\$$/i) != null){	  	
+	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
+	    document.location = "/scan_patient?npid=" + usertext.value.trim();
+	  }
+	}
+
+	setInterval("focusForBarcodeInput();",300);
+	setInterval("barcodeScan();",300);
+
+	var error = '<%= error %>';
+
+	if (error == "true")
+	{
+		swal("Error","Error Scanning Patient","warning");
+	}
+	
+	var access = '<%= access %>';
+
+	if (access == "access_denied")
+	{
+		swal("Access","Access Denied","warning");
+	}
 
 </script>

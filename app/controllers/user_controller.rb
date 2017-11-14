@@ -11,6 +11,7 @@ class UserController < ApplicationController
 		@requested_sample = UndrawnSample.count_requested_samples(session[:ward])
 		session[:un_dis_sample] = @undispatched_sample_count
 		session[:requested_sample] = @requested_sample
+		session.delete(:patient_demo)
 		render :layout => false		
 	end
 
@@ -37,7 +38,9 @@ class UserController < ApplicationController
 			if status[0] == true
 			session[:ward] = params[:ward_location]
 			session[:user] = status[2]['id']
-			session[:roles] = status[1]			
+			session[:roles] = status[1]		
+			requested_sample = UndrawnSample.count_requested_samples(session[:ward])	
+			session[:requested_sample] = requested_sample
 			 	redirect_to  :action => 'tab_home_page_loader'
 			else
 			 	redirect_to  '/' , flash: {error: "wrong password or username"}

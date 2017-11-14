@@ -1,0 +1,15 @@
+
+<%= form_tag("/work_search_pa_by_name", id: "login_form", method: 'get', enctype: 'multipart/form-data') do %>
+
+	<%= text_field(:search_patient,:g_name, :helpText => "Patient Given Name", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+
+	<%= text_field(:search_patient,:f_name, :helpText => "Patient Family Name", 
+	    :textCase => "lower",
+	    :field_type => "text")%><br>
+	<%= select_tag "gender", options_for_select(['Male','Female']),
+		{:helpText => "Patient ",
+	    :field_type => ""}%><br>
+
+<%end%>
