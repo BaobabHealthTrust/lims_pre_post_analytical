@@ -32,6 +32,7 @@ class PatientController < ApplicationController
     	@un_received = 0
     	@drawn = 0
 
+    
     	orders.each do |order|
     		if order["status"] == "Not Drawn" || order["status"] == "not drawn" || order["status"]  == "not-drawn"
     			@undrawn = @undrawn + 1
@@ -43,6 +44,15 @@ class PatientController < ApplicationController
 				@drawn = @drawn + 1
     		end
     	end
+
+    	patient_stat = {
+    		"total" => @total_specimen,
+    		"undrawn" => @undrawn,
+    		"specimen_rec" => @specimen_rec,
+    		"un_received" => @un_received,
+    		"drawn" => @drawn
+    	}
+    	session[:patient_stat] = patient_stat
 		render :layout => false
 	end
 
