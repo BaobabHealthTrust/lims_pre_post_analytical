@@ -4,14 +4,14 @@ class UndrawnSample < ApplicationRecord
 	def self.capture_order_request(requested_order,track_number)
 		order = UndrawnSample.new
 		order.tracking_number = track_number
-		order.sample_type = requested_order[:sample_type]
-		order.patient_id = requested_order[:national_patient_id]
-		order.patient_name = requested_order[:first_name].to_s+" "+requested_order[:last_name].to_s
-		order.patient_gender = requested_order[:gender]
-		order.date_of_birth = requested_order[:date_of_birth]
+		order.sample_type = requested_order['sample_type']
+		order.patient_id = requested_order['national_patient_id']
+		order.patient_name = requested_order['first_name'].to_s+" "+requested_order['last_name'].to_s
+		order.patient_gender = requested_order['gender']
+		order.date_of_birth = requested_order['date_of_birth']
 		order.date_requested = Time.now().strftime("%Y%m%d%H%M%S")
-		order.order_location = requested_order[:sample_order_location]
-		order.requested_by = requested_order[:requesting_clinician]
+		order.order_location = requested_order['sample_order_location']
+		order.requested_by = requested_order['requesting_clinician']
 		order.save()
 
 	end

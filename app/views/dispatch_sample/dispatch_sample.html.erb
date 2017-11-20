@@ -167,7 +167,9 @@
 					},
 					error: function(err)
 					{	
-						console.log(err);
+						swal("Dispatching Confirmation","Can not dispatch, Sample not drawn","warning");
+						usertext=document.getElementById("barcode-txt");
+						usertext.value = "";
 					}
 		});
 	}

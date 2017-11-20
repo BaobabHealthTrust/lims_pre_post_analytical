@@ -65,8 +65,8 @@ class PatientController < ApplicationController
 					counter = counter + 1
 				end
 				session[:tab_patients] = pat
-
-				render :json => patients.to_json
+				@pat = patients
+				redirect_to "/patients_found"
 			else
 				render plain: res.to_json
 			end
@@ -74,6 +74,10 @@ class PatientController < ApplicationController
 		else
 			render plain: "wronged".to_json
 		end
+	end
+
+	def patients_found
+	
 	end
 
 	def scan_patient

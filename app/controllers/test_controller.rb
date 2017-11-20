@@ -5,7 +5,7 @@ class TestController < ApplicationController
 		sample_type = params[:sample]
 		r_facility = params[:rec_lab]
 		dat = SampleOrderController.retrieve_lab_catalog(r_facility)
-		test_types = dat["lab_cat"][sample_type]
+		test_types = dat["tests"][sample_type]
 		@test_types =  test_types - session[:order]['tests']		
 	end
 
@@ -36,7 +36,7 @@ class TestController < ApplicationController
 		tests = eval(params[:tests])
 		r_facility = params[:r_facility]
 		dat = SampleOrderController.retrieve_lab_catalog(r_facility)
-		test_types = dat["lab_cat"][sample_type]
+		test_types = dat["tests"][sample_type]
 		 if !tests.blank? 
 		 	@test_types = test_types - tests
 		 else

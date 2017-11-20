@@ -7,6 +7,36 @@ class SampleOrderController < ApplicationController
   def capture_order_details
     tests = params[:test]
     tests = tests.delete_if(&:empty?)
+    lab = params[:target_lab]
+    api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+    api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
+    request = "#{api_url['national_dashboard']}#{api_resources['retrieve_lab_catalog']}?lab="+lab
+    cat = JSON.parse(RestClient.post(request,""))  
+    pan_test = cat['test_panels']
+    panels = cat['test_panels'].keys
+    
+    if panels.include?("MC&S") && panels.include?("CSF Analysis")
+        panels.each do |panel|
+          next if panel == "MC&S"
+          if tests.include?(panel)
+            pan_test[panel].each do |tst|
+              tests.push(tst)
+            end
+           
+          end
+        end
+    else
+       panels.each do |panel|
+          if tests.include?(panel)
+            pan_test[panel].each do |tst|
+              tests.push(tst)
+            end
+              
+          end
+        end
+    end
+
+
     patient = session[:patient_demo]
     patient_name = patient['name'].split(" ")
 
@@ -166,13 +196,14 @@ class SampleOrderController < ApplicationController
           "return_json": 'true'
         }
 
-     submite_order_request(order)
+     
 
   end
   
 
   def confirm_order
     @order = session[:order]
+    @patient_demo = session[:patient_demo]
     render :layout => false 
   end
 
@@ -187,14 +218,15 @@ class SampleOrderController < ApplicationController
     UndispatchedSample.capture_sample(dat['tracking_number'],order['sample_type'],order['national_patient_id'],
                                   p_name,order['date_sample_drawn'],order['gender'],order['target_lab'],session[:ward])
     session[:un_dis_sample] = session[:un_dis_sample] + 1
-    print_and_redirect("/print_tracking_number?tracking_number="+dat['tracking_number'].to_s+"&col_name="+name.to_s+"&sample="+order[:sample_type].to_s+"&priority="+order[:sample_priority].to_s,"/scan_patient_barcode?option=order_test")
-     
+    print_and_redirect("/print_tracking_number?tracking_number="+dat['tracking_number'].to_s+"&col_name="+name.to_s+"&sample="+order[:sample_type].to_s+"&priority="+order[:sample_priority].to_s,"/patient_dashboard")
     session.delete(:order)
   
   end
 
-  def submite_order_request(order_requested)
-        order = order_requested    
+  def submite_order_request
+        order = session[:order]
+     
+        order["status"] = "Not Drawn"
         name = order[:sample_collector_first_name].to_s+" "+ order[:sample_collector_last_name].to_s
         api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
         api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
@@ -202,7 +234,8 @@ class SampleOrderController < ApplicationController
         dat = JSON.parse(RestClient.post(request,order))
         UndrawnSample.capture_order_request(order,dat['tracking_number'])       
         session[:requested_sample]  = session[:requested_sample]  + 1
-        session.delete(:requested_order)  
+        session.delete(:order)  
+        redirect_to "/patient_dashboard"
   end
 
   def self.retrieve_lab_catalog(lab)     
@@ -227,7 +260,7 @@ class SampleOrderController < ApplicationController
 
   def get_test_types
      sample = params[:sample_name]
-     test_types = @@dat['lab_cat'][sample]
+     test_types = @@dat['tests'][sample]
      render plain: test_types.collect{|l| "<li>" + l}.join("<li>")+ "</li>"
   end
 
@@ -317,7 +350,7 @@ class SampleOrderController < ApplicationController
                   rst['results'][test][results]['results'].each do |s|
 
                     details.push({"measure_name" => s[0],"result" => s[1]})
-                    
+                    @test_status[test] = "available" +"_"+"authorised"
                   end
                 end
             elsif rst['results'][test].length >= 5
