@@ -23,6 +23,26 @@ class PatientController < ApplicationController
 	end
 	def patient_dashboard
 		@patient_demo = session[:patient_demo]
+		id = @patient_demo['npid']
+		url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
+    	orders = JSON.parse(RestClient.get(url,:contentType => "application/text"))
+    	@total_specimen = orders.length
+    	@undrawn = 0
+    	@specimen_rec = 0
+    	@un_received = 0
+    	@drawn = 0
+
+    	orders.each do |order|
+    		if order["status"] == "Not Drawn" || order["status"] == "not drawn" || order["status"]  == "not-drawn"
+    			@undrawn = @undrawn + 1
+    		elsif order["status"] == "specimen-accepted"
+    			@specimen_rec = @specimen_rec + 1
+    		elsif order["status"] == "specimen-not-collected"
+				@un_received = @un_received + 1    
+			elsif order["status"] == "Drawn" || order["status"] == "drawn"
+				@drawn = @drawn + 1
+    		end
+    	end
 		render :layout => false
 	end
 
