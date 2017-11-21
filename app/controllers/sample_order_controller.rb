@@ -19,19 +19,17 @@ class SampleOrderController < ApplicationController
         panels.each do |panel|
           next if panel == "MC&S"
           if tests.include?(panel)
-            pan_test[panel].each do |tst|
+              pan_test[panel].each do |tst|
               tests.push(tst)
-            end
-           
+            end           
           end
         end
     else
-       panels.each do |panel|
+        panels.each do |panel|
           if tests.include?(panel)
-            pan_test[panel].each do |tst|
+              pan_test[panel].each do |tst|
               tests.push(tst)
-            end
-              
+            end              
           end
         end
     end
@@ -226,7 +224,7 @@ class SampleOrderController < ApplicationController
   def submite_order_request
         order = session[:order]
      
-        order["status"] = "Not Drawn"
+        order["status"] = "not-drawn"
         name = order[:sample_collector_first_name].to_s+" "+ order[:sample_collector_last_name].to_s
         api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
         api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   

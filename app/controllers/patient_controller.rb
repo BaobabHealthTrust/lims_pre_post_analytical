@@ -149,7 +149,7 @@ class PatientController < ApplicationController
 							
 							redirect_to '/patient_dashboard'
 						else
-							redirect_to "/scan_patient_barcode?option="+"/patient_dashboard"+"&err="+"true"
+							redirect_to "/home?err="+"true"
 						end
 					else
 						redirect_to "/home?option="+"access_denied"
@@ -184,7 +184,7 @@ class PatientController < ApplicationController
 							
 							redirect_to '/patient_dashboard'
 						else
-							redirect_to "/scan_patient_barcode?option="+session[:current_action]+"&err="+"true"
+							redirect_to "/home?err="+"true"
 						end
 					else
 						redirect_to "/home?option="+"access_denied"
@@ -193,7 +193,7 @@ class PatientController < ApplicationController
 			end
 
 		else
-			redirect_to "/scan_patient_barcode?option="+session[:current_action]+"&err="+"true"
+			redirect_to "/home?err="+"true"
 		end
 		
 	end

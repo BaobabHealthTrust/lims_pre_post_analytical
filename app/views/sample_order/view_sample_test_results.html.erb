@@ -53,20 +53,19 @@
 
 		
 		<div  class="col-sm-8">
-			<div style=" overflow: auto; height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
+			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
 
-				<div>	
+				<div style="margin-top: 2%;">	
 				<% patient_demo = @patient_demo if !@patient_demo.blank? %>
-						<div class="col-sm-8" style="height: 43%; color: blue;box-shadow: 2px 2px 2px #182848;">
+						<div class="col-sm-8" style="height: 90%; color: blue;box-shadow: 2px  #182848;">
 							<table class="table table-striped" style="height: 4%;width: 100%; font-size: 1em;">
 								<tr>
 									<td style="font-weight: bold;">Patient Name:</td>
 									<td><%= patient_demo['name'] %></td>
 									<td style="font-weight: bold;">NPID:</td>
 									<td><%= patient_demo['npid'] %></td>
-									<td style="font-weight: bold;">C-District:</td>
-									<td><%= patient_demo['current_district'] %></td>
+									
 								</tr>
 								<tr>
 									<td style="font-weight: bold;">Patient Gender:</td>
@@ -74,7 +73,16 @@
 						
 									<td style="font-weight: bold;">DOB:</td>
 									<td><%= patient_demo['birthdate'] %></td>
-									<td style="font-weight: bold;">H-District:</td>
+									
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Curent-District:</td>
+									<td><%= patient_demo['current_district'] %></td>
+									<td style="font-weight: bold;">Age:</td>
+									<td>20</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Home-District:</td>
 									<td><%= patient_demo['home_district'] %></td>
 								</tr>
 							</table>
@@ -82,82 +90,13 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Patient Samples</h4>
+								<h4 style="text-align: center;font-weight: bold"> Patient Dashboard</h4>
 							</div>
 							
 						</div>
 				</div>
-				<div  style="margin-top: 10%;">
-					<table class="table table-striped" style="height: 4%; font-size: 1em;">
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Total Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Specimen Received</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Unreceived Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">drawn Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undrawn Specimen</td>
-								</tr>
-								<% if !session[:patient_stat].blank? %>
-									<% data = session[:patient_stat] %>
-								<% end %>
-								<%  total_specimen = data["total"] %>
-								<%  undrawn = data["undrawn"] %>
-								<% 	specimen_rec = data["specimen_rec"] %>
-								<%  un_received = data["un_received"] %>
-								<%	drawn = data["drawn"]  %>
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !total_specimen.blank? %>
-												<%= total_specimen  %>
-											<% else %>
-												0
-											<% end %>
 
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !specimen_rec.blank? %>
-												<%= specimen_rec  %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !un_received.blank? %>
-												<%= un_received   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !drawn.blank? %>
-												<%= drawn   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !undrawn.blank? %>
-												<%= undrawn   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-								</tr>
-					</table>					
-				</div>
+				
 			</div>
 		</div>
 	</div>
