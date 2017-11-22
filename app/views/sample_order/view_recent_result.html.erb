@@ -8,6 +8,7 @@
   <%= stylesheet_link_tag "datatable/css/dataTables.bootstrap.min" %>
   <%= stylesheet_link_tag "extras/edrs" %>
 
+
 <style type="text/css">
 	
 	.button:hover {background-color: #3e8e41}
@@ -89,7 +90,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Patient Dashboard</h4>
+								<h4 style="text-align: center;font-weight: bold"> Recent Patient Order Resultsd</h4>
 							</div>
 							
 						</div>
@@ -103,31 +104,44 @@
 
 
 
-
-
 	<div class="row">
-		<div style="border-top: thick solid grey;  height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
-		overflow: auto;">
-			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 2%;">
-		    	<table class="table table-striped">
-					<thead>
-						<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
-							<th>
-								Test Name
-							</th>
-							<th>
-								Test Status
-							</th>
-						    <th>
-								Test Result Status
-						    </th>
-							<th>
-								Action
-							</th>
-						</tr>
-					</thead>
-							
-					<tbody>
+		<div style="border-top: thick solid grey; padding: 2%; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;">
+		 	<div class="col-sm-9" style="overflow: auto;height: 120%;">
+		 		<div style="font-size: 1.2em;">
+		 			<p style="float: left;">
+		 				<span style="font-weight: bold;"> Trac number: </span> <%= @id %>		 				
+		 			</p>
+		 			<p style="float: left;margin-left: 2%">
+			 			<span style="font-weight: bold;"> Type: </span> <%= @sample_type %>	
+		 			</p>
+		 			<p style="float: left; margin-left: 2%"">
+		 				<span style="font-weight: bold;"> Status: </span> <%= @status %>	
+		 			</p>
+
+		 			<p style="float: left;margin-left: 2%"">
+		 				<span style="font-weight: bold;">Ordered: </span> <%= @date %>	
+		 			</p>
+
+
+		 		</div>
+		 		<div>
+		 			<table class="table table-striped">
+		 				<tr>
+		 					<th>
+		 						Test Name
+		 					</th>
+		 					<th>
+		 						Test Status
+		 					</th>
+		 					<th>
+		 						Test Result Status
+		 					</th>
+		 					<th>
+		 						Action
+		 					</th>
+		 				</tr>	
+
+		 				<tbody>
 						<% @test_types.each do |tests| %>
 							<tr>
 								<td>
@@ -186,13 +200,23 @@
 						<%end%>
 					</tbody>
 
-				</table>
-			</div>
+		 			</table>
+		 		</div>
+		 	</div>
+		 	<div class=" col-sm-3">
+		 		<div style="box-shadow: 3px 3px 3px #000000; cursor: pointer;color:white; margin-bottom: 10px; height: 35%; "
+							class="blue col-sm-12 buttons"
+											onmousedown="document.location='/view_results';">
+						<span style="float: center">
+							Previous Order Results
+						</span>
+				</div>		
+		 	</div>
+
 		</div>
 	</div>
 
-</div>
-		
+
 <div id="rst" class="modal fade" role="dialog">
 				  <div class="modal-dialog modal-lg">
 				  		<div class="modal-content">
@@ -224,17 +248,17 @@
 </div>	
 
 
-<div class="footer">
 
-  <span style="float: right;">
-	    
+<div class="footer" style="margin-top: 200px;">
+			
 
-	    	<button class="buttons green" 
-	     					id="log_out"
-	     					onmousedown="document.location='/view_results'">
-	     				Finish
-	    	</button>
-	    </span>
+	<span style="float: right;">
+	  	<button class="buttons green" onmousedown="document.location='/patient_dashboard'">
+			     	Finish
+	  	</button>	
+	    	
+	</span>   			  
+			   
 </div>
 
 

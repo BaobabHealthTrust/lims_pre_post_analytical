@@ -99,7 +99,8 @@ Rails.application.routes.draw do
   get  '/get_samples_to_be_drawn' => 'sample_order#get_samples_to_be_drawn'
   get  '/print_sample' => 'sample_order#print_sample'
   get  '/scan_undrawn_samples' => 'sample_order#scan_undrawn_samples_loader'
-  get '/order_request' => 'sample_order#submite_order_request'
+  get  '/order_request' => 'sample_order#submite_order_request'
+  get  '/view_recent_result'  => 'sample_order#view_recent_result'
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'

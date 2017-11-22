@@ -3,9 +3,98 @@ class SampleOrderController < ApplicationController
   def home
      
   end
+  
+  def view_recent_result
+    id = session[:patient_demo]['npid']
+    @patient_demo = session[:patient_demo]
+    url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
+
+    results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
+    
+    @id = "XKCH17BF002"
+    dat = results.each
+    result_measuers = {} 
+    details = []
+    @test_status = {}
+    results.each do |rst|
+        next if rst['_id'] != @id
+        @test_types = rst['results'].keys
+        @sample_type = rst["sample_type"]
+        @status = rst["status"]
+        @date = rst["date_drawn"]
+        @test_types.each do |test|
+
+          if rst['results'][test].length < 4
+            key = rst['results'][test].keys[rst['results'][test].length - 1]
+            test_status = rst['results'][test][key]['test_status']
+            result_measuers[test] = {"measure_name" => "null","result" => "null"}
+            @test_status[test] = "not available"+ "_"+ test_status
+          elsif rst['results'][test].length >= 4
+            results = rst['results'][test].keys
+            if rst['results'][test].length == 4
+                results = results[3]
+               
+                if rst['results'][test][results]['test_status'] == "verified"
+                  rst['results'][test][results]['results'].each do |s|
+
+                    details.push({"measure_name" => s[0],"result" => s[1]})
+                    @test_status[test] = "available" +"_"+"authorised"
+                  end
+                end
+            elsif rst['results'][test].length >= 5
+                if rst['results'][test].length == 6
+                   results = results[5]
+                 
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  end
+                elsif rst['results'][test].length == 5
+                     results = results[4]
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})                  
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  elsif rst['results'][test][results]['test_status'] == "completed"  
+                      result_measuers[test] = {"measure_name" => "null","result" => "null"}
+                      @test_status[test] = "not available"+ "_"+ "completed but Unauthorised"
+                  end
+                end
+
+            end
+
+          result_measuers[test] = details
+          session[:rs] =  result_measuers          
+          details = []
+          end 
+        end
+      end
+   
+
+
+    render :layout => false
+  end
 
   def capture_order_details
     tests = params[:test]
+    inde = tests.index("MC&amp;S")
+    if !inde.blank?
+      tests.delete_at(inde)
+      tests.push("MC&S")
+    end
+
+    ind = tests.index("Manual Differential &amp; Cell Morphology")
+    
+    if !ind.blank?
+      tests.delete_at(ind)
+      tests.push("Manual Differential & Cell Morphology")
+    end
+
     tests = tests.delete_if(&:empty?)
     lab = params[:target_lab]
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
@@ -14,8 +103,8 @@ class SampleOrderController < ApplicationController
     cat = JSON.parse(RestClient.post(request,""))  
     pan_test = cat['test_panels']
     panels = cat['test_panels'].keys
-    
-    if panels.include?("MC&S") && panels.include?("CSF Analysis")
+    if tests.include?("MC&S") && tests.include?("CSF Analysis")
+      
         panels.each do |panel|
           next if panel == "MC&S"
           if tests.include?(panel)
@@ -89,6 +178,7 @@ class SampleOrderController < ApplicationController
   
   def capture_order_request_details
     tests = params[:test]
+
     tests = tests.delete_if(&:empty?)
     patient = session[:patient_demo]
     patient_name = patient['name'].split(" ")

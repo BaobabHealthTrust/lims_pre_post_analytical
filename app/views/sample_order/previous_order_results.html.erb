@@ -1,0 +1,36 @@
+<table class="table table-striped" id="rst">
+			
+				<thead>
+					<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
+						<th>Tracking Number</th>
+						<th>Date Drawn</th>
+						<th>Sample Type</th>
+						<th>Status</th>
+						<th>Test Done</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+				<tbody >
+					
+					<% @sample_results.each do |result| %>
+					
+						<tr id="<%= result['_id'] %>">
+							<td><%= result['_id'] %></td>
+							<td><%= result['date_drawn'] %></td>
+							<td><%= result['sample_type'] %></td>
+							<td><%= result['status'] %></td>
+							<td><%= "0" %></td>
+							<td>
+								<button class="buttons blue" 
+									onmousedown="document.location='/view_individual_test_results?id='+this.id"
+									id="<%= 'btn' + '_' + result['_id'].to_s %>">
+								view</button>
+								<button class="buttons green">print</button>
+							</td>
+						</tr>
+					<%end%>
+				
+
+				</tbody>
+			</table>

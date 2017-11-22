@@ -50,20 +50,19 @@
 
 		
 		<div  class="col-sm-8">
-			<div style=" overflow: auto; height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
+			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
 
-				<div>	
+				<div style="margin-top: 2%;">	
 				<% patient_demo = @patient_demo if !@patient_demo.blank? %>
-						<div class="col-sm-8" style="height: 43%; color: blue;box-shadow: 2px 2px 2px #182848;">
+						<div class="col-sm-8" style="height: 90%; color: blue;box-shadow: 2px  #182848;">
 							<table class="table table-striped" style="height: 4%;width: 100%; font-size: 1em;">
 								<tr>
 									<td style="font-weight: bold;">Patient Name:</td>
 									<td><%= patient_demo['name'] %></td>
 									<td style="font-weight: bold;">NPID:</td>
 									<td><%= patient_demo['npid'] %></td>
-									<td style="font-weight: bold;">C-District:</td>
-									<td><%= patient_demo['current_district'] %></td>
+									
 								</tr>
 								<tr>
 									<td style="font-weight: bold;">Patient Gender:</td>
@@ -71,7 +70,16 @@
 						
 									<td style="font-weight: bold;">DOB:</td>
 									<td><%= patient_demo['birthdate'] %></td>
-									<td style="font-weight: bold;">H-District:</td>
+									
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Curent-District:</td>
+									<td><%= patient_demo['current_district'] %></td>
+									<td style="font-weight: bold;">Age:</td>
+									<td>20</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Home-District:</td>
 									<td><%= patient_demo['home_district'] %></td>
 								</tr>
 							</table>
@@ -79,57 +87,13 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Sample Test Results</h4>
+								<h4 style="text-align: center;font-weight: bold"> Order Confirmation</h4>
 							</div>
 							
 						</div>
 				</div>
-				<div  style="margin-top: 10%;">
-					<table class="table table-striped" style="height: 4%; font-size: 1em;">
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Total Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Specimen Received</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Unreceived Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undrawn Specimen</td>
-								</tr>
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											1 
-										</label>
-									</td>
-										<% requested_sample = session[:requested_sample] %>
-										<% if requested_sample >0 %>
-											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-												 <%= requested_sample %>
-											
-											</td>
-										<% else %>
-									
-											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-												 <%= requested_sample %>
-											
-											</td>
-										<% end %>
-										
-										<% undispatched_sample_count = session[:un_dis_sample] %>
-										<% if undispatched_sample_count >0 %>
-											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-												<%= undispatched_sample_count %>
-											</td>
-										<% else %>
-											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-												<%= undispatched_sample_count %>
-											</td>
-										<% end %>
-										
-										<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-											10
-											
-										</td>
-								</tr>
-					</table>					
-				</div>
+
+				
 			</div>
 		</div>
 	</div>
