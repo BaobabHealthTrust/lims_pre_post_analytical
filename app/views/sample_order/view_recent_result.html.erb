@@ -90,7 +90,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Recent Patient Order Resultsd</h4>
+								<h4 style="text-align: center;font-weight: bold"> Recent Order Results</h4>
 							</div>
 							
 						</div>
@@ -148,6 +148,7 @@
 									<%= tests %> 
 								</td>
 								<td>
+									
 									<% sta = @test_status[tests].split("_") %>
 									<% if sta[1] != "authorised" && sta[1] != "completed but Unauthorised" %>
 										<label style="color:red;">
