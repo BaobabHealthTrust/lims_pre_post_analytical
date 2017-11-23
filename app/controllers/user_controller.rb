@@ -3,6 +3,8 @@ class UserController < ApplicationController
 	
 	def form_loader
 		@wards = (Ward::retrieve_wards).pluck(:name)
+
+
 	end
 
 	def main_home
@@ -50,7 +52,14 @@ class UserController < ApplicationController
 
 	def device_selector
 
-		render :layout => false
+		if browser.device.tablet?
+			redirect_to '/user/tab_log_in'
+		elsif browser.device.mobile?
+			redirect_to '/user/tab_log_in'
+        else
+	   		redirect_to "/user/form_loader"
+	 	end
+
 	end
 
 	def tab_log_in

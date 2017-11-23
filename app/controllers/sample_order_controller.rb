@@ -574,6 +574,8 @@ class SampleOrderController < ApplicationController
 
   def get_result_measures
     test_type = params[:type]
+   test_type = "Culture & Sensitivity" if test_type == "Culture "
+
     measures = session[:rs][test_type]
     render :json => measures.to_json    
   end

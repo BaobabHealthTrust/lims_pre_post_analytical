@@ -148,7 +148,7 @@
 									<%= tests %> 
 								</td>
 								<td>
-									
+
 									<% sta = @test_status[tests].split("_") %>
 									<% if sta[1] != "authorised" && sta[1] != "completed but Unauthorised" %>
 										<label style="color:red;">
@@ -185,7 +185,7 @@
 								</td>
 								<td>
 									 <% if sta[0] == "available" %>
-										<div id = "<%= @id +'_'+tests %>" 
+										<div id = "<%= tests %>" 
 													onclick="display_test_results(this.id);"
 													style="cursor: pointer;"
 													class="buttons blue"
@@ -266,10 +266,10 @@
 <script type="text/javascript">
 	var datatable = $("data").dataTable();
 	
-	function display_test_results(id)
+	function display_test_results(_id)
 	{      
 
-		var id = id.split('_')[1];
+		var id = _id;
 		var url_ = "/result_meausures?type=" + id;
 		var holder = document.getElementById('test_results');
 		var table = document.getElementById('data');
