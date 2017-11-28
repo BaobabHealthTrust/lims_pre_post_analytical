@@ -4,8 +4,8 @@
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
   <%= javascript_include_tag "sw.min" %>
-  <%= stylesheet_link_tag "extras/edrs" %>
-  
+   <%= stylesheet_link_tag "extras/edrs" %>
+
 <style type="text/css">
 	
 	#barcode-txt {
@@ -41,24 +41,26 @@
 			</div>
 
 		</div>
+
+
 		
 		<div  class="col-sm-8">
 			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.5%;padding-right: 0.5%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
 
-					
+				<div>	
 						<div class="col-sm-8">
 							
 					
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Target Labs</h4>
+								<h4 style="text-align: center;font-weight: bold"> Undrawn Samples</h4>
 							</div>
 							
 						</div>
-				
-				<div  class="col-sm-12">
+				</div>
+				<div  style="margin-top: 10%;">
 					<table class="table table-striped" style="height: 4%; font-size: 1em;">
 								<tr>
 									<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
@@ -105,54 +107,26 @@
 
 
 
-
-
-
-
-	<% added = "no" %>
-	<% if !params[:added].blank? %>
-		<% added = params[:added] %>
+	<% if !params[:err].blank? %>
+		<% error = params[:err] %>
 	<% end %>
+
+
 
 
 	<div class="row">
 		<div style="border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
-		overflow: auto;
+		overflow: auto; 
 		">
 			
-			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 2%; overflow-x: 10px;">
-					<table class="table table-striped">
-					<thead>
-						<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
-								<th>Lab Name</th>
-								<th>District</th>
-								<th>Contact Number</th>
-								<th>Actions</th>
-							</tr>
-						</thead>
-						<tbody id="labs">
-							<% if @labs !="no labs" %>
-								<% @labs.each do |lab| %>					
-									<tr id ="<%= lab['id'] %>">
-										<td><%= lab['name'] %></td>
-										<td><%= lab['district_id'] %></td>
-										<td><%= lab['phone_number'] %></td>
-										<td>
-											<button id ="<%= lab['id'] %>" class="buttons red" onmousedown="delete_lab(this.id)" >delete
-											</button>
-											<button id ="<%= lab['id'] %>" class="buttons blue" onmousedown="document.location='/add_user_page_loader'" >edit
-											</button>
-										</td>
-									</tr>			
-								<% end %>
-							<% else %>
-								<tr>
-									<td style="color: red;">no target labs added in the system, please add</td>
-								</tr>				  
-							<%end%>
-						</tbody>
-					</table>	
-		    </div>
+			<div class="container">
+				<label style="padding-top: 20px;">Scan Sample Barcode</label>
+				<div  style="background-color:  #eeeeee; padding-left: 10%;">
+					<span> <%= image_tag("extras/barcode-2.png") %> </span>
+					<input class="input" type="text" name="scanned-barcode" id="barcode-txt" />
+				</div>
+			</div>
+
 		</div>
 	</div>
 
@@ -160,43 +134,67 @@
 		
 
 
-
 <div class="footer">
-	
-  	<button class="buttons blue" onmousedown="document.location='/view_settings'" > Back</button>
-  	<span style="float: right;">
-			
-			<button class="buttons green" onmousedown="document.location='/add_target_lab_page_loader'" >Add Target Lab</button>
-			
+  <button class="buttons blue" onmousedown="document.location='/home'" >Home</button>
+ 	
+ 	<span style="float: right;">
+			<button class="buttons green" 
+	     					id="log_out"
+	     					onmousedown="draw_samples()">
+	     				Finish
+	    	</button>
 	</span>
+
 </div>
 
 <script type="text/javascript">
 
-	var va = '<%= added %>';
-
-	if (va == 'yes')
-	{
-		swal("Confirmation","Ward Added Successfuly","success");
-	}
-	
-	 function delete_lab(lab_id)
-	 { 	var url_ = "/delete_lab?lab_id=" + lab_id;		
-	 	
+	function get_samples()
+	{	var samples;
+		var _url = '/get_samples_to_be_drawn';
 		jQuery.ajax({
-						async: false,
-						url: url_,
-						type: 'post',
-						success: function(res)
-						{
-								$(lab_id).remove();							
-						},
-						error: function(err)
-						{
-								$(lab_id).remove();								
-						}
-		
-		})
+					async: false,
+					url: _url,
+					success: function(res)
+					{	
+						samples = res;
+					},	
+					error: function(err)
+					{
+						alert(err.responseText);
+					}
+		});
+
+		return samples;
+	}
+
+	function draw_samples()
+	{
+		document.location='/draw?samples=' + samples.toString();
 
 	}
+
+
+	function focusForBarcodeInput(){
+	  var barcode = document.getElementById("barcode-txt");
+	  if (barcode) 
+	    barcode.focus();
+	}
+	    var samples = get_samples();
+	    samples = samples.split("_");
+
+	function barcodeScan(){
+	  usertext=document.getElementById("barcode-txt");
+	  if (usertext.value.match(/.+\$$/i) != null){	  	
+	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
+	
+	    var index = samples.indexOf(usertext.value);
+	    samples.splice(index,1);	    
+	    samples = samples
+	  }
+	}
+
+	setInterval("focusForBarcodeInput();",300);
+	setInterval("barcodeScan();",300);
+
 </script>

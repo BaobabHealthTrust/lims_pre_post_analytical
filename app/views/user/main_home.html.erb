@@ -62,7 +62,7 @@
 			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.5%;padding-right: 0.5%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
 			    ">
 
-				<div>	
+					
 						<div class="col-sm-8">
 							
 					
@@ -73,46 +73,45 @@
 							</div>
 							
 						</div>
-				</div>
-				<div>
-					<table class="table table-striped" style=" font-size: 1em;">
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Requested Orders</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undispatched Samples</td>
-								</tr>
-								<tr>
-									<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-										0
-									</td>
-										<% if @requested_sample >0 %>
-											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-												 <%= @requested_sample %>
-											
-											</td>
-										<% else %>
+				
+					<div class="col-sm-12">
+						<table class="table table-striped" style=" font-size: 1em;">
+									<tr>
+										<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
+										<td style="font-size: 1em;font-weight:bold; text-align: center;">Requested Orders</td>
+										<td style="font-size: 1em;font-weight:bold; text-align: center;">Undispatched Samples</td>
+									</tr>
+									<tr>
+										<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+											0
+										</td>
+											<% if @requested_sample >0 %>
+												<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+													 <%= @requested_sample %>
+												
+												</td>
+											<% else %>
+										
+												<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+													 <%= @requested_sample %>
+												
+												</td>
+											<% end %>
+										
 									
-											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-												 <%= @requested_sample %>
-											
-											</td>
-										<% end %>
-									
-								
-										<% if @undispatched_sample_count >0 %>
-											<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-												<%= @undispatched_sample_count %>
-											</td>
-										<% else %>
-											<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-												<%= @undispatched_sample_count %>
-											</td>
-										<% end %>
-									
-								</tr>
-					</table>
-			
-			    </div>
+											<% if @undispatched_sample_count >0 %>
+												<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
+													<%= @undispatched_sample_count %>
+												</td>
+											<% else %>
+												<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
+													<%= @undispatched_sample_count %>
+												</td>
+											<% end %>
+										
+									</tr>
+						</table>
+					</div>
 			</div>
 		</div>
 	</div>

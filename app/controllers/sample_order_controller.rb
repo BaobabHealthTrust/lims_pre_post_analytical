@@ -4,6 +4,12 @@ class SampleOrderController < ApplicationController
      
   end
   
+
+  def scan_undrawn
+    render :layout => false
+  end
+  
+
   def view_recent_result
     id = session[:patient_demo]['npid']
     @patient_demo = session[:patient_demo]
@@ -636,8 +642,9 @@ class SampleOrderController < ApplicationController
 
     samples.each do |sample|
       data = {
-        "sample_status": "Drawn",
-        "_id": sample
+        "status": "drawn",
+        "_id": sample,
+        "date_drawn": Time.now.strftime("%Y%m%d%H%M%S")
       }
 
 
@@ -670,9 +677,7 @@ class SampleOrderController < ApplicationController
 
   def 
 
-  def scan_undrawn_samples_loader
-    render  :layout => false
-  end
+
 
 
   def order_request_page_loader_handler

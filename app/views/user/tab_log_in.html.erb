@@ -3,6 +3,7 @@
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "extras/edrs" %>
 
 <style type="text/css">
 	
@@ -15,14 +16,9 @@
 </style>
 
 <div style=" height: 97%; background: -moz-linear-gradient(right,#d3cce3,#e9e4f0 );" class="container-fluid"  >
-	<div style="margin-left: 1%;color: white;text-shadow: 2px 2px 4px #000000;">	
+	<div style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">	
 		<h1>
 			LIMS Order Entry
-			<span  style="float: right;font-weight: bold;">
-				<input type="button" value="Home" class="btn btn-lg btn-success" onmousedown="document.location='/'">
-		
-
-			</span>
 		</h1>
 	</div>
 	<div class="row">
@@ -30,40 +26,33 @@
 		overflow: auto; 
 		">
 			
-			<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 5%;background">
+			<div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" style="margin-top: 3%;background">
 					
-				<div>
-					<div style="height: 80%;background-color: #1c2a48; " class="col-sm-offset-3 col-sm-5 panel panel-default" >
-						<div style="color:white;" class="panel-header">
-							<h2>User Log In </h2>
-						</div>
-						<div class="panel-body">
-							<form class="form" method="post" action='/login?opt=tab'>
-								<div class="form-group">
-									<label style="color:white;">username:</label>
-									<input style="width:100%" id="username" class="form-control" type="text" name="username">
-								</div>
+			
+					<div  class="col-sm-offset-1 col-sm-10" >
 
-								<div class="form-group">
-									<label style="color:white;">password:</label>
-									<input style="width:100%" id="password" class="form-control" type="password" name="password">
-								</div>
-								<div class="form-group">
-								  <label for="sel1" style="color:white;">Ward</label>
-								  <select style="width:100%" class="form-control" name="ward_location" id="ward">
-								    
-								  </select>
-								</div> 
-								<div style="margin-top: 10%;">
-									<input style="float: right;margin-left: 2%;" class="btn btn-lg btn-danger" type="button" value="cancel" onmousedown="document.location='user/tab_log_in'">
-									<input style="float: right;" class="btn btn-lg btn-primary" type="submit" value="log in">
+						<div style="background-color: #e9e4f0; padding: 3%; border-top: thick solid #d3cce3; border-bottom: thick solid #d3cce3; border-right: thick solid #d3cce3; border-top-right-radius: 150px; border-bottom-right-radius: 150px">
+							
+							<form class="form">
+
+									<label style="color:black; font-size: 1.5em;">Ward:</label>
+								  	<select style="font-size: 2em;width:85%;" class="form-control"  name="ward_location" id="ward">								    
+								  	</select>
+
+									<label style="margin-top: 5%;color:black; font-size: 1.5em;">Username:</label>
+								   	<input style="font-size: 1.5em;width: 85%;" id="username" type="text" class="form-control" name="username" placeholder="username">
+
+								   	<label style="margin-top: 5%;color:black; font-size: 1.5em;">Password:</label>
+								   	<input style="font-size: 1.5em;width: 85%;" id="password" type="password" class="form-control" name="password" placeholder="password">
 									
-								</div>
 							</form>
+
 						</div>
+						
+					
 
 					</div>
-				</div>		
+				
 
 			</div>
 
@@ -73,6 +62,22 @@
 
 </div>
 
+
+
+<div class="footer">
+ 
+  	
+	    <span style="float: right;">
+	    	<button class="buttons green" 
+	     					id="log_out"
+	     					onmousedown="logIn();">
+	     				Log In
+	    	</button>
+		
+	        	
+		</span>	
+   
+</div>
 <div id="keypad">
 		<span class="keypad">
 		</span>
@@ -87,6 +92,39 @@
 
 
 <script type="text/javascript">	
+
+	function logIn()
+	{  
+		var pas = document.getElementById('password').value;
+		var user = document.getElementById('username').value;
+		var ward = document.getElementById('ward').value;
+
+		var _url = '/login?opt='+ 'tab' + '&ward=' + ward + '&username='+ user + '&password=' + pas;
+
+
+		jQuery.ajax({
+					async: false,
+					url: _url,
+					type: 'post',
+					success: function(res)
+					{
+						if (res == "true")
+						{
+							document.location = '/user/tab_home_page_loader';
+						}
+						else
+						{
+
+						}
+					},
+					error: function(err)
+					{
+						console.log(err.responseText());
+					}
+		});
+
+	
+	}
 
 	var wards = JSON.parse('<%= raw wards.to_json %>');
 	var sel = document.getElementById("ward");

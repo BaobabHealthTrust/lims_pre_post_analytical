@@ -36,16 +36,16 @@ class UserController < ApplicationController
 			username =  params[:username].downcase
 			password =  params[:password].downcase
 			status = User::log_in(username,password)	
-			
+
 			if status[0] == true
 			session[:ward] = params[:ward_location]
 			session[:user] = status[2]['id']
 			session[:roles] = status[1]		
 			requested_sample = UndrawnSample.count_requested_samples(session[:ward])	
 			session[:requested_sample] = requested_sample
-			 	redirect_to  :action => 'tab_home_page_loader'
+			 	render plain: "true"
 			else
-			 	redirect_to  '/' , flash: {error: "wrong password or username"}
+			 	render plain: "false"
 			end		
 		end	
 	end
