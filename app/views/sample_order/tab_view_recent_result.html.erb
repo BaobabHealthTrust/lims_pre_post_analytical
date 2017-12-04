@@ -1,0 +1,183 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "extras/edrs" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%;" class="container-fluid"  >
+	<div style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">		
+		<h1>
+			LIMS Order Entry			
+		</h1>
+		<span style="float: right; font-size: 1.5em;color: blue;">
+				Latest Result
+		</span>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+			
+			<div class="col-sm-4" style="margin-top: 3%;">
+				<% if !@details.blank? %>
+					<table class="table">
+						<tr>
+							<td>
+								NPID
+							</td>
+							<td>
+								<%= @details[0]%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Patient 
+							</td>
+							<td>
+								<%= @details[1]%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Gender
+							</td>
+							<td>
+								<%= @details[2]%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								DOB
+							</td>
+							<td>
+								<%= @details[3]%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Home Vl 
+							</td>
+							<td>
+								<%= @details[4]%>
+							</td>
+						</tr>
+					</table>
+
+				<% end %>
+			</div>
+			
+			<div class="col-sm-8" style="margin-top: 3%;height: 50%; border-left: thin solid grey;">
+				
+					<table class="table table-striped">
+		 				<tr>
+		 					<th>
+		 						Test Name
+		 					</th>
+		 					<th>
+		 						Test Status
+		 					</th>
+		 					<th>
+		 						Test Result Status
+		 					</th>
+		 					<th>
+		 						Action
+		 					</th>
+		 				</tr>	
+
+		 				<tbody>
+						<% @test_types.each do |tests| %>
+							<tr>
+								<td>
+									<%= tests %> 
+								</td>
+								<td>
+
+									<% sta = @test_status[tests].split("_") %>
+									<% if sta[1] != "authorised" && sta[1] != "completed but Unauthorised" %>
+										<label style="color:red;">
+													<%=  sta[1] %>
+										</label>
+									<% elsif sta[1] == "completed but Unauthorised" %>
+										<label style="color:orange;">
+													<%=  sta[1] %>
+										</label>
+									<% else %>
+										<label style="color:green;">
+													<%=  sta[1] %>
+										</label>
+									<% end %>
+																				
+								</td>
+								<td>
+									
+									<% if sta[0] == "not available" %>
+										<% if sta[1] == "completed but Unauthorised" %>
+												<label style="color:orange;">
+													<%=  sta[0] %>
+												</label>
+										<% else %>
+												<label style="color:red;">
+													<%=  sta[0] %>
+												</label>
+										<% end %>
+									<% else %>
+												<label style="color:green;">
+													<%=  sta[0] %>
+												</label>
+									<% end %>											
+								</td>
+								<td>
+									 <% if sta[0] == "available" %>
+										<div id = "<%= tests %>" 
+													onclick="display_test_results(this.id);"
+													style="cursor: pointer;"
+													class="buttons blue"
+													data-toggle="modal" data-target="#rst">
+													view results 
+										
+										</div>	
+
+									<% end %>
+ 
+								</td>
+							</tr>								
+						<%end%>
+					</tbody>
+
+		 			</table>
+				
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div class="footer">
+ 	<button class="buttons blues" id="log_out" onmousedown="document.location='/user/tab_log_in';">
+	    Back
+	</button>
+  	<button class="buttons blues" id="log_out" onmousedown="document.location='/user/tab_log_in';">
+	    Home
+	</button>
+
+
+	<button style="float: right;" class="buttons greens" id="log_out" onmousedown="document.location='/user/tab_log_in';">
+	    Previous Order Results
+	</button>
+  		
+   
+</div>
+

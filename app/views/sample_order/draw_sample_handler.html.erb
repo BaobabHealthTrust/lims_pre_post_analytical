@@ -143,7 +143,7 @@
 									<td><%= sample['date_requested'] %></td>
 									<td><%= sample['requested_by'] %></td>
 									<td>
-										<button id="<%= sample['tracking_number'].to_s %>" class="buttons blue" 
+										<button id="<%= sample['tracking_number'].to_s %>" class="buttons blues" 
 										onclick="document.location='/print_sample?tracking_number='+this.id;"> print</button>
 
 									</td>
@@ -168,16 +168,16 @@
 </div>
 
 <div class="footer">
-	<button class="buttons blue" onmousedown="document.location='/home'">Home</button>
+	<button class="buttons blues" onmousedown="document.location='/home'">Home</button>
     
     <span style="float: right;">
 	   
-	   	<button class="buttons blue"	id="log_out" 
+	   	<button class="buttons blues"	id="log_out" 
 	   	 	onmousedown="check()">
 	     	Samples Drawn
 	   	</button>
 
-	   	<button class="buttons green"	id="log_out" 
+	   	<button class="buttons greens"	id="log_out" 
 	   	 	onmousedown="check()">
 	     	Finish
 	   	</button>

@@ -9,6 +9,91 @@ class SampleOrderController < ApplicationController
     render :layout => false
   end
   
+  def tab_view_recent_result    
+    @details = session[:tab_patient_demo]
+    id = @details[0]
+    url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
+
+    results = JSON.parse(RestClient.get(url,:contentType => "application/text"))
+    check = results
+    result_measuers = {} 
+    details = []
+    @test_status = {}
+    dates = []
+
+    check.each do |r|
+      dates.push(r['date_time'])
+    end
+
+    latest_order = dates.max
+    results.each do |rst|
+        next if rst['date_time'] != latest_order
+        @id = rst["_id"]
+        @test_types = rst['results'].keys
+        @sample_type = rst["sample_type"]
+        @status = rst["status"]
+        @date = rst["date_time"]
+        @test_types.each do |test|
+          
+          if rst['results'][test].length < 4
+            key = rst['results'][test].keys[rst['results'][test].length - 1]
+            test_status = rst['results'][test][key]['test_status']
+            result_measuers[test] = {"measure_name" => "null","result" => "null"}
+            @test_status[test] = "not available"+ "_"+ test_status
+          elsif rst['results'][test].length >= 4
+            results = rst['results'][test].keys
+            if rst['results'][test].length == 4
+                results = results[3]
+               
+                if rst['results'][test][results]['test_status'] == "verified"
+                  rst['results'][test][results]['results'].each do |s|
+
+                    details.push({"measure_name" => s[0],"result" => s[1]})
+                    @test_status[test] = "available" +"_"+"authorised"
+                  end
+                end
+            elsif rst['results'][test].length >= 5
+                
+                if rst['results'][test].length == 6
+                   results = results[5]
+                 
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  elsif  rst['results'][test][results]['test_status'] == "completed"
+                      rst['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  end
+                elsif rst['results'][test].length == 5
+
+                     results = results[4]
+                  if rst['results'][test][results]['test_status'] == "verified"
+                    rt['results'][test][results]['results'].each do |s|
+
+                      details.push({"measure_name" => s[0],"result" => s[1]})                  
+                      @test_status[test] = "available" +"_"+"authorised"
+                    end
+                  elsif rst['results'][test][results]['test_status'] == "completed"  
+                      result_measuers[test] = {"measure_name" => "null","result" => "null"}
+                      @test_status[test] = "not available"+ "_"+ "completed but Unauthorised"
+                  end
+                end
+
+            end
+          result_measuers[test] = details
+          session[:rs] =  result_measuers          
+          details = []
+          end 
+        end
+      end
+    render :layout => false
+  end
 
   def view_recent_result
     id = session[:patient_demo]['npid']
@@ -562,6 +647,10 @@ class SampleOrderController < ApplicationController
     end
   end
 
+  def save_try
+
+  end
+
   def tab_view_sample_results
       id = params[:id];
       url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
@@ -573,7 +662,7 @@ class SampleOrderController < ApplicationController
 
   def tab_request_sample
     id = params[:id]
-    session[:tab_patients] = session[:tab_patients][id]
+    @details = session[:tab_patient_demo]
 
     render :layout => false
   end

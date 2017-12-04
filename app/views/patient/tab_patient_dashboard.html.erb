@@ -21,7 +21,7 @@
 			LIMS Order Entry			
 		</h1>
 		<span style="float: right; font-size: 1.5em;color: blue;">
-				Home
+				Patient Dashboard
 		</span>
 		
 	</div>
@@ -29,44 +29,63 @@
 		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
 		overflow: auto;">
 			
-			<div class="col-sm-3" style="margin-top: 3%;">
-				<table class="table">
+			<div class="col-sm-4" style="margin-top: 3%;">
+				<% if !@details.blank? %>
+					<table class="table">
 						<tr>
 							<td>
-								Orders with no Results
+								NPID
 							</td>
 							<td>
-								<span class="badge">5</span>
+								<%= @details[0]%>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								Requested Orders
+								Patient 
 							</td>
 							<td>
-								<span class="badge">5</span>
+								<%= @details[1]%>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								Undispatched Samples
+								Gender
 							</td>
 							<td>
-								<span class="badge">5</span>
+								<%= @details[2]%>
 							</td>
 						</tr>
-				</table>
+						<tr>
+							<td>
+								DOB
+							</td>
+							<td>
+								<%= @details[3]%>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Home Vl 
+							</td>
+							<td>
+								<%= @details[4]%>
+							</td>
+						</tr>
+					</table>
+
+				<% end %>
 			</div>
 			
 			<div class="col-sm-8" style="margin-top: 3%;height: 50%; border-left: thin solid grey;">
 				<div style="margin-top: 10%;margin-left: 25%;">
 					<div class="col-sm-12 blues buttons" style="text-align: center;" 
-						onclick="document.location='/tab_search_patient_by_name'">
-						search by name
+						onclick="document.location='/tab_request_sample?id='+ '<%= @details[0].to_s %>'">
+						request order
 					</div>
 
-					<div class="col-sm-12 blues buttons" style="text-align: center;" onclick="">
-						search by Id
+					<div class="col-sm-12 blues buttons" style="text-align: center;" onclick="document.location='/tab_view_recent_result'">
+						view order results
 					</div>
 				</div>
 
@@ -78,9 +97,12 @@
 </div>
 
 <div class="footer">
- 	<button class="buttons reds" id="log_out" onmousedown="document.location='/user/tab_log_in';">
-	    Log Out
+ 	<button class="buttons blues" id="log_out" onmousedown="document.location='/user/tab_log_in';">
+	    Back
 	</button>
-  	
+  	<button class="buttons blues" id="log_out" onmousedown="document.location='/user/tab_log_in';">
+	    Home
+	</button>
+  		
    
 </div>

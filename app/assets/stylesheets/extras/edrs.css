@@ -159,7 +159,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ffc579, endColorstr=#fb9d23) !important;
 }
 
-.blue {
+.blues {
     border: 1px solid #7eb9d0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -182,7 +182,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a7cfdf, endColorstr=#23538a);
 }
 
-.blue:hover {
+.blues:hover {
     border: 1px solid #5ca6c4;
     background-color: #82bbd1;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#82bbd1), to(#193b61));
@@ -194,7 +194,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#82bbd1, endColorstr=#193b61);
 }
 
-.green {
+.greens {
     border: 1px solid #34740e;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -217,7 +217,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#4ba614, endColorstr=#008c00);
 }
 
-.green:hover {
+.greens:hover {
     border: 1px solid #224b09;
     background-color: #36780f;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#36780f), to(#005900));
@@ -229,7 +229,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#36780f, endColorstr=#005900);
 }
 
-.red {
+.reds {
     border: 1px solid #72021c;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -252,7 +252,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a90329, endColorstr=#6d0019);
 }
 
-.red:hover {
+.reds:hover {
     border: 1px solid #450111;
     background-color: #77021d;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#77021d), to(#3a000d));
@@ -264,7 +264,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#77021d, endColorstr=#3a000d);
 }
 
-.gray {
+.grays {
     border: 1px solid #ccc;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -287,7 +287,7 @@ buttons:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ccc, endColorstr=#999);
 }
 
-.gray:hover {
+.grays:hover {
     border: 1px solid #ccc;
     background-color: #ddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#ccc));
@@ -552,7 +552,7 @@ buttons:active {
   float:right;
 }
 
-.blue{
+.blues{
   height: 20px !important;
 }
 

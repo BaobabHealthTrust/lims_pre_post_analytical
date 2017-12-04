@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get  '/work_search_pa_by_name' => 'patient#work_search_pa_by_name'
   get  '/patient_dashboard' => 'patient#patient_dashboard'
   get  '/patients_found' => 'patient#patients_found'
+  get  '/tab_patient_dashboard' => 'patient#tab_patient_dashboard'
 
 #roles controller routes
   get 'roles_page' => 'roles#roles_page_loader_handler'
@@ -101,6 +102,8 @@ Rails.application.routes.draw do
   get  '/order_request' => 'sample_order#submite_order_request'
   get  '/view_recent_result'  => 'sample_order#view_recent_result'
   get  '/scan_samples' => 'sample_order#scan_undrawn'
+  get  '/save_try' => 'sample_order#save_try'
+  get  '/tab_view_recent_result' => 'sample_order#tab_view_recent_result'
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'
