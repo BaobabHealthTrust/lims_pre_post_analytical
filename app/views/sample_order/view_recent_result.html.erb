@@ -90,7 +90,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Recent Order Results</h4>
+								<h4 style="text-align: center;font-weight: bold"> Recent Test Results</h4>
 							</div>
 							
 						</div>
@@ -109,17 +109,19 @@
 		 	<div class="col-sm-9" style="overflow: auto;height: 120%;">
 		 		<div style="font-size: 1.2em;">
 		 			<p style="float: left;">
-		 				<span style="font-weight: bold;"> Trac number: </span> <%= @id %>		 				
+		 				<span style="font-weight: bold;"> Trac number: </span> <span style="color:blue;"> <%= @id %>
+		 				</span>
 		 			</p>
 		 			<p style="float: left;margin-left: 2%">
-			 			<span style="font-weight: bold;"> Type: </span> <%= @sample_type %>	
+			 			<span style="font-weight: bold;"> Type: </span> <span style="color:blue;"> <%= @sample_type %>	</span>
 		 			</p>
 		 			<p style="float: left; margin-left: 2%"">
-		 				<span style="font-weight: bold;"> Status: </span> <%= @status %>	
+		 				<span style="font-weight: bold;"> Status: </span> <span style="color:blue;"> <%= @status %>	
+		 				</span>
 		 			</p>
 
 		 			<p style="float: left;margin-left: 2%"">
-		 				<span style="font-weight: bold;">Ordered: </span> <%= @date %>	
+		 				<span style="font-weight: bold;">Ordered: </span> <span style="color:blue;"> <%= @date %> </span>	
 		 			</p>
 
 
@@ -209,7 +211,7 @@
 							class="blues col-sm-12 buttons"
 											onmousedown="document.location='/view_results';">
 						<span style="float: center">
-							Previous Order Results
+							Previous Test Results
 						</span>
 				</div>		
 		 	</div>

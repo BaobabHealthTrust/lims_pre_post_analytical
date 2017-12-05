@@ -160,7 +160,7 @@ class SampleOrderController < ApplicationController
 
                      results = results[4]
                   if rst['results'][test][results]['test_status'] == "verified"
-                    rt['results'][test][results]['results'].each do |s|
+                    rst['results'][test][results]['results'].each do |s|
 
                       details.push({"measure_name" => s[0],"result" => s[1]})                  
                       @test_status[test] = "available" +"_"+"authorised"
@@ -721,7 +721,7 @@ class SampleOrderController < ApplicationController
   
   def draw_sample
     samples =  params[:samples]
-    samples = samples.split(",");
+    samples = samples.split("_");
 
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
@@ -736,25 +736,27 @@ class SampleOrderController < ApplicationController
         "date_drawn": Time.now.strftime("%Y%m%d%H%M%S")
       }
 
+      sampl =  UndrawnSample.retrive_undrawn_sample(sample)
+      if !sampl.blank?
+          sample_type = sampl[0]['sample_type']
+          order_priority = "stat"               
+          name = sampl[0]['patient_name']
+          npid = sampl[0]['patient_id']
+          gender = sampl[0]['patient_gender']
+          age = 0
+          dob = sampl[0]['date_of_birth']
+          col_name = sampl[0]['requested_by']
+          ward = sampl[0]['order_location']
+          date_requested = sampl[0]['date_requested']
 
-       sampl =  UndrawnSample.retrive_undrawn_sample(sample)
-        sample_type = sampl[0]['sample_type']
-        order_priority = "stat"               
-        name = sampl[0]['patient_name']
-        npid = sampl[0]['patient_id']
-        gender = sampl[0]['patient_gender']
-        age = 0
-        dob = sampl[0]['date_of_birth']
-        col_name = sampl[0]['requested_by']
-        ward = sampl[0]['order_location']
-        date_requested = sampl[0]['date_requested']
+          UndispatchedSample.capture_sample(sample,sample_type,npid,name,date_requested,gender,"KCH",ward)
+          session[:un_dis_sample] = session[:un_dis_sample] + 1
+          res = RestClient.post(request,data.to_json, :content_type => 'application/json')    
+          session[:requested_sample] = session[:requested_sample] - 1
+          UndrawnSample.remove_sampl(sample)
+          session.delete(:b_drawn)
+      end
 
-        UndispatchedSample.capture_sample(sample,sample_type,npid,name,date_requested,gender,"KCH",ward)
-        session[:un_dis_sample] = session[:un_dis_sample] + 1
-        res = RestClient.post(request,data.to_json, :content_type => 'application/json')    
-        session[:requested_sample] = session[:requested_sample] - 1
-        UndrawnSample.remove_sampl(sample)
-        session.delete(:b_drawn)
     end
     redirect_to "/draw_sample"
   end
