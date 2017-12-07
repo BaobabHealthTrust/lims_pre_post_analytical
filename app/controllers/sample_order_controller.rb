@@ -401,6 +401,7 @@ class SampleOrderController < ApplicationController
 
   def submite_order
     order = session[:order]
+    
     name = order[:sample_collector_first_name].to_s+" "+ order[:sample_collector_last_name].to_s
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
@@ -410,9 +411,17 @@ class SampleOrderController < ApplicationController
     UndispatchedSample.capture_sample(dat['tracking_number'],order['sample_type'],order['national_patient_id'],
                                   p_name,order['date_sample_drawn'],order['gender'],order['target_lab'],session[:ward])
     session[:un_dis_sample] = session[:un_dis_sample] + 1
-    print_and_redirect("/print_tracking_number?tracking_number="+dat['tracking_number'].to_s+"&col_name="+name.to_s+"&sample="+order[:sample_type].to_s+"&priority="+order[:sample_priority].to_s,"/patient_dashboard")
-    session.delete(:order)
-  
+    
+    print(dat['tracking_number'].to_s,name.to_s,order[:sample_type].to_s,order[:sample_priority].to_s)
+    order['tracking_number'] = dat['tracking_number']
+    session[:re_print] = order    
+  end
+
+  def re_print_tracking_number
+    order = session[:re_print]
+    name = order[:sample_collector_first_name].to_s+" "+ order[:sample_collector_last_name].to_s
+    print(order['tracking_number'].to_s,name.to_s,order[:sample_type].to_s,order[:sample_priority].to_s)
+   
   end
 
   def submite_order_request
@@ -480,29 +489,27 @@ class SampleOrderController < ApplicationController
   end
 
 
-  def print
+  def print(tr,col,sample,prio)
       require 'auto12epl.rb'
-      tracking_number = params[:tracking_number]
-      col_name = params[:col_name]
-      sample = params[:sample]
-      priority = params[:priority]
+      tracking_number = tr
+      col_name = col
+      sample = sample
+      priority = prio
       auto = Auto12Epl.new
-      name = params[:name]
-      dob = params[:dob]
-      gender = params[:gender]
-      age = params[:age]
-      npid = params[:npid]
+      patient = session[:patient_demo]
+      name = patient['name'].split(" ")
+      age = 0
+      dob = ""
       date = Time.now().strftime("%Y%m%d%H%M%S")
-      aligned_lbl =  auto.generate_epl(name[0].to_s, name[1].to_s,"",npid.to_s,dob.to_s,age.to_s,gender.to_s,date, col_name.to_s, sample,priority.to_s,
+      aligned_lbl =  auto.generate_epl(name[0].to_s, name[1].to_s,"",patient['npid'].to_s,dob.to_s,age.to_s,patient['gender'].to_s,date, col_name.to_s, sample,priority.to_s,
                              tracking_number.to_s, tracking_number.to_s
       )   
-
       send_data(aligned_lbl,
               :type=>"application/label; charset=utf-8",
               :stream=> false,
               :filename=>"#{tracking_number}-#{rand(10000)}.lbl",
               :disposition => "inline"
-      )  
+      )   
   end
 
   def view_sample_test_results

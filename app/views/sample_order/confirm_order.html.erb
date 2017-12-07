@@ -128,7 +128,7 @@
 								<tr id="<%= counter %>" >
 									<td><%= test %></td>
 									<td> Drawn</td>
-									<td><button class="buttons reds"
+									<td class="del"><button class="buttons reds"
 										 id="<%= counter.to_s + '_' + test %>"
 										 onmousedown="delete_test(this)">Delete</button></td>
 								</tr>
@@ -147,15 +147,23 @@
 
 
 <div class="footer">
-  <button class="buttons blues" onmousedown="document.location='/home'"> Home</button>
+  <button class="buttons blues" onmousedown="document.location=''"> Home</button>
     <span style="float: right;">
 	  
+    	<button  class="buttons blues" onmousedown="reprint();" id="reprint" style="display: none;">
+			Reprint Tracking Number
+	    </button>
 
-	   	<button  class="buttons blues" onmousedown="document.location='<%= location %>'">
+	    <button  class="buttons reds" 
+	    		onmousedown="document.location='/patient_dashboard'" id="close" style="display: none;">
+			Close
+	    </button>
+
+	   	<button  class="buttons blues" onmousedown="document.location='<%= location %>'" id="add_test">
 			Add Test
 	    </button>
 
-		<button class="buttons greens" onmousedown="determine();">
+		<button class="buttons greens" onmousedown="determine();" id="finish">
 			Finish
 		</button>
 	
@@ -164,6 +172,11 @@
 
 
 <script type="text/javascript">
+
+	function reprint()
+	{
+		document.location = '/re_print_tracking_number';
+	}
 
 	function determine()
 	{
@@ -187,6 +200,15 @@
 				 	document.location = '/order_request';
 			      break;
 				case "no":				 	
+					document.getElementById("finish").style.display = "none";
+					document.getElementById("add_test").style.display = "none";
+					document.getElementById("close").style.display = "inline";
+					document.getElementById("reprint").style.display = "inline";					
+					var el = document.getElementsByClassName("del");
+					for (var c=0; c < el.length;c++)
+					{
+						el[c].style.display = "none";
+					}
 				 	document.location = "/submite_order";
 			      break;
 			 }

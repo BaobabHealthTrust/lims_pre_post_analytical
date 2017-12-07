@@ -21,9 +21,11 @@ class PatientController < ApplicationController
 	def work_search_patient_by_name
 
 	end
+
 	def patient_dashboard
 		session.delete(:order)
 		session.delete(:rs)
+		session.delete(:re_print)
 		@patient_demo = session[:patient_demo]
 		id = @patient_demo['npid']
 		url = "localhost:3005/api/patient_lab_trail?npid=#{id}"
@@ -109,12 +111,17 @@ class PatientController < ApplicationController
 	end
 
 	def patients_found
-	
+		name = params[:pat_name]
+		gender = params[:gender]
+		gender = "F" if gender == "Female" || gender == "female"
+		gender = "M" if gender == "Male" || gender == "male"
+		@details = search_patient_by_name(name,gender)
+		render :layout => false
 	end
 
 	def scan_patient
 		require "dde_resource_provider.rb"
-
+		
 		npid = params[:npid]		
 		token = File.read("#{Rails.root}/tmp/token")
 		api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
@@ -215,10 +222,10 @@ class PatientController < ApplicationController
 
 	end
 
-	def search_patient_by_name
-		name = params[:name]
+	def search_patient_by_name(name,gender)
+		name = name
 		name = name.split(" ")
-		gender = params[:gender]
+		gender = gender
 		token = File.read("#{Rails.root}/tmp/token")
 		api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     	api_url =  YAML.load_file("#{Rails.root}/config/dde3.yml")[Rails.env]
@@ -255,13 +262,13 @@ class PatientController < ApplicationController
 				end
 				session[:tab_patients] = pat
 
-				render :json => patients.to_json
+				return patients.to_json
 			else
-				render plain: res.to_json
+				return res.to_json
 			end
 
 		else
-			render plain: "wronged".to_json
+			return "wronged".to_json
 		end
     	
 	end

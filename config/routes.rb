@@ -104,6 +104,9 @@ Rails.application.routes.draw do
   get  '/scan_samples' => 'sample_order#scan_undrawn'
   get  '/save_try' => 'sample_order#save_try'
   get  '/tab_view_recent_result' => 'sample_order#tab_view_recent_result'
+  post '/re_print_tracking_number' => 'sample_order#re_print_tracking_number'
+  get '/re_print_tracking_number' => 'sample_order#re_print_tracking_number'
+
 
 #hitting remote resources
   post '/lab_samples' => 'sample_order#get_samples'

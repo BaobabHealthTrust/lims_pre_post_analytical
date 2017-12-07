@@ -1,0 +1,115 @@
+
+  <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "bootstrap" %>
+  <%= stylesheet_link_tag "bootstrap.min" %>
+  <%= stylesheet_link_tag "extras/footer" %>
+  <%= stylesheet_link_tag "extras/edrs" %>
+
+<style type="text/css">
+	
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+	  background-color: #3e8e41;
+	  box-shadow: 0 5px #666;
+	  transform: translateY(4px);	
+</style>
+
+<div style=" height: 97%;" class="container-fluid"  >
+	<div style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">		
+		<h1>
+			LIMS Order Entry			
+		</h1>
+		<span style="float: right; font-size: 1.5em;color: blue;">
+				Searching
+		</span>
+		
+	</div>
+	<div class="row">
+		<div style="border-top: thick solid grey; height: 90%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">
+			
+			<div class="col-sm-3" style="margin-top: 3%;">
+				<table class="table">
+						<tr>
+							<td>
+								Orders with no Results
+							</td>
+							<td>
+								<span class="badge">5</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Requested Orders
+							</td>
+							<td>
+								<span class="badge">5</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Undispatched Samples
+							</td>
+							<td>
+								<span class="badge">5</span>
+							</td>
+						</tr>
+				</table>
+			</div>
+			
+			<div class="col-sm-8" style="margin-top: 3%;height: 50%; border-left: thin solid grey;">
+				<div style="margin-top: 3%;margin-left: 25%;">
+					
+					<table class="table">
+						<thead>
+							<tr>
+								<th>NPID</th>
+								<th>Patient Name</th>
+								<th>Gender</th>
+								<th>DOB</th>
+								<th>Home District</th>
+							</tr>							
+						</thead>
+						<tbody>
+							<tr>
+								
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div class="footer">
+ 	<button class="buttons blues" id="log_out" onmousedown="document.location='/user/tab_home_page_loader';">
+	    Home
+	</button>
+
+	<button class="buttons greens" id="log_out" style="float: right;" 
+		onmousedown="searchPatientByName()">
+	    Search
+	</button>
+  	
+   
+</div>
+
+
+<script type="text/javascript">
+	
+	function searchPatientByName(name,gender)
+	{  
+		var gender = document.getElementById('gender').value;
+		var pat_name = document.getElementById('patient_name').value;
+
+		document.location= '/patients_found?gender=' + gender + "&pat_name=" + pat_name;	
+
+	}
+
+</script>
