@@ -50,11 +50,42 @@ class TestController < ApplicationController
 	end
 
 	def add_test
-		new_test = params[:test]
-		new_test.each do |test|
-			next if test.empty?
+		tests = params[:test]
+		api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
+		lab = session[:target_lab] 
+	    api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
+	    request = "#{api_url['national_dashboard']}#{api_resources['retrieve_lab_catalog']}?lab="+lab
+	    cat = JSON.parse(RestClient.post(request,""))  
+	    pan_test = cat['test_panels']
+	    panels = cat['test_panels'].keys
+	    session.delete('lab')
+	    tests.each do |test|
+			next if tests.empty?
 			session[:order]['tests'].push(test)
 		end	
+
+	    if tests.include?("MC&S") && tests.include?("CSF Analysis")
+	      	
+	        panels.each do |panel|
+	          next if panel == "MC&S"
+	          if tests.include?(panel)
+	              pan_test[panel].each do |tst|
+	              session[:order]['tests'].push(tst)
+	            end           
+	          end
+	        end
+	    else
+	        panels.each do |panel|
+	          if tests.include?(panel)
+	              pan_test[panel].each do |tst|
+	              session[:order]['tests'].push(tst)
+	            end
+	          else
+
+	          end
+	        end
+	    end
+		
 		redirect_to   '/confirm_order' 
 	end	
 

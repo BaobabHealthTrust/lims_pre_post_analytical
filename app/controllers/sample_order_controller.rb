@@ -201,6 +201,7 @@ class SampleOrderController < ApplicationController
 
     tests = tests.delete_if(&:empty?)
     lab = params[:target_lab]
+    session[:target_lab] = lab
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
     request = "#{api_url['national_dashboard']}#{api_resources['retrieve_lab_catalog']}?lab="+lab

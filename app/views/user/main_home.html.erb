@@ -1,9 +1,11 @@
 
   <%= javascript_include_tag "jquery" %>
+  <%= javascript_include_tag "jquery.msgBox" %>
   <%= javascript_include_tag "bootstrap" %>
   <%= stylesheet_link_tag "bootstrap.min" %>
   <%= stylesheet_link_tag "extras/footer" %>
   <%= stylesheet_link_tag "extras/edrs" %>
+  <%= stylesheet_link_tag "extras/msgBoxLight" %>
   <%= javascript_include_tag "sw.min" %>  
 
 <style type="text/css">
@@ -231,7 +233,7 @@
 	    <span style="float: right;">
 	    	<button class="buttons blues" 
 	     					id="log_out"
-	     					onmousedown="document.location='/search_patient_by_name' ">
+	     					onmousedown="sr();">
 	     				Search Patient by Name
 	    	</button>
 			<button class="buttons blues" 
@@ -254,8 +256,17 @@
 
 
 <script type="text/javascript">
+    msgBoxImagePath = "../images/";
+	function sr()
+	{
+		$.msgBox({
+		title:"Selam / Hello",
+		content:"Merhaba D�nya! / Hello World!",
+		type:"info"
+		});
+	}
 
-		
+
 	function focusForBarcodeInput(){
 	  var barcode = document.getElementById("barcode-txt");
 	  if (barcode) 
