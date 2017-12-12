@@ -201,7 +201,7 @@ class SampleOrderController < ApplicationController
 
     tests = tests.delete_if(&:empty?)
     lab = params[:target_lab]
-    session[:target_lab] = lab
+    session[:target_lab]
     api_resources = YAML.load_file("#{Rails.root}/api/api_resources.yml")
     api_url =  YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]   
     request = "#{api_url['national_dashboard']}#{api_resources['retrieve_lab_catalog']}?lab="+lab
@@ -711,18 +711,31 @@ class SampleOrderController < ApplicationController
     else
       session[:b_drawn] = session[:b_drawn] +"_"+ tracking_number      
     end
-
+        require 'auto12epl.rb'
         sample =  UndrawnSample.retrive_undrawn_sample(params[:tracking_number])
         sample_type = sample[0]['sample_type']
         order_priority = "stat"               
-        name = sample[0]['patient_name']
+        name = sample[0]['patient_name'].split(" ")
         npid = sample[0]['patient_id']
         gender = sample[0]['patient_gender']
         age = 0
         dob = sample[0]['date_of_birth']
         col_name = sample[0]['requested_by']
-        print_and_redirect("/print?tracking_number="+tracking_number.to_s+"&name="+name.to_s+"&npid="+npid.to_s+"&gender="+gender.to_s+"&age="+age.to_s+"&dob="+dob.to_s+"&col_name="+col_name.to_s+"&sample="+sample_type.to_s,"/draw_sample")
- 
+      
+      auto = Auto12Epl.new
+  
+      date = Time.now().strftime("%Y%m%d%H%M%S")
+      aligned_lbl =  auto.generate_epl(name[0].to_s, name[1].to_s,"",npid.to_s,dob.to_s,age.to_s,gender.to_s,date, col_name.to_s, sample_type,order_priority.to_s,
+                             tracking_number.to_s, tracking_number.to_s
+      )   
+      send_data(aligned_lbl,
+              :type=>"application/label; charset=utf-8",
+              :stream=> false,
+              :filename=>"#{tracking_number}-#{rand(10000)}.lbl",
+              :disposition => "inline"
+      )   
+
+
 
       
   end
@@ -766,7 +779,11 @@ class SampleOrderController < ApplicationController
       end
 
     end
-    redirect_to "/draw_sample"
+    if !params[:opt].blank?
+      redirect_to "/scan_samples"
+    else
+      redirect_to "/draw_sample"
+    end
   end
 
 

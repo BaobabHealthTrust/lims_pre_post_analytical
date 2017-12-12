@@ -59,6 +59,20 @@ class TestController < ApplicationController
 	    pan_test = cat['test_panels']
 	    panels = cat['test_panels'].keys
 	    session.delete('lab')
+
+	     inde = tests.index("MC&amp;S")
+		    if !inde.blank?
+		      tests.delete_at(inde)
+		      tests.push("MC&S")
+		    end
+
+		    ind = tests.index("Manual Differential &amp; Cell Morphology")
+		    
+		    if !ind.blank?
+		      tests.delete_at(ind)
+		      tests.push("Manual Differential & Cell Morphology")
+		    end
+    
 	    tests.each do |test|
 			next if tests.empty?
 			session[:order]['tests'].push(test)
@@ -80,8 +94,6 @@ class TestController < ApplicationController
 	              pan_test[panel].each do |tst|
 	              session[:order]['tests'].push(tst)
 	            end
-	          else
-
 	          end
 	        end
 	    end

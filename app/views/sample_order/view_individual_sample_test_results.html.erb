@@ -248,6 +248,13 @@
 		var url_ = "/result_meausures?type=" + id;
 		var holder = document.getElementById('test_results');
 		var table = document.getElementById('data');
+		var rows = table.getElementsByTagName("tr").length;
+
+		for (var count =1;count<rows;count ++)
+		{
+			table.deleteRow(count);
+		}		
+
 		jQuery.ajax({
 					  sync: false,
 					  url: url_,

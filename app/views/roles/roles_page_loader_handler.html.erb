@@ -26,17 +26,25 @@
 			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
 			<div class="col-sm-5" style="border-right: thin solid black;">
 				<p style="color: black; font-weight:bold;">Facility Name <br/>
-					<span class="color:white;" style="">Kawale Health Centre</span></p>
+					<span class="color:white;" style="">
+						<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
+						<%= file['facility_name'] %>
+					</span></p>
 
 					<p style="color: black;font-weight:bold;">Ward/Location <br/>
 					<span class="text-white" style=""><%= session[:ward] %></span>
 				</p>
-			</div>
+			</div> 
 			<div class="col-sm-5" >
 				<p style="color: black; font-weight:bold;">Current User<br/>
-					<span class="color:white;" style="font-weight:none !important;">Gift Malolo</span></p>
+					<span class="color:white;" style="font-weight:none !important;">
+					<% user = User::get_user(session[:user]) %>
+					<%= user['name'] %></span></p>
 				<p style="color: black; font-weight:bold;">User Designation<br/>
-					<span class="color:white;" style="font-weight:none !important;">Doctor</span></p>
+					<span class="color:white;" style="font-weight:none !important;">
+					<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
+					<%= des %>
+					</span></p>
 			</div>
 
 		</div>
@@ -52,7 +60,7 @@
 						</div>
 						<div class="col-sm-4">
 							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> System Settings</h4>
+								<h4 style="text-align: center;font-weight: bold"> System Roles</h4>
 							</div>
 							
 						</div>

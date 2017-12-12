@@ -135,12 +135,11 @@
 
 
 <div class="footer">
-  <button class="buttons blues" onmousedown="document.location='/home'" >Home</button>
  	
  	<span style="float: right;">
 			<button class="buttons greens" 
 	     					id="log_out"
-	     					onmousedown="draw_samples()">
+	     					onmousedown="document.location='/draw_sample'">
 	     				Finish
 	    	</button>
 	</span>
@@ -170,8 +169,7 @@
 
 	function draw_samples()
 	{
-		document.location='/draw?samples=' + samples.toString();
-
+		document.location='/draw?samples=' + samples.toString() +"&opt=" + "rescan";
 	}
 
 
@@ -186,11 +184,13 @@
 	function barcodeScan(){
 	  usertext=document.getElementById("barcode-txt");
 	  if (usertext.value.match(/.+\$$/i) != null){	  	
-	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
+	    usertext.value = usertext.value.substring(0,usertext.value.length -1);
 	
 	    var index = samples.indexOf(usertext.value);
 	    samples.splice(index,1);	    
 	    samples = samples
+	    draw_samples();
+	    
 	  }
 	}
 

@@ -148,6 +148,7 @@
 	  if (usertext.value.match(/.+\$$/i) != null){	  	
 	    usertext.value=usertext.value.substring(0,usertext.value.length -1);
 	    postSample(usertext.value.trim());
+
 	  }
 	}
 
@@ -162,6 +163,7 @@
 					success: function(res)
 					{
 						swal("Dispatching Confirmation","Sample Dispatched Successfuly","success");
+						document.location.reload(true);
 						usertext=document.getElementById("barcode-txt");
 						usertext.value = "";
 					},
