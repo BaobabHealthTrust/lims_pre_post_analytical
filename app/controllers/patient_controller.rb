@@ -25,7 +25,6 @@ class PatientController < ApplicationController
 	def patient_dashboard
 		session.delete(:order)
 		session.delete(:rs)
-		session.delete(:re_print)
 		@patient_demo = session[:patient_demo]
 		id = @patient_demo['npid']
 		url = "localhost:3005/api/patient_lab_trail?npid=#{id}"

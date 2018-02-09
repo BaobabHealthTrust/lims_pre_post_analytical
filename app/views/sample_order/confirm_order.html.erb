@@ -17,83 +17,92 @@
 <div style=" height: 97%;" class="container-fluid"  >
 
 	<div class="row">
-		<div id="app_headers" class="col-sm-4" style="height: 26%;  
-			 box-shadow: 5px 5px 5px #16222a; border-radius: 2%;">
-
-			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
-			<div class="col-sm-5" style="border-right: thin solid black;">
-				<p style="color: black; font-weight:bold;">Facility Name <br/>
-					<span class="color:white;" style="">
-						<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
-						<%= file['facility_name'] %>
-					</span></p>
-
-					<p style="color: black;font-weight:bold;">Ward/Location <br/>
-					<span class="text-white" style=""><%= session[:ward] %></span>
-				</p>
-			</div> 
-			<div class="col-sm-5" >
-				<p style="color: black; font-weight:bold;">Current User<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% user = User::get_user(session[:user]) %>
-					<%= user['name'] %></span></p>
-				<p style="color: black; font-weight:bold;">User Designation<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
-					<%= des %>
-					</span></p>
-			</div>
-
-		</div>
-
 		
-		<div  class="col-sm-8">
-			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
-			    ">
+		<div id="app_headers" class="col-sm-12" style="height: 26.5%;  
+			 box-shadow: 5px 5px 5px #16222a;">
 
-				<div style="margin-top: 2%;">	
-				<% patient_demo = @patient_demo if !@patient_demo.blank? %>
-						<div class="col-sm-8" style="height: 90%; color: blue;box-shadow: 2px  #182848;">
-							<table class="table table-striped" style="height: 4%;width: 100%; font-size: 1em;">
-								<tr>
-									<td style="font-weight: bold;">Patient Name:</td>
-									<td><%= patient_demo['name'] %></td>
-									<td style="font-weight: bold;">NPID:</td>
-									<td><%= patient_demo['npid'] %></td>
-									
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Patient Gender:</td>
-									<td><%= patient_demo['gender'] %></td>
-						
-									<td style="font-weight: bold;">DOB:</td>
-									<td><%= patient_demo['birthdate'] %></td>
-									
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Curent-District:</td>
-									<td><%= patient_demo['current_district'] %></td>
-									<td style="font-weight: bold;">Age:</td>
-									<td>20</td>
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Home-District:</td>
-									<td><%= patient_demo['home_district'] %></td>
-								</tr>
-							</table>
+			<% patient_demo = @patient_demo if !@patient_demo.blank? %>
+			<div class="col-sm-5" style="margin-left: 0%;border: thin solid black; margin-top: 0.5%; box-shadow: 5px 5px 5px #16222a;height: 92%;">
 					
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Order Confirmation</h4>
-							</div>
+					<div>
+						<h4 style="font-weight: bold;font-size: 170%;"><span style="margin-left: 27%;"><%= patient_demo['name'] %></span></h4>
+					</div>
+					<div class="col-sm-3">
+
+						<div style="margin-top: 2%;">	
+							<%= image_tag("extras/user4.png", :size => "100x100") %> 
 							
 						</div>
+					</div>
+					<div class="col-sm-8">
+						
+						<table class="table table-striped" style="height: 4%;width: 100%; font-size: 105%;">
+										
+										<tr>
+											<td style="font-weight: bold;">Patient Gender:</td>
+											<td><%= patient_demo['gender'] %></td>
+								
+											<td style="font-weight: bold;">DOB:</td>
+											<td>
+												<%= patient_demo['birthdate'] %>
+											</td>
+											
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">Curent-District:</td>
+											<td><%= patient_demo['current_district'] %></td>
+											<td style="font-weight: bold;">Age:</td>
+											<td>
+												<% year = Time.current.year %>
+												<% dob = patient_demo['birthdate'][0,4] %>
+												<%= year.to_i - dob.to_i %>
+											</td>
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">Home-District:</td>
+											<td><%= patient_demo['home_district'] %></td>
+											<td style="font-weight: bold;">NPID:</td>
+											<td><%= patient_demo['npid'] %></td>
+										</tr>
+						</table>
+					</div>
+					
+
+			</div>
+
+			<div class="col-sm-6" style="margin-top: 0.5%;margin-left: 3%;height: 90%;">
+				<h4 style="position: absolute;color: black; font-weight: bold;">CONFIRM ORDER</h4>
+				<div style="width: 100%;border: thin solid black; margin-top: 7%">
+					
 				</div>
 
-				
+				<div style="margin-top: 5%;">
+					<table class="table table-striped">
+						<thead>
+							<tr style="color: black;font-weight: bold;">
+								<td>Specimen Type</td>
+								<td>Order Priority</td>	
+								<td>Requesting Clinician</td>	
+								<td>Target Lab</td>								
+							</tr>
+						</thead>
+						<tbody>
+							<% if !@order['tests'].blank? %>
+								<tr>
+									<td><%= @order['sample_type'] %></td>
+									<td><%= @order['sample_priority'] %></td>
+									<td><%= @order['requesting_clinician'] %></td>
+									<td><%= @order['target_lab'] %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+
 			</div>
+			
 		</div>
+
 	</div>
 
 
@@ -103,16 +112,19 @@
 
 
 	<div class="row">
-		<div style=" border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
-		overflow: auto;">			
-			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 2%;">
-					
+		<div style="height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
+		overflow: auto;">	
+			<div>
+					<h4 style="color: black;font-weight: bold;margin-left: 17.5%;">List of Selected Tests</h4>
+			</div>
+
+			<div class="col-sm-offset-2 col-sm-8 col-sm-offset-2" style="margin-top: 1%;">
+				
 				<table class="table table-striped">
 					<thead>
 						<tr style="background: -moz-linear-gradient(right,rgba(62, 69, 81, 0.7),rgba(62, 69, 81, 0.3));color: white; ">
 							<th>Test Name</th>
 							<th>Test Status</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -147,16 +159,7 @@
 <div class="footer">
   <button class="buttons blues" onmousedown="document.location=''"> Home</button>
     <span style="float: right;">
-	  
-    	<button  class="buttons blues" onmousedown="reprint();" id="reprint" style="display: none;">
-			Reprint Tracking Number
-	    </button>
-
-	    <button  class="buttons reds" 
-	    		onmousedown="document.location='/patient_dashboard'" id="close" style="display: none;">
-			Close
-	    </button>
-
+	 
 	   	<button  class="buttons blues" onmousedown="document.location='<%= location %>'" id="add_test">
 			Add Test
 	    </button>
@@ -170,11 +173,6 @@
 
 
 <script type="text/javascript">
-
-	function reprint()
-	{
-		document.location = '/re_print_tracking_number';
-	}
 
 	function determine()
 	{
@@ -198,38 +196,12 @@
 				 	document.location = '/order_request';
 			      break;
 				case "no":				 	
-					document.getElementById("finish").style.display = "none";
-					document.getElementById("add_test").style.display = "none";
-					document.getElementById("close").style.display = "inline";
-					document.getElementById("reprint").style.display = "inline";					
-					var el = document.getElementsByClassName("del");
-					for (var c=0; c < el.length;c++)
-					{
-						el[c].style.display = "none";
-					}
 				 	document.location = "/submite_order";
 			      break;
 			 }
 		});
 	}
-	
-	function orderSample()
-	{
-		var _url = "/submite_order";
 
-		jQuery.ajax({
-					async: false,
-					url: _url,
-					success: function(res)
-					{
-					 	swal("Success","Sample Order Done Successfuly","success");
-					},
-					error: function(err)
-					{
-							console.log(err);
-					}
-		})
-	}
 
 	function delete_test(object)
 	{  var id = object.id.split('_');		

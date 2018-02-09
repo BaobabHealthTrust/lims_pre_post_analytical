@@ -14,6 +14,7 @@ class UserController < ApplicationController
 		session[:un_dis_sample] = @undispatched_sample_count
 		session[:requested_sample] = @requested_sample
 		session.delete(:patient_demo)
+		session.delete(:re_print)
 		render :layout => false		
 	end
 

@@ -412,11 +412,17 @@ class SampleOrderController < ApplicationController
     UndispatchedSample.capture_sample(dat['tracking_number'],order['sample_type'],order['national_patient_id'],
                                   p_name,order['date_sample_drawn'],order['gender'],order['target_lab'],session[:ward])
     session[:un_dis_sample] = session[:un_dis_sample] + 1
-    
-    print(dat['tracking_number'].to_s,name.to_s,order[:sample_type].to_s,order[:sample_priority].to_s)
+        
     order['tracking_number'] = dat['tracking_number']
     session[:re_print] = order    
+    print_and_redirect("/print_tracking_number?tracking_number="+dat['tracking_number'].to_s+"&col_name="+name.to_s+"&sample="+order[:sample_type].to_s+"&priority="+order[:sample_priority].to_s,"/patient_dashboard")
+    session.delete(:order)
+
   end
+
+
+
+
 
   def re_print_tracking_number
     order = session[:re_print]

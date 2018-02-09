@@ -1,0 +1,116 @@
+{
+   "_id": "XLIK17B8002",
+   "_rev": "6-4341286d17753eee53845f920c31194f",
+   "patient": {
+       "national_patient_id": "P170000000013",
+       "first_name": "Test",
+       "middle_name": "",
+       "last_name": "Patient",
+       "date_of_birth": "19910203020000",
+       "gender": "M",
+       "phone_number": "0999555666"
+   },
+   "sample_type": "DBS (Free drop to DBS card)",
+   "who_order_test": {
+       "first_name": "Super",
+       "last_name": "User",
+       "id_number": "",
+       "phone_number": ""
+   },
+   "date_drawn": "20171108000000",
+   "date_dispatched": "2017-11-08",
+   "art_start_date": "",
+   "date_received": "20171108162420",
+   "sending_facility": "Likuni Mission Hospital",
+   "receiving_facility": "KCH",
+   "reason_for_test": "Routine",
+   "test_types": [
+       "Viral Load"
+   ],
+   "status": "Drawn",
+   "district": "Lilongwe",
+   "priority": "Routine",
+   "order_location": "Likuni Mission Hospital",
+   "results": {
+       "Viral Load": {
+           "20171108162420": {
+               "test_status": "Drawn",
+               "remarks": "",
+               "datetime_started": "20171108162420",
+               "datetime_completed": "",
+               "results": {
+               }
+           },
+           "20171108163326": {
+               "test_status": "started",
+               "remarks": "",
+               "datetime_started": "2017-11-08 16:33:26",
+               "datetime_completed": null,
+               "who_updated": {
+                   "first_name": "LIMS",
+                   "last_name": "Administrator",
+                   "ID_number": "1"
+               },
+               "results": [
+               ]
+           },
+           "20171108163341": {
+               "test_status": "completed",
+               "remarks": "",
+               "datetime_started": "2017-11-08 16:33:26",
+               "datetime_completed": "2017-11-08 16:33:41",
+               "who_updated": {
+                   "first_name": "LIMS",
+                   "last_name": "Administrator",
+                   "ID_number": "1"
+               },
+               "results": {
+                   "Viral Load": "2010 "
+               }
+           },
+           "20171108163403": {
+               "test_status": "verified",
+               "remarks": "",
+               "datetime_started": "2017-11-08 16:33:26",
+               "datetime_completed": "2017-11-08 16:33:41",
+               "who_updated": {
+                   "first_name": "LIMS",
+                   "last_name": "Administrator",
+                   "ID_number": "1"
+               },
+               "results": {
+                   "Viral Load": "2010 "
+               }
+           },
+           "20171108163400": {
+               "remarks": "",
+               "datetime_started": "2017-11-08 16:33:26",
+               "who_updated": {
+                   "ID_number": "admin",
+                   "last_name": "User",
+                   "first_name": "Super"
+               },
+               "test_status": "reviewed",
+               "results": {
+                   "Viral Load": "2010 "
+               },
+               "datetime_completed": "2017-11-08 16:33:41"
+           }
+       }
+   },
+   "date_time": "20171108162420",
+   "rejection_reason": "",
+   "who_dispatched": {
+       "id_number": "202",
+       "first_name": "GIBO",
+       "last_name": "gibo",
+       "phone_number": "0992223"
+   },
+   "who_updated": {
+       "id_number": "",
+       "first_name": "",
+       "last_name": "",
+       "phone_number": ""
+   },
+   "sample_status": "Drawn"
+}

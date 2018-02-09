@@ -28,82 +28,78 @@
 <div style=" height: 97%;" class="container-fluid"  >
 
 	<div class="row">
-		<div id="app_headers" class="col-sm-4" style="height: 26%;  
-			 box-shadow: 5px 5px 5px #16222a; border-radius: 2%;">
+		<div id="app_headers" class="col-sm-12" style="height: 26.5%;  
+			 box-shadow: 5px 5px 5px #16222a;">
 
-			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
-			<div class="col-sm-5" style="border-right: thin solid black;">
-				<p style="color: black; font-weight:bold;">Facility Name <br/>
-					<span class="color:white;" style="">
-						<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
-						<%= file['facility_name'] %>
-					</span></p>
-
-					<p style="color: black;font-weight:bold;">Ward/Location <br/>
-					<span class="text-white" style=""><%= session[:ward] %></span>
-				</p>
-			</div> 
-			<div class="col-sm-5" >
-				<p style="color: black; font-weight:bold;">Current User<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% user = User::get_user(session[:user]) %>
-					<%= user['name'] %></span></p>
-				<p style="color: black; font-weight:bold;">User Designation<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
-					<%= des %>
-					</span></p>
-			</div>
-
-		</div>
-
-		
-		<div  class="col-sm-8">
-			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
-			    ">
-
-				<div style="margin-top: 2%;">	
-				<% patient_demo = @patient_demo if !@patient_demo.blank? %>
-						<div class="col-sm-8" style="height: 90%; color: blue;box-shadow: 2px  #182848;">
-							<table class="table table-striped" style="height: 4%;width: 100%; font-size: 1em;">
-								<tr>
-									<td style="font-weight: bold;">Patient Name:</td>
-									<td><%= patient_demo['name'] %></td>
-									<td style="font-weight: bold;">NPID:</td>
-									<td><%= patient_demo['npid'] %></td>
-									
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Patient Gender:</td>
-									<td><%= patient_demo['gender'] %></td>
-						
-									<td style="font-weight: bold;">DOB:</td>
-									<td><%= patient_demo['birthdate'] %></td>
-									
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Curent-District:</td>
-									<td><%= patient_demo['current_district'] %></td>
-									<td style="font-weight: bold;">Age:</td>
-									<td>20</td>
-								</tr>
-								<tr>
-									<td style="font-weight: bold;">Home-District:</td>
-									<td><%= patient_demo['home_district'] %></td>
-								</tr>
-							</table>
+			<% patient_demo = @patient_demo if !@patient_demo.blank? %>
+			<div class="col-sm-5" style="margin-left: 0%;border: thin solid black; margin-top: 0.5%; box-shadow: 5px 5px 5px #16222a;height: 92%;">
 					
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Patient Dashboard</h4>
-							</div>
+					<div>
+						<h4 style="font-weight: bold;font-size: 170%;"><span style="margin-left: 27%;"><%= patient_demo['name'] %></span></h4>
+					</div>
+					<div class="col-sm-3">
+
+						<div style="margin-top: 2%;">	
+							<%= image_tag("extras/user4.png", :size => "100x100") %> 
 							
 						</div>
+					</div>
+					<div class="col-sm-8">
+						
+						<table class="table table-striped" style="height: 4%;width: 100%; font-size: 105%;">
+										
+										<tr>
+											<td style="font-weight: bold;">Patient Gender:</td>
+											<td><%= patient_demo['gender'] %></td>
+								
+											<td style="font-weight: bold;">DOB:</td>
+											<td>
+												<%= patient_demo['birthdate'] %>
+											</td>
+											
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">Curent-District:</td>
+											<td><%= patient_demo['current_district'] %></td>
+											<td style="font-weight: bold;">Age:</td>
+											<td>
+												<% year = Time.current.year %>
+												<% dob = patient_demo['birthdate'][0,4] %>
+												<%= year.to_i - dob.to_i %>
+											</td>
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">Home-District:</td>
+											<td><%= patient_demo['home_district'] %></td>
+											<td style="font-weight: bold;">NPID:</td>
+											<td><%= patient_demo['npid'] %></td>
+										</tr>
+						</table>
+					</div>
+					
+
+			</div>
+
+			<div class="col-sm-6" style="margin-top: 0.5%;margin-left: 3%;height: 90%;">
+				<h4 style="position: absolute;color: black; font-weight: bold;">PATIENT DASHBOARD</h4>
+				<div style="width: 100%;border: thin solid black; margin-top: 7%">
+					
 				</div>
 
-				
+				<div style=" cursor: pointer;color:white; margin-top: 6%; width: 48%; "
+				    			class="blues  buttons " onmousedown="document.location='/sample_ordering';">
+					<span style="float: left;"> Order Test </span>				
+																			
+				</div>
+
+				<div style=" cursor: pointer;color:white; margin-top: 6%; width: 48%; margin-left: 1%;"
+				    			class="blues  buttons " onmousedown="document.location='/view_recent_result';">
+					<span style="float: left;"> Test Results History </span>				
+																			
+				</div>
+
 			</div>
+			
 		</div>
 	</div>
 
@@ -113,96 +109,20 @@
 
 
 
-	<div class="row" style="border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;overflow: auto;">
+	<div class="row" style="height: 55%;margin-left: 2%; overflow: auto;">
 
-		<div class="col-sm-offset-8 col-sm-4" style="margin-top: 1%;;">
-						
-					<div style="box-shadow: 3px 3px 3px #000000; cursor: pointer;color:white; margin-bottom: 10px; height: 35%;"
-											class="blues col-sm-12 buttons"
-											onmousedown="document.location='/sample_ordering';">
-						<span style="float: right;">
-							Order Test
-							<%= image_tag("extras/tubes-icon.png") %>
-						</span>
-					</div>	
-				
-							
-					<div style="box-shadow: 3px 3px 3px #000000; cursor: pointer;color:white; margin-bottom: 10px; height: 35%; "
-							class="blues col-sm-12 buttons"
-											onmousedown="document.location='/view_recent_result';">
-						<span style="float: right;">
-							View Results
-							<%= image_tag("extras/search.png") %>
-						</span>
-					</div>				
+		<h4 style="margin-top: 2%; margin-left: 15%;">Recent Order Test Results <span style="margin-left: 5%;">Dated: 20 January 2018</span></h4>		
 
-		</div>
-
-
-
-		<div class="col-sm-12" style="margin-top: 5%;">
-
-				<table class="table table-striped" style="height: 4%; font-size: 1.5em;">
-								<tr>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Total Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Specimen Received</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Unreceived Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">drawn Specimen</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">Undrawn Specimen</td>
-								</tr>
-								<tr style="font-size: 2em;">
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !@total_specimen.blank? %>
-												<%= @total_specimen  %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !@specimen_rec.blank? %>
-												<%= @specimen_rec  %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !@un_received .blank? %>
-												<%= @un_received   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !@drawn.blank? %>
-												<%= @drawn   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-									<td style="font-size: 1em;font-weight:bold; text-align: center;">
-										<label  style="color:red; font-size: 1em; font-weight:bold; text-align: center;">
-											<% if !@undrawn.blank? %>
-												<%= @undrawn   %>
-											<% else %>
-												0
-											<% end %>
-
-										</label>
-									</td>
-								</tr>
-				</table>
+		<div class="col-sm-8" style="margin-left: 14%; margin-top: 2%;">
+			
+			<table class="table table-striped">
+				<tr>
+					<th>Test Name</th>
+					<th>Test Status</th>
+					<th>Sample Type</th>
+					<th>Sample Status</th>
+				</tr>
+			</table>
 
 		</div>
 
@@ -214,14 +134,24 @@
 
 <div class="footer">
  
-  	
+  			<span style="float: left;">
+			    <button class="buttons reds" id="log_out" onmousedown="document.location='/home' ">
+			     	Close
+			    </button>
+			</span>
+
 	    	<span style="float: right;">
-	    		
-		    	<button class="buttons greens" 
-		     					id="log_out"
-		     					onmousedown="document.location='/home' ">
-		     				Finish
-		    	</button>
+
+
+	    		<% if !session[:re_print].blank? %>
+
+			    	<button class="buttons greens" 
+			     					id="log_out"
+			     					onmousedown="reprint()">
+			     				reprint tracking number
+			    	</button>
+			    <% end %>
+			   
 			</span>
 </div>
 
@@ -231,3 +161,12 @@
 	.icon {width: 40%;height: auto;}
 
 </style>
+
+
+<script type="text/javascript">
+	function reprint()
+	{
+		document.location = '/re_print_tracking_number';
+	}
+
+</script>

@@ -31,118 +31,64 @@
 <div style=" height: 97%;" class="container-fluid"  >
 
 	<div class="row" >
-		<div id="app_headers" class="col-sm-4" style="height: 26%;  
-			 box-shadow: 5px 5px 5px #16222a; border-radius: 2%;">
+		<div id="app_headers" class="col-sm-12" style="height: 26.5%;  
+			 box-shadow: 5px 5px 5px #16222a;">
 
-			<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000;">LIMS Order Entry</h1>
-			<div class="col-sm-5" style="border-right: thin solid black;">
-				<p style="color: black; font-weight:bold;">Facility Name <br/>
-					<span class="color:white;" style="">
-						<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
-						<%= file['facility_name'] %>
-					</span></p>
-
-					<p style="color: black;font-weight:bold;">Ward/Location <br/>
-					<span class="text-white" style=""><%= session[:ward] %></span>
-				</p>
-			</div> 
-			<div class="col-sm-5" >
-				<p style="color: black; font-weight:bold;">Current User<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% user = User::get_user(session[:user]) %>
-					<%= user['name'] %></span></p>
-				<p style="color: black; font-weight:bold;">User Designation<br/>
-					<span class="color:white;" style="font-weight:none !important;">
-					<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
-					<%= des %>
-					</span></p>
-			</div>
-
-		</div>
-
-		<div  class="col-sm-8" >
-			<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.5%;padding-right: 0.5%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
-			    ">
-
-					
-						<div class="col-sm-8">
-							
-					
-						</div>
-						<div class="col-sm-4">
-							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
-								<h4 style="text-align: center;font-weight: bold"> Home</h4>
-							</div>
-							
-						</div>
+			<div class="col-sm-4" style="border: thin solid black; margin-top: 0.5%; box-shadow: 5px 5px 5px #16222a;height: 92%;">
+				<h1 style="margin-left: 2.3%;color: black;text-shadow: 1px 1px 1px #000000; font-size: 200%;">
+					LIMS Order Entry</h1>
 				
-					<div class="col-sm-12">
-						<table class="table table-striped" style=" font-size: 1em;">
-									<tr>
-										<td style="font-size: 1em;font-weight:bold; text-align: center;">Orders with No Results</td>
-										<td style="font-size: 1em;font-weight:bold; text-align: center;">Requested Orders</td>
-										<td style="font-size: 1em;font-weight:bold; text-align: center;">Undispatched Samples</td>
-									</tr>
-									<tr>
-										<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-											0
-										</td>
-											<% if @requested_sample >0 %>
-												<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-													 <%= @requested_sample %>
-												
-												</td>
-											<% else %>
-										
-												<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-													 <%= @requested_sample %>
-												
-												</td>
-											<% end %>
-										
-									
-											<% if @undispatched_sample_count >0 %>
-												<td style="color:red;font-size: 1.2em;font-weight:bold; text-align: center;">
-													<%= @undispatched_sample_count %>
-												</td>
-											<% else %>
-												<td style="font-size: 1.2em;font-weight:bold; text-align: center;">
-													<%= @undispatched_sample_count %>
-												</td>
-											<% end %>
-										
-									</tr>
-						</table>
-					</div>
-			</div>
-		</div>
-	</div>
+				<div class="col-sm-5" style="border-right: thin solid black;">
+					<p style="color: black; font-weight:bold; font-size: 100%;">Facility Name <br/>
+						
+					</p>
 
+					<p style="color: black;font-weight:bold;font-size: 100%;">Ward/Location <br/>
+						
+					</p>
 
+					<p style="color: black; font-weight:bold;font-size: 100%;">Current User<br/>
+						
+					</p>
 
+					<p style="color: black; font-weight:bold;font-size: 100%;">User Designation<br/>
+						
+					</p>
 
+				</div> 
+				
+				<div class="col-sm-5" >
+					<p style="color: black;font-size: 100%;">
+						<span class="color:white;" style="">
+							<% file =YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env] %>
+							<%= file['facility_name'] %>
+						</span>
+					</p>
+					<p style="color: black;font-size: 100%;">
+						<span class="text-white" style=""><%= session[:ward] %></span>
+					</p>
+					<p style="color: black;font-size: 100%;">
+						<span class="color:white;" style="font-weight:none !important;">
+						<% user = User::get_user(session[:user]) %>
+						<%= user['name'] %></span>
+					</p>
 
+					<p style="color: black;font-size: 100%;">
+						<span class="color:white;" style="font-weight:none !important;">
+						<% des= UserType::get_user_type_by_id(user['user_type_id']) %>
+						<%= des %>
+						</span>
+					</p>
 
-
-
-	<div class="row">
-
-		<div style="border-top: thick solid grey; height: 55%;margin-left: 2%;margin-right: 2%; margin-top: 1%;
-		overflow: auto; 
-		">
-		
-			<div class="col-sm-8">
-					<label style="padding-top: 20px;">Scan Patient Barcode</label>
-					<div  style="background-color:  #eeeeee; padding-left: 10%;">
-						<span> <%= image_tag("extras/barcode-2.png") %> </span>
-						<input class="input" type="text" name="scanned-barcode" id="barcode-txt"/>
-					</div>
+				</div>
 			</div>
 
-			
+			<div class="col-sm-7" style="margin-top: 0.5%;margin-left: 3%;height: 90%;">
+				<h4 style="position: absolute;color: black; font-weight: bold;">HOME</h4>
+				<div style="width: 99%;border: thin solid black; margin-top: 5%">
+					
+				</div>
 
-
-			<div class="col-sm-4" style="padding-top: 44px;">
 				<% counter =1 %>
 				
 				<% @role.each do |r| %>
@@ -165,57 +111,88 @@
 					<% elsif role == "dispatch sample" %>
 						<% location = '/dispatch_sample'%>
 						<% image = image_tag("extras/dispa.png") %>
-						 <% if given_role == "yes" %> 
-							<div style="margin-left: 15%;">
-							
-									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
-											class="blues col-sm-offset-2 col-sm-10 buttons "
-											onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%= role %> 
-																<%= image %>
-											</span>
-									</div>	
+						<% if given_role == "yes" %> 
+
+						 	<div style=" cursor: pointer;color:white; margin-top: 6%; width: 45%; "
+				    			class="blues  buttons " onmousedown="document.location='<%= location %>';">
+							<span style="float: left;"> Undispatched Samples </span>					
+									<% if @undispatched_sample_count >0%>
+										<span style="background-color: red;color:white; float: right;" class="badge">
+										 <%= @undispatched_sample_count %> </span>										
+									<% else %>
+										<span style="color: white; background-color: green; float: right;" class="badge"> <%= @undispatched_sample_count %> </span>
+									<% end %>											
 							</div>
+
+							
 						<% end %>
 
 					<% elsif role == "draw sample" %>
 						<% location = "/draw_sample" %>
 						<% image = image_tag("extras/add1.png") %>
 						 <% if given_role == "yes" %> 	
-							<div style="margin-left: 15%;">
-							
-									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
-											class="blues col-sm-offset-2 col-sm-10 buttons "
-											onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%= role %> 
-																<%= image %>
-											</span>
-									</div>	
+						 	<div style=" cursor: pointer;color:white; margin-top: 6%;width: 45%;margin-left: 8%;"
+				    			class="blues buttons " onmousedown="document.location='<%= location %>';">
+								<span style="float: left;"> Requested Orders </span>
+									<% if @requested_sample >0 %>
+										<span style="background-color: red;color:white; float: right;" class="badge">
+										 <%= @requested_sample %> </span>										
+									<% else %>
+										<span style="color: white; background-color: green; float: right;" class="badge"> <%= @requested_sample %> </span>
+									<% end %>
 							</div>
+						
 						<% end %>
-					<% elsif role == "system settings" %>
-						<% location = "/view_settings" %>
-						<% image = image_tag("extras/se.png") %>
-						 <% if given_role == "yes" %> 
-							<div style="margin-left: 15%;">
-							
-									<div style=" cursor: pointer;color:white; margin-bottom: 10px; "
-											class="blues col-sm-offset-2 col-sm-10 buttons "
-											onmousedown="document.location='<%= location %>';">
-											<span style="float: right;"><%= role %> 
-																<%= image %>
-											</span>
-									</div>	
-							</div>
-						<% end %>
+					
 					<% end %>
 				    
 				<% end %>
-				<% counter = 1 %>				
+			<% counter = 1 %>	
 
 			</div>
 
+		</div>
+	</div>
 
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="row">
+
+		<div style=" height: 55%; margin-top: 1%;
+		overflow: auto; 
+		">
+		
+			<div class="col-sm-8" style="margin-left: 15%;">
+					<label style="padding-top: 20px;">Scan Patient Barcode</label>
+					<div  style="background-color:  #eeeeee; padding-left: 5%;">
+						<span > <%= image_tag("extras/barcode-2.png") %> </span>
+						<input class="input" type="text" name="scanned-barcode" id="barcode-txt"/>
+					</div>
+			</div>
+
+			
 		</div>
 	</div>
 
@@ -232,6 +209,12 @@
 
 	    <span style="float: right;">
 	    	
+	    	<button class="buttons greens" 
+	     					id="log_out"
+	     					onmousedown="document.location='/view_settings' ">
+	     				Settings <%= image_tag("extras/se.png") %>
+	    	</button>
+
 			<button class="buttons blues" 
 	     					id="log_out"
 	     					onmousedown="document.location='/search_patient' ">

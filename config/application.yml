@@ -5,6 +5,7 @@ development:
  central_repo: http://localhost:3004
  national-repo-node: http://localhost:3014
  national_dashboard: http://localhost:3005
+ dispatch_samples: false
 production:
  facility_name: Kamuzu Central Hospital
  facility_code: KCH
@@ -12,3 +13,4 @@ production:
  central_repo: http://localhost:3004
  national-repo-node: http://localhost:3014
  national_dashboard: http://localhost:3005
+ dispatch_samples: false

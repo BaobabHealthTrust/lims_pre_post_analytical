@@ -1,0 +1,45 @@
+<div style="height: 26%; padding-top: 0.5%;padding-bottom:0.5%; padding-left: 0.8%;padding-right: 0.8%;border: thin solid lightgrey;box-shadow: 5px 5px 5px #16222a; 
+			    ">
+
+				<div style="margin-top: 2%;">	
+				<% patient_demo = @patient_demo if !@patient_demo.blank? %>
+						<div class="col-sm-8" style="height: 90%; color: blue;box-shadow: 2px  #182848;">
+							<table class="table table-striped" style="height: 4%;width: 100%; font-size: 1em;">
+								<tr>
+									<td style="font-weight: bold;">Patient Name:</td>
+									<td><%= patient_demo['name'] %></td>
+									<td style="font-weight: bold;">NPID:</td>
+									<td><%= patient_demo['npid'] %></td>
+									
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Patient Gender:</td>
+									<td><%= patient_demo['gender'] %></td>
+						
+									<td style="font-weight: bold;">DOB:</td>
+									<td><%= patient_demo['birthdate'] %></td>
+									
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Curent-District:</td>
+									<td><%= patient_demo['current_district'] %></td>
+									<td style="font-weight: bold;">Age:</td>
+									<td>20</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Home-District:</td>
+									<td><%= patient_demo['home_district'] %></td>
+								</tr>
+							</table>
+					
+						</div>
+						<div class="col-sm-4">
+							<div class="panel panel-default" style="height: 43%;color: blue;box-shadow: 2px 2px 2px #182848;">
+								<h4 style="text-align: center;font-weight: bold"> Patient Dashboard</h4>
+							</div>
+							
+						</div>
+				</div>
+
+				
+			</div>
